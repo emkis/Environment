@@ -35,9 +35,9 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 ```
 
 ### *setting up* customizations
-you need to open the `.zshrc` file in your home folder and add this configurations, **don't forget to add your username** in the path *(line 2)*
+you need to open the `.zshrc` file in your home folder and add this configurations, **don't forget to change the username** in *line 2*
 
-#### `~/.zshrc` file
+#### open the `~/.zshrc` file and paste this
 ```bash
 # path to oh-my-zsh installation
 export ZSH="/home/emkis/.oh-my-zsh"
