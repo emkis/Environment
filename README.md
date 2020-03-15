@@ -3,6 +3,8 @@
 # __terminal :computer:
 my terminal setup for [elementary os](https://elementary.io/)
 
+![GIF demonstration](https://github.com/emkis/__terminal/blob/master/.github/demo.gif?raw=true)
+
 ## how to config? :electric_plug: *follow step by step*
 
 ### git 
@@ -56,6 +58,9 @@ plugins=(
   zsh-completions
 )
 
+# permission to zsh use root
+ZSH_DISABLE_COMPFIX=true
+
 # i've no idea, just leave this line here
 source $ZSH/oh-my-zsh.sh
 
@@ -77,6 +82,15 @@ SPACESHIP_PROMPT_ORDER=(
 SPACESHIP_PROMPT_ADD_NEWLINE=true      # add a new line after executing a command
 SPACESHIP_CHAR_SYMBOL="⤷"             # custom symbol
 SPACESHIP_CHAR_SUFFIX=" "             # character after the arrow
+```
+
+
+**if your default shell is bash**, open the `~/.bashrc` file and add this to the first line, to make zsh execute always first
+
+```bash
+bash -c zsh
+
+# .... 
 ```
 
 ---
