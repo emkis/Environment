@@ -16,7 +16,7 @@ plugins=(
   zsh-completions
 )
 
-# i have no ideia, just leave this line here
+# i've no idea, just leave this line here
 source $ZSH/oh-my-zsh.sh
 
 # spaceship theme customizations
