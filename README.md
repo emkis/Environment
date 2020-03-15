@@ -1,2 +1,2 @@
-# __terminal
-my terminal setup for elementary os
+# __terminal :computer:
+my terminal setup for [elementary os](https://elementary.io/)
