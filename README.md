@@ -13,10 +13,17 @@ sudo apt-get update
 sudo apt-get install git -y
 ```
 
-### curl  +  oh my zsh
+### curl  +  yarn
 ```bash
 sudo apt-get install curl
 
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+```
+
+### oh my zsh
+```bash
 sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
@@ -82,6 +89,10 @@ SPACESHIP_PROMPT_ORDER=(
 SPACESHIP_PROMPT_ADD_NEWLINE=true      # add a new line after executing a command
 SPACESHIP_CHAR_SYMBOL="⤷"             # custom symbol
 SPACESHIP_CHAR_SUFFIX=" "             # character after the arrow
+
+# definig path for yarn global packages
+export PATH="$(yarn global bin):$PATH"
+
 ```
 
 
