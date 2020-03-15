@@ -5,8 +5,7 @@ export ZSH="/home/emkis/.oh-my-zsh"
 # more themes here: https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="spaceship"
 
-# just the plugins that i love
-# more plugins here: 
+# just cool plugins
 plugins=(
   git
   node
