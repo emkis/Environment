@@ -102,6 +102,9 @@ SPACESHIP_CHAR_SYMBOL="⤷"             # custom symbol
 SPACESHIP_CHAR_SUFFIX=" "             # character after the arrow
 SPACESHIP_NODE_PREFIX=""              # removes prefix before node version
 
+# default path when opening the terminal
+cd ~/code
+
 # definig path for yarn global packages
 export PATH="$(yarn global bin):$PATH"
 
