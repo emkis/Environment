@@ -5,21 +5,21 @@ my terminal setup for [elementary os](https://elementary.io/)
 
 ![GIF demonstration](https://github.com/emkis/__terminal/blob/master/.github/demo.gif?raw=true)
 
-## how to config? :electric_plug: *follow step by step*
+## :electric_plug: how to setup? *follow step by step*
 
-### git 
+### 1. git 
 ```bash
 sudo apt-get update
 sudo apt-get install git -y
 ```
 
-### curl  +  nvm
+### 2. curl  +  nvm
 ```bash
 sudo apt-get install curl
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 ```
 
-### node  +  yarn
+### 3. node  +  yarn
 ```bash
 # to install the latest node lts version
 nvm install --lts
@@ -32,13 +32,13 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update && sudo apt-get install yarn
 ```
 
-### oh my zsh
+### 4. oh my zsh
 ```bash
 sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-### adding *plugins* & *theme* to zsh
+### 5. adding *plugins* & *theme* to zsh
 ```bash
 # installing plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -53,10 +53,10 @@ git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/theme
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 ```
 
-### *setting up* customizations
+### 6. *setting up* customizations
 you need to open the `.zshrc` file in your home folder and add this configurations, **don't forget to change the username** in *line 2*
 
-#### open the `~/.zshrc` file and paste this
+open the `~/.zshrc` file and paste this
 ```bash
 # path to oh-my-zsh installation
 export ZSH="/home/emkis/.oh-my-zsh"
