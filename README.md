@@ -113,15 +113,6 @@ export NVM_DIR="$HOME/.nvm"
 
 ```
 
-
-**if your default shell is bash**, open the `~/.bashrc` file and add this to the first line, to make zsh execute always first
-
-```bash
-bash -c zsh
-
-# .... 
-```
-
 ---
 
 ### maybe this can give you dope ideas to create your terminal setup :bulb:
