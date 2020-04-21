@@ -98,7 +98,7 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
-SPACESHIP_PROMPT_ADD_NEWLINE=true      # add a new line after executing a command
+SPACESHIP_PROMPT_ADD_NEWLINE=true     # add a new line after executing a command
 SPACESHIP_CHAR_SYMBOL="⤷"             # custom symbol
 SPACESHIP_CHAR_SUFFIX=" "             # character after the arrow
 SPACESHIP_NODE_PREFIX=""              # removes prefix before node version
