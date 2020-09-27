@@ -7,24 +7,31 @@ my custom terminal setup
 
 ## :electric_plug: how to setup? *follow step by step*
 
- ### 1. git 
+
+### interface
+the ui that i use for terminals is [hyper](https://hyper.is), but you can use your native terminal if you want.<br />
+the hyper configuration file for this theme you can [get here](https://gist.github.com/emkis/80bf4a7ca07ccb3e9befda748445456b#file-minimal_border-green-hyper-js)
+
+### shell | tools | plugins
+
+#### 1. git
 ```bash
 sudo apt-get update
 sudo apt-get install git -y
 ```
 
-### 2. curl
+#### 2. curl
 ```bash
 sudo apt-get install curl
 ```
 
-### 3. nvm
+#### 3. nvm
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 # after nvm installation is complete, close and reopen your terminal to start using nvm
 ```
 
-### 3. node  +  yarn
+#### 3. node  +  yarn
 ```bash
 # to install the latest node lts version
 nvm install --lts
@@ -37,13 +44,13 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update && sudo apt-get install yarn
 ```
 
-### 4. oh my zsh
+#### 4. oh my zsh
 ```bash
 sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-### 5. adding *plugins* & *theme* to zsh
+#### 5. adding *plugins* & *theme* to zsh
 ```bash
 # installing plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -58,7 +65,7 @@ git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/theme
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 ```
 
-### 6. *setting up* customizations
+#### 6. *setting up* zsh customizations
 you need to open the `.zshrc` file in your home folder and add this configurations, **don't forget to change the username** in *line 2*
 
 open the `~/.zshrc` file and paste this
@@ -119,7 +126,7 @@ export NVM_DIR="$HOME/.nvm"
 
 ---
 
-### maybe this can give you dope ideas to create your terminal setup :bulb:
+#### maybe this can give you dope ideas to create your terminal setup :bulb:
 
 the spaceship theme have a lot of options to customize, find out more [here](https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md)
 
