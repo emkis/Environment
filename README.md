@@ -13,6 +13,7 @@ the ui that i use for terminals is [hyper](https://hyper.is), but you can use yo
 the hyper configuration file for this theme you can [get here](https://gist.github.com/emkis/80bf4a7ca07ccb3e9befda748445456b#file-minimal_border-green-hyper-js)
 
 ### :wrench: shell | tools | plugins
+this is the step by step to install everything you need tools, if you have something you already have installed, or don't want to use, just skip this step
 
 #### 1. git
 ```bash
