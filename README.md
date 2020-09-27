@@ -8,11 +8,11 @@ my custom terminal setup
 ## :electric_plug: how to setup? *follow step by step*
 
 
-### interface
+### :nail_care: interface
 the ui that i use for terminals is [hyper](https://hyper.is), but you can use your native terminal if you want.<br />
 the hyper configuration file for this theme you can [get here](https://gist.github.com/emkis/80bf4a7ca07ccb3e9befda748445456b#file-minimal_border-green-hyper-js)
 
-### shell | tools | plugins
+### :wrench: shell | tools | plugins
 
 #### 1. git
 ```bash
