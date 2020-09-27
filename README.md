@@ -1,21 +1,25 @@
   
 
 # __terminal :computer:
-my terminal setup for [elementary os](https://elementary.io/)
+my custom terminal setup
 
 ![GIF demonstration](https://github.com/emkis/__terminal/blob/master/.github/demo.gif?raw=true)
 
 ## :electric_plug: how to setup? *follow step by step*
 
-### 1. git 
+ ### 1. git 
 ```bash
 sudo apt-get update
 sudo apt-get install git -y
 ```
 
-### 2. curl  +  nvm
+### 2. curl
 ```bash
 sudo apt-get install curl
+```
+
+### 3. nvm
+```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 # after nvm installation is complete, close and reopen your terminal to start using nvm
 ```
