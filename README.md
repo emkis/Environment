@@ -28,7 +28,9 @@ sudo apt-get install curl
 
 #### 3. nvm
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+
+# you can define the version like this: ...`/nvm-sh/nvm/v0.37.2/install.sh`...
 # after nvm installation is complete, close and reopen your terminal to start using nvm
 ```
 
