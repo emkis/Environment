@@ -127,6 +127,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # custom aliases
 # for a full list of active aliases, run `alias`.
+alias code="/usr/share/code/code"
 alias zshConfig="code ~/.zshrc"
 alias zshHistory="code ~/.zsh_history"
 
