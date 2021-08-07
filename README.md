@@ -130,6 +130,7 @@ export NVM_DIR="$HOME/.nvm"
 alias code="/usr/share/code/code"
 alias zshConfig="code ~/.zshrc"
 alias zshHistory="code ~/.zsh_history"
+alias hyperConfig="code ~/.hyper.js"
 
 ```
 
