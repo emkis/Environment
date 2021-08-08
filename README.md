@@ -3,7 +3,7 @@
 # __terminal :computer:
 my custom terminal setup
 
-![GIF demonstration](https://github.com/emkis/__terminal/blob/master/.github/demo.gif?raw=true)
+![Terminal demonstration](/.github/demonstration.gif)
 
 ## :electric_plug: how to setup? *follow step by step*
 
