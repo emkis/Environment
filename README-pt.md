@@ -19,6 +19,8 @@ Para instalar o Hyper, você pode acessar o [guia de instalação](https://hyper
 brew install --cask hyper
 ```
 
+As configurações que utilizo no hyper estão [neste arquivo](/hyper-configuration.js), você pode copiar e colar no seu arquivo `.hyper.js`, que tudo já vai estar funcionando automaticamente.
+
 ## Configurando o Shell
 Shell é o interpretador de comandos do sistema operacional. O que costumo utilizar é o Zsh, que é um dos mais utilizados.
 
