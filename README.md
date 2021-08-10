@@ -1,9 +1,12 @@
 English | [Portuguese](/README-pt.md)
 
-# __terminal :computer:
-my custom terminal setup
-
-![Terminal demonstration](/.github/demonstration.gif)
+<div align="center">
+  <h1>My Terminal</h1>
+  <p>All configurations and plugins that I use to get an awesome and productive experience in terminal.</p>
+  <img src="/.github/demonstration.gif" alt="Demonstration of terminal interactions">
+  <br>
+  <br>
+</div>
 
 ## :electric_plug: how to setup? *follow step by step*
 
