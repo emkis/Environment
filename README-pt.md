@@ -1,4 +1,4 @@
-[Inglês](/README-en.md) | Português
+[Inglês](/README.md) | Português
 
 <div align="center">
   <h1>Meu Terminal</h1>
