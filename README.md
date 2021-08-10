@@ -1,4 +1,4 @@
-  
+English | [Portuguese](/README-pt.md)
 
 # __terminal :computer:
 my custom terminal setup
