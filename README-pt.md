@@ -2,6 +2,7 @@
 
 <div align="center">
   <h1>Meu Terminal</h1>
+  <p>Todas as configurações e plugins que utilizo para que a experiência de usar o terminal seja produtiva e deliciosa.</p>
   <img src="/.github/demonstration.gif" alt="Demonstração de interações com terminal">
   <br>
   <br>
