@@ -25,7 +25,7 @@ Shell é o interpretador de comandos do sistema operacional. O que costumo utili
 
 Essas configurações só vão funcionar em sistemas baseados em Unix, assim como o MacOS e Linux. Caso você esteja no Windows, é necessário utilizar o WSL (pesquise sobre WSL para entender mais e fazer sua configuração).
 
-## Instalando homebrew (*apenas no MacOS*)
+## Instalando Homebrew (*apenas no MacOS*)
 O [Homebrew](https://brew.sh) é um gerenciador de pacotes que facilita o processo e instalação de basicamente qualquer coisa. Vamos precisar dele para instalar quase todas nossas ferramentas.
 
 Para instalar execute:
@@ -33,7 +33,7 @@ Para instalar execute:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-## Instalando git
+## Instalando Git
 No MacOS, execute:
 ```bash
 brew install git
@@ -44,7 +44,7 @@ No Linux, execute:
 sudo apt-get install git -y
 ```
 
-## Instalando curl
+## Instalando Curl
 Provavelmente você já tem instalado o curl no seu sistema, verifique com o comando `curl --version`. Caso não tenha, siga o passo abaixo:
 
 No MacOS, execute:
@@ -57,7 +57,7 @@ No Linux, execute:
 sudo apt-get install curl -y
 ```
 
-## Instalando o zsh
+## Instalando o Zsh
 Se você está utilizando a última versão do MacOS, você provavelmente já possuí o zsh instalado por padrão, verifique com o comando `zsh --version`. Caso não tenha, siga o passo abaixo:
 
 No MacOS, execute:
