@@ -2,145 +2,120 @@ English | [Portuguese](/README-pt.md)
 
 <div align="center">
   <h1>My Terminal</h1>
-  <p>All configurations and plugins that I use to get an awesome and productive experience in terminal.</p>
+  <p>All configurations and plugins that I use to get an awesome and productive experience in the terminal.</p>
   <img src="/.github/demonstration.gif" alt="Demonstration of terminal interactions">
   <br>
   <br>
 </div>
 
-## :electric_plug: how to setup? *follow step by step*
+## Terminal
+I use [Hyper](https://hyper.is), which is an Electron-based terminal. You can see how he looks by the GIF at the beginning of this page.
 
+> Using this terminal is not required. You can follow all the steps on this page and use your own terminal.
 
-### :nail_care: interface
-the ui that i use for terminals is [hyper](https://hyper.is), but you can use your native terminal if you want.<br />
-the hyper configuration file for this theme you can [get here](https://gist.github.com/emkis/80bf4a7ca07ccb3e9befda748445456b#file-minimal_border-green-hyper-js)
+To install Hyper, you can read the [installation guide](https://hyper.is/#installation), or if you are using MacOS and have Homebrew installed, you can run:
 
-### :wrench: shell | tools | plugins
-this is the step by step to install everything you need tools, if you have something you already have installed, or don't want to use, just skip this step
-
-#### 1. git
 ```bash
-sudo apt-get update
+brew install --cask hyper
+```
+
+The configurations that I use in Hyper are in [this file](/hyper-configuration.js), you can copy paste in your `.hyper.js` file, and everything is gonna work correctly after the installation are done.
+
+## Setting up the shell
+Shell is an operational system interpreter of commands. The one that I'm used to using is Zsh, which is one of the most used ones.
+
+**All the steps below are required for everything to work correctly.** So, read carefully and run the commands in the same order.
+
+These configurations only gonna work in Unix-based systems, such as MacOS and Linux. If you are using Windows, is recommended to use WSL (search about this to understand more and set it up).
+
+## Installing Homebrew (macOS only)
+[Homebrew](https://brew.sh) is a package manager that helps you to install basically anything. You will need him to install all the tools.
+
+To install, just run:
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+## Installing Git
+On MacOS, run:
+```bash
+brew install git
+```
+
+On Linux, run:
+```bash
 sudo apt-get install git -y
 ```
 
-#### 2. curl
+## Installing Curl
+Probably you already have curl in your system, to check it, just run `curl --version`. If you don't have it, follow the step below.
+
+On MacOS, run:
 ```bash
-sudo apt-get install curl
+brew install curl
 ```
 
-#### 3. nvm
+On Linux, run:
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
-
-# you can define the version like this: ...`/nvm-sh/nvm/v0.37.2/install.sh`...
-# after nvm installation is complete, close and reopen your terminal to start using nvm
+sudo apt-get install curl -y
 ```
 
-#### 3. node  +  yarn
+## Installing Zsh
+If you are using the last version of MacOS, you already have Zsh installed by default. You can check this by running: `zsh --version`. If you don't have it, follow the step below.
+
+On MacOS, run:
 ```bash
-# to install the latest node lts version
-nvm install --lts
-
-# or if you want install the lastest version of node, run:
-nvm install node
-
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update && sudo apt-get install yarn
+brew install zsh
 ```
 
-#### 4. oh my zsh
+On Linux, run:
 ```bash
 sudo apt install zsh -y
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-#### 5. adding *plugins* & *theme* to zsh
+## Instalando Oh My Zsh
+The [Oh My Zsh](https://ohmyz.sh) is a framework for Zsh that standardizes how we can configure themes, plugins and so on.
+
+On MacOS or Linux, run:
 ```bash
-# installing plugins
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+## Installing a theme and plugins for Oh My Zsh
+Below is the list of the plugins and the theme that I use. Feel free to add your own configurations as well.
+
+[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) plugin
+```bash
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
 
+[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) plugin
+```bash
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
 
+[zsh-completions](https://github.com/zsh-users/zsh-completions) plugin
+```bash
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+```
 
-# installing theme: Spaceship
+Installing [Spaceship Zsh](https://github.com/denysdovhan/spaceship-prompt) theme. You can find more amazing themes [over here](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes).
+```bash
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 ```
 
-#### 6. *setting up* zsh customizations
-you need to open the `.zshrc` file in your home folder and add this configurations, **don't forget to change the username** in *line 2*
+## Setting up Zsh
+Now you need to define the configurations for Zsh and the theme. To do that, you need to change the `.zshrc`file, which is in your profile folder.
 
-open the `~/.zshrc` file and paste this
+To open this file in VSCode, just run:
 ```bash
-# path to oh-my-zsh installation
-export ZSH="/home/emkis/.oh-my-zsh"
-
-# theme setting
-# more themes here: https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="spaceship"
-
-# just cool plugins
-plugins=(
-  git
-  node
-  yarn
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-  zsh-completions
-)
-
-# permission to zsh use root
-ZSH_DISABLE_COMPFIX=true
-
-# i've no idea, just leave this line here
-source $ZSH/oh-my-zsh.sh
-
-# spaceship theme customizations
-SPACESHIP_PROMPT_ORDER=(
-  user          # Username section
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  hg            # Mercurial section (hg_branch  + hg_status)
-  node          # Node.js section
-  exec_time     # Execution time
-  line_sep      # Line break
-  vi_mode       # Vi-mode indicator
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-  char          # Prompt character
-)
-
-SPACESHIP_PROMPT_ADD_NEWLINE=true     # add a new line after executing a command
-SPACESHIP_CHAR_SYMBOL="⤷"             # custom symbol
-SPACESHIP_CHAR_SUFFIX=" "             # character after the arrow
-SPACESHIP_NODE_PREFIX=""              # removes prefix before node version
-
-# definig path for yarn global packages
-export PATH="$(yarn global bin):$PATH"
-
-# defining path for nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s  "$NVM_DIR/nvm.sh" ] && \.  "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s  "$NVM_DIR/bash_completion" ] && \.  "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# custom aliases
-# for a full list of active aliases, run `alias`.
-alias code="/usr/share/code/code"
-alias zshConfig="code ~/.zshrc"
-alias zshHistory="code ~/.zsh_history"
-alias hyperConfig="code ~/.hyper.js"
-
+code ~/.zshrc
 ```
 
----
+Copy the content of [this file](/zshrc-configurations.txt), and paste it into your `.zshrc` file. Be careful with the previous configurations, check if you're not overwriting something you don't want to.
 
-#### maybe this can give you dope ideas to create your terminal setup :bulb:
+The only configuration you need to keep is your `ZSH` variable, which probably is defined at the beginning of your file. After pasting the configurations, just keep one of the `NVM` configurations, the one that is compatible with your operating system.
 
-the spaceship theme have a lot of options to customize, find out more [here](https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md)
-
-**i love spaceship**, but you can find A LOT of cool themes for zsh [here](https://github.com/ohmyzsh/ohmyzsh/wiki/External-themes)
+After these steps, everything should be ready and working as expected, enjoy ✨.
