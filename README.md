@@ -21,12 +21,16 @@ brew install --cask hyper
 
 The configurations that I use in Hyper are in [this file](/hyper-configuration.js), you can copy paste in your `.hyper.js` file, and everything is gonna work correctly after the installation are done.
 
+<br>
+
 ## Setting up the shell
 Shell is an operational system interpreter of commands. The one that I'm used to using is Zsh, which is one of the most used ones.
 
 **All the steps below are required for everything to work correctly.** So, read carefully and run the commands in the same order.
 
 These configurations only gonna work in Unix-based systems, such as MacOS and Linux. If you are using Windows, is recommended to use WSL (search about this to understand more and set it up).
+
+<br>
 
 ## Installing Homebrew (macOS only)
 [Homebrew](https://brew.sh) is a package manager that helps you to install basically anything. You will need him to install all the tools.
@@ -35,6 +39,8 @@ To install, just run:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
+
+<br>
 
 ## Installing Git
 On MacOS, run:
@@ -46,6 +52,8 @@ On Linux, run:
 ```bash
 sudo apt-get install git -y
 ```
+
+<br>
 
 ## Installing Curl
 Probably you already have curl in your system, to check it, just run `curl --version`. If you don't have it, follow the step below.
@@ -60,6 +68,8 @@ On Linux, run:
 sudo apt-get install curl -y
 ```
 
+<br>
+
 ## Installing Zsh
 If you are using the last version of MacOS, you already have Zsh installed by default. You can check this by running: `zsh --version`. If you don't have it, follow the step below.
 
@@ -73,6 +83,8 @@ On Linux, run:
 sudo apt install zsh -y
 ```
 
+<br>
+
 ## Instalando Oh My Zsh
 The [Oh My Zsh](https://ohmyz.sh) is a framework for Zsh that standardizes how we can configure themes, plugins and so on.
 
@@ -80,6 +92,8 @@ On MacOS or Linux, run:
 ```bash
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
+
+<br>
 
 ## Installing a theme and plugins for Oh My Zsh
 Below is the list of the plugins and the theme that I use. Feel free to add your own configurations as well.
@@ -105,6 +119,8 @@ git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/theme
 
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 ```
+
+<br>
 
 ## Setting up Zsh
 Now you need to define the configurations for Zsh and the theme. To do that, you need to change the `.zshrc`file, which is in your profile folder.
