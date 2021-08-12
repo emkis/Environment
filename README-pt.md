@@ -11,25 +11,25 @@
 ## Terminal
 Eu utilizo o [Hyper](https://hyper.is), que é um terminal baseado no Electron. Você pode ver como ele é pelo GIF mostrado no começo dessa página.
 
-> O uso desse terminal não é obrigatório. Você pode ter todas as configurações que vou mostrar, e usar um terminal diferente.
+> O uso desse terminal não é obrigatório. Você pode seguir todos os passos dessa página, e usar um terminal diferente.
 
-Para instalar o Hyper, você pode acessar o [guia de instalação](https://hyper.is/#installation), ou se você está no MacOS e utiliza o Homebrew, execute esse comando:
+Para instalar o Hyper, você pode acessar o [guia de instalação](https://hyper.is/#installation), ou se você está utilizando MacOS e usa o Homebrew, execute:
 
 ```bash
 brew install --cask hyper
 ```
 
-As configurações que utilizo no hyper estão [neste arquivo](/hyper-configuration.js), você pode copiar e colar no seu arquivo `.hyper.js`, que tudo já vai estar funcionando automaticamente.
+As configurações que utilizo no hyper estão [neste arquivo](/hyper-configuration.js), você pode copiar e colar no seu arquivo `.hyper.js`, e tudo vai funcionar corretamente depois que a instalação acabar.
 
 ## Configurando o Shell
-Shell é o interpretador de comandos do sistema operacional. O que costumo utilizar é o Zsh, que é um dos mais utilizados.
+Shell é um interpretador de comandos do sistema operacional. O que eu costumo utilizar é o Zsh, que é um dos mais utilizados.
 
-**Todos os passos abaixo são obrigatórios para que tudo funcione corretamente**, então leia com atenção e execute os comandos na mesma ordem que esta sendo mostrado.
+**Todos os passos abaixo são obrigatórios para que tudo funcione corretamente**, então leia com atenção e execute os comandos na mesma ordem.
 
-Essas configurações só vão funcionar em sistemas baseados em Unix, assim como o MacOS e Linux. Caso você esteja no Windows, é necessário utilizar o WSL (pesquise sobre WSL para entender mais e fazer sua configuração).
+Essas configurações só vão funcionar em sistemas baseados em Unix, assim como o MacOS e Linux. Caso você esteja no Windows, é recomendado utilizar o WSL (pesquise sobre isso para entender mais e configurar e fazer sua configuração).
 
 ## Instalando Homebrew (*apenas no MacOS*)
-O [Homebrew](https://brew.sh) é um gerenciador de pacotes que facilita o processo e instalação de basicamente qualquer coisa. Vamos precisar dele para instalar quase todas nossas ferramentas.
+O [Homebrew](https://brew.sh) é um gerenciador de pacotes que te ajuda a instalar basicamente qualquer coisa. Você vai precisar dele para instalar todas as ferramentas.
 
 Para instalar execute:
 ```bash
@@ -48,7 +48,7 @@ sudo apt-get install git -y
 ```
 
 ## Instalando Curl
-Provavelmente você já tem instalado o curl no seu sistema, verifique com o comando `curl --version`. Caso não tenha, siga o passo abaixo:
+Provavelmente você já tem o curl instalado no seu sistema, verifique com o comando `curl --version`. Caso não tenha, siga o passo abaixo.
 
 No MacOS, execute:
 ```bash
@@ -61,7 +61,7 @@ sudo apt-get install curl -y
 ```
 
 ## Instalando o Zsh
-Se você está utilizando a última versão do MacOS, você provavelmente já possuí o zsh instalado por padrão, verifique com o comando `zsh --version`. Caso não tenha, siga o passo abaixo:
+Se você está utilizando a última versão do MacOS, você já possuí o Zsh instalado por padrão. Você pode verificar com o comando `zsh --version`. Caso não tenha, siga o passo abaixo.
 
 No MacOS, execute:
 ```bash
@@ -82,7 +82,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 ```
 
 ## Instalando tema e plugins do Oh My Zsh
-Essa é uma lista com os plugins e o tema que utilizo no meu terminal, mas você pode adicionar suas configurações também. 
+Abaixo está a lista com os plugins e o tema que utilizo. Sinta-se a vontade de adicionar suas próprias configurações também. 
 
 Plugin [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 ```bash
@@ -106,16 +106,16 @@ git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/theme
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 ```
 
-## Alterando configurações do Zsh
-Agora precisamos definir as configurações do nosso tema e o zsh, para isso precisamos alterar o arquivo `.zshrc` que está na pasta do seu perfil.
+## Configurando o Zsh
+Agora você precisa definir as configurações do Zsh e do tema. Para fazer isso, você precisa alterar seu arquivo `.zshrc` que está na pasta do seu perfil.
 
-Para abrir o arquivo no VSCode, podemos executar:
+Para abrir o arquivo no VSCode, execute:
 ```bash
 code ~/.zshrc
 ```
 
-Copie o conteúdo [deste arquivo](/zshrc-configurations.txt), e cole no seu arquivo `.zshrc`. Mas antes disso, verifique se não existe alguma variável ou configuração que você não queira que seja substituída.
+Copie o conteúdo [deste arquivo](/zshrc-configurations.txt), e cole no seu arquivo `.zshrc`. Tome cuidado e verifique se você não vai substituir algo que não queira.
 
-A única configuração que você precisa manter, é sua variável `ZSH` que fica no começo do arquivo `.zshrc`. Depois de colar as configurações, mantenha somente uma configuração do `NVM`, a que seja compatível com seu sistema operacional.
+A única configuração que você precisa manter, é sua variável `ZSH` que provavelmente fica no começo do arquivo. Depois de colar as configurações, mantenha somente uma configuração do `NVM`, a que seja compatível com seu sistema operacional.
 
 Depois desses passos, tudo já deve estar pronto e funcionando perfeitamente, aproveite ✨.
