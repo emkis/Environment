@@ -8,6 +8,14 @@ English | [Portuguese](/README-pt.md)
   <br>
 </div>
 
+## Why use this setup?
+- **:zap:️ Suggestions**: receive suggestions based on your previous commands
+- **:cyclone: Autocomplete**: on tab press, automatically complete commands, folders, files and so on 
+- **:information_source: Helpful**: Node version and Git branch always visible
+- **:nail_care: It's beautiful**: you will have an awesome experience using it
+
+<br>
+
 ## Terminal
 I use [Hyper](https://hyper.is), which is an Electron-based terminal. You can see how he looks by the GIF at the beginning of this page.
 
@@ -123,7 +131,7 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 <br>
 
 ## Setting up Zsh
-Now you need to define the configurations for Zsh and the theme. To do that, you need to change the `.zshrc`file, which is in your profile folder.
+Now you need to define the configurations for Zsh and the theme. To do that, you need to change the `.zshrc` file, which is in your profile folder.
 
 To open this file in VSCode, just run:
 ```bash
