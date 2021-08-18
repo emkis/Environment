@@ -8,6 +8,14 @@
   <br>
 </div>
 
+## Por quê utilizar essa configuração?
+- **:zap:️ Sugestões**: receba sugestões baseadas nos comandos já utilizados anteriormente
+- **:cyclone: Autocomplete**: pressionando tab, automaticamente completa nome de commandos, pastas, arquivos e etc.
+- **:information_source: Prático**: versão do Node e branch atual do Git sempre visivel
+- **:nail_care: É lindo**: você vai ter uma ótima experiência utilizando essa configuração
+
+<br>
+
 ## Terminal
 Eu utilizo o [Hyper](https://hyper.is), que é um terminal baseado no Electron. Você pode ver como ele é pelo GIF mostrado no começo dessa página.
 
