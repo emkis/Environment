@@ -1,5 +1,3 @@
-[Inglês](/README.md) | Português
-
 <div align="center">
   <h1>Meu Terminal</h1>
   <p>Todas as configurações e plugins que utilizo para que a experiência de usar o terminal seja produtiva e deliciosa.</p>
@@ -7,6 +5,12 @@
   <br>
   <br>
 </div>
+
+## Idiomas disponíveis
+- Português (do Brasil)
+- [Inglês](/README.md)
+
+<br>
 
 ## Por quê utilizar essa configuração?
 - **:zap:️ Sugestões**: receba sugestões baseadas nos comandos já utilizados anteriormente
