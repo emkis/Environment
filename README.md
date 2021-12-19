@@ -1,5 +1,3 @@
-English | [Portuguese](/README-pt.md)
-
 <div align="center">
   <h1>My Terminal</h1>
   <p>All configurations and plugins that I use to get an awesome and productive experience in the terminal.</p>
@@ -7,6 +5,12 @@ English | [Portuguese](/README-pt.md)
   <br>
   <br>
 </div>
+
+## Available languages
+- [Brazilian Portuguese](/README-pt.md)
+- English
+
+<br>
 
 ## Why use this setup?
 - **:zap:️ Suggestions**: receive suggestions based on your previous commands
