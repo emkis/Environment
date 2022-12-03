@@ -5,7 +5,7 @@
 module.exports = {
   config: {
     updateChannel: 'stable',
-    fontSize: 15, // For MacOS fontSize is 17
+    fontSize: 17,
     fontFamily: 'Fira Code',
 
     // text color
