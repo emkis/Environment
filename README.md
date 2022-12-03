@@ -125,9 +125,18 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 ```
 
-Installing [Spaceship Zsh](https://github.com/denysdovhan/spaceship-prompt) theme. You can find more amazing themes [over here](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes).
+Installing [Spaceship Zsh](https://github.com/denysdovhan/spaceship-prompt) theme, [more themes here](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes).
+
+On MacOS, run:
 ```bash
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+brew install spaceship
+
+echo "source $(brew --prefix)/opt/spaceship/spaceship.zsh" >>! ~/.zshrc
+```
+
+On Linux, run:
+```bash
+git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
 
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 ```
