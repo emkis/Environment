@@ -42,3 +42,4 @@ source /opt/homebrew/opt/spaceship/spaceship.zsh
 alias zshConfig="code ~/.zshrc"
 alias zshHistory="code ~/.zsh_history"
 alias hyperConfig="code ~/.hyper.js"
+alias find-file="fzf"
