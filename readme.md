@@ -1,13 +1,13 @@
 <div align="center">
   <h1>My Terminal Setup</h1>
-  <p>This repo centralises all configurations I use for setting up my terminal.</p>
+  <p>This repo centralises all configurations I use for my environment, from Mac Dock settings to Terminal.</p>
 
   <img src="./for-warp/preview.gif" alt="">
   <br>
   <br>
 </div>
 
-> **Note**: These guides are targeting MacOS specifically, however, all these tools are available for Linux, but you would need to figure out how to install them.
+> **Note**: All the stuff here are targeting MacOS specifically, however, you can try to use some of the things on Linux, but you would need to figure out how to do it.
 
 
 ## Before start
