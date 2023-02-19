@@ -10,6 +10,10 @@
 > **Note**: These guides are targeting MacOS specifically, however, all these tools are available for Linux, but you would need to figure out how to install them.
 
 
+## Before start
+You need to have [Homebrew](https://brew.sh) installed for the guides below, make sure you have it before proceeding.
+
+
 ## Setup guides
 
 - [For Hyper terminal](./for-hyper/)
