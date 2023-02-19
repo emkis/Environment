@@ -2,7 +2,7 @@
   <h1>My Terminal Setup</h1>
   <p>This repo centralises all configurations I use for setting up my terminal.</p>
 
-  <img src="./for-hyper/preview.gif" alt="">
+  <img src="./for-warp/preview.gif" alt="">
   <br>
   <br>
 </div>
