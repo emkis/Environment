@@ -6,7 +6,7 @@ module.exports = {
   config: {
     updateChannel: 'stable',
     fontSize: 17,
-    fontFamily: 'FiraCode Nerd Font',
+    fontFamily: 'Fira Code',
 
     // cursor configs
     cursorShape: 'BEAM',      // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
