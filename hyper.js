@@ -6,41 +6,15 @@ module.exports = {
   config: {
     updateChannel: 'stable',
     fontSize: 17,
-    fontFamily: 'Fira Code',
+    fontFamily: 'FiraCode Nerd Font',
 
-    // text color
-    foregroundColor: '#fff',  // currently overwritten by plugin
-    backgroundColor: '#000',  // currently overwritten by plugin
-    borderColor: '#333',      // currently overwritten by plugin
+    // cursor configs
     cursorShape: 'BEAM',      // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
     cursorBlink: true,
 
     // custom padding (css format, i.e.: `top right bottom left`)
     padding: '25px 15px',
 
-    // the full list. if you're going to provide the full color palette,
-    // including the 6 x 6 color cubes and the grayscale map, just provide
-    // an array here instead of a color map object
-    // Note: all these colors are currently overwritten by a theme plugin
-    colors: {
-      black: '#000000',
-      red: '#ff0000',
-      green: '#33ff00',
-      yellow: '#FED766',
-      blue: '#0066ff',
-      magenta: '#cc00ff',
-      cyan: '#00C7FF',
-      white: '#d0d0d0',
-      lightBlack: '#808080',
-      lightRed: '#ff0000',
-      lightGreen: '#33ff00',
-      lightYellow: '#FED766',
-      lightBlue: '#0066ff',
-      lightMagenta: '#cc00ff',
-      lightCyan: '#00C7FF',
-      lightWhite: '#ffffff'
-    },
-    
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
     // if left empty, your system's login shell will be used by default
     shell: '/bin/zsh',
@@ -59,8 +33,9 @@ module.exports = {
     // selection is present (true by default on Windows)
     quickEdit: false,
 
-    // The number of rows to be persisted in terminal buffer for scrolling
-    scrollback: 500,
+    hypercwd: {
+      initialWorkingDirectory: '~/code'
+    }
   },
 
   plugins: ["hypercwd", "hyper-omni-theme"],
