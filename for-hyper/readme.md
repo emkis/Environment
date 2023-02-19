@@ -72,13 +72,13 @@ brew install spaceship
 ```
 
 
-## Configuring up Oh My Zsh
+## Adding configs to Oh My Zsh
 Now you need to define the configurations for Oh My Zsh. To do that, open your `~/.zshrc` file.
 
 With this file open, copy the content of [this file](./.zshrc), paste it, and save it.
 
 
-## Configuring up Spaceship theme
+## Adding configs to Spaceship theme
 Now you need to create the theme configuration file. To create this file run the command:
 ```bash
 touch ~/.spaceshiprc.zsh
@@ -86,4 +86,6 @@ touch ~/.spaceshiprc.zsh
 
 Now open this file, copy the content of [this file](./.spaceshiprc.zsh), paste it, and save it.
 
-After these steps, everything should be ready and working as expected, enjoy ✨.
+
+## Done
+After all these steps, everything should be ready and working as expected, enjoy ✨.
