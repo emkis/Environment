@@ -67,5 +67,29 @@ touch ~/starship.toml
 Now open this file, copy the content of [this file](./starship.toml), paste it, and save it.
 
 
+## Configuring Warp
+As Warp doesn't have any configuration file, so we need to manually set some things.
+
+To enable our custom prompt:
+- Open Warp
+- Press `Command + p` then search for the option "Enable Honor User's Custom Prompt"
+- Press enter
+- Done ✅
+
+To set our custom theme:
+- Press `Command + p` then search for the option "Open Theme Picker"
+- Press enter
+- Set your theme, I'm using "Dracula"
+- Done ✅
+
+Finally, to set our custom font:
+- Press `Command + p` then search for the option "Open Settings"
+- Press enter
+- Go to the Appearance
+- Set the Terminal font to "FiraCode Nerd Font"
+- Set the font size to 17
+- Set the line height to 1.25
+- Done ✅
+
 ## Done
 After all these steps, everything should be ready and working as expected, enjoy ✨.
