@@ -22,7 +22,6 @@ ZSH_DISABLE_COMPFIX="true"
 # oh my zsh plugins
 # more plugins here: https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 plugins=(
-  zsh-completions
   zsh-autosuggestions
   zsh-syntax-highlighting # must be the last one
 )
@@ -31,6 +30,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 source $(brew --prefix nvm)/nvm.sh
 source /opt/homebrew/opt/spaceship/spaceship.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # custom aliases
