@@ -61,11 +61,6 @@ Adding [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) p
 brew install zsh-autosuggestions
 ```
 
-Adding [zsh-completions](https://github.com/zsh-users/zsh-completions) plugin.
-```bash
-brew install zsh-completions
-```
-
 Adding [Spaceship](https://github.com/denysdovhan/spaceship-prompt) theme.
 ```bash
 brew install spaceship
