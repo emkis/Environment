@@ -58,7 +58,7 @@ brew install zsh-syntax-highlighting
 
 Adding [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) plugin.
 ```bash
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+brew install zsh-autosuggestions
 ```
 
 Adding [zsh-completions](https://github.com/zsh-users/zsh-completions) plugin.
