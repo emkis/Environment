@@ -7,13 +7,6 @@
   <br>
 </div>
 
-## Why do I use this setup?
-- **:zap:️ Suggestions**: receive suggestions based on your previous commands
-- **:cyclone: Autocomplete**: on tab press, automatically complete commands, folders, file names and etc
-- **:information_source: Helpful**: Node version and Git branch are always visible
-- **:nail_care: It's beautiful**: I love the experience of using it
-
-<br>
 
 ## Terminal
 [Hyper](https://hyper.is), an Electron-based terminal. You can see how he looks by the GIF at the beginning of this page.
