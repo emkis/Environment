@@ -9,7 +9,7 @@
 
 
 ## Terminal
-[Hyper](https://hyper.is), an Electron-based terminal. You can see how he looks by the GIF at the beginning of this page.
+[Hyper](https://hyper.is), is a beautiful Electron-based terminal.
 
 > Using Hypes is not a requirement for this setup, you can use all these tools on this guide with your own terminal.
 
