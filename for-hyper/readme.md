@@ -40,10 +40,11 @@ To install, just run:
 ```
 
 
-## Installing Git
+## Installing the Fira Code font
 Run the command:
 ```bash
-brew install git
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code
 ```
 
 
