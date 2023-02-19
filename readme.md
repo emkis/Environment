@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>My Terminal Setup</h1>
+  <h1>Environment</h1>
   <p>This repo centralises all configurations I use for my environment, from Mac Dock settings to Terminal.</p>
 
   <img src="./for-warp/preview.gif" alt="">
