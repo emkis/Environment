@@ -13,8 +13,7 @@
 
 > Using Hypes is not a requirement for this setup, you can use all these tools on this guide with your own terminal.
 
-To install Hyper, you can read the [installation guide](https://hyper.is/#installation), or just run the command:
-
+To install Hyper, just run the command:
 ```bash
 brew install --cask hyper
 ```
@@ -22,15 +21,6 @@ brew install --cask hyper
 
 ## Hyper configs
 You can find the configurations I use for Hyper in [this file](./hyper.js), you can copy paste in your `~/.hyper.js` file, and after opening Hyper, all plugins will be installed correctly.
-
-
-## Installing Homebrew
-[Homebrew](https://brew.sh) is a package manager that helps you to install basically anything. You will need him to install all the tools.
-
-To install, just run:
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
 
 
 ## Installing the Fira Code font
