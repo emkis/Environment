@@ -16,5 +16,5 @@ You need to have [Homebrew](https://brew.sh) installed for the guides below, mak
 
 ## Setup guides
 
+- [For Warp terminal](./for-warp/)
 - [For Hyper terminal](./for-hyper/)
-- [For Warp](./for-warp/)
