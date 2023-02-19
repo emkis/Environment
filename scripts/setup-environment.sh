@@ -2,12 +2,6 @@ echo 'installing homebrew'
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 
-echo 'setting git configurations'
-git config --global user.name "emkis"
-git config --global user.email "nicolasemkis@gmail.com"
-git config --global core.editor "nano"
-
-
 echo "generating a ssh key"
 ssh-keygen -t rsa -b 4096 -C $git_config_user_email
 ssh-add --apple-use-keychain ~/.ssh/id_rsa
@@ -85,7 +79,7 @@ echo 'installing rectangle'
 brew install --cask rectangle
 
 
-echo 'installing git configurations'
+echo 'setting git configurations'
 npx https://gist.github.com/emkis/7dc79f36d2759437c9b6e8c3756e6124 -y
 
 
