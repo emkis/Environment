@@ -8,20 +8,12 @@ ssh-add --apple-use-keychain ~/.ssh/id_rsa
 pbcopy < ~/.ssh/id_rsa.pub
 
 
-echo 'installing Oh My ZSH'
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-
-
 echo 'installing nvm & node' 
 brew install nvm
 nvm --version
 nvm install --lts
 node --version
 npm --version
-
-
-echo 'installing yarn'
-brew install yarn
 
 
 echo 'installing pnpm'
@@ -45,6 +37,10 @@ brew install --cask font-fira-code-nerd-font
 
 echo 'installing notion'
 brew install --cask notion
+
+
+echo 'installing surfshark'
+brew install --cask surfshark
 
 
 echo 'installing spotify'
