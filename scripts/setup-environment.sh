@@ -75,6 +75,10 @@ echo 'installing rectangle'
 brew install --cask rectangle
 
 
+echo 'installing shottr'
+brew install --cask shottr
+
+
 echo 'setting git configurations'
 npx https://gist.github.com/emkis/7dc79f36d2759437c9b6e8c3756e6124 -y
 
