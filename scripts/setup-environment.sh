@@ -21,7 +21,7 @@ brew install pnpm
 
 
 echo 'installing git-recent'
-yarn global add git-recent
+pnpm add -g git-recent
 
 
 echo 'installing vscode'
