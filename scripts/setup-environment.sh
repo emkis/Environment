@@ -3,7 +3,7 @@ echo 'installing homebrew'
 
 
 echo "generating a ssh key"
-ssh-keygen -t rsa -b 4096 -C $git_config_user_email
+ssh-keygen -t rsa -b 4096 -C nicolasemkis@gmail.com
 ssh-add --apple-use-keychain ~/.ssh/id_rsa
 pbcopy < ~/.ssh/id_rsa.pub
 
