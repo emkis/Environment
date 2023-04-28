@@ -72,7 +72,7 @@ brew install --cask iina
 
 
 echo 'installing rectangle'
-brew install --cask rectangle
+brew install --cask rectangle-pro
 
 
 echo 'installing shottr'
