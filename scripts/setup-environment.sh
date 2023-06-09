@@ -55,6 +55,10 @@ echo 'installing firefox'
 brew install --cask firefox
 
 
+echo 'installing bitwarden'
+brew install --cask bitwarden
+
+
 echo 'installing warp'
 brew install --cask warp
 
