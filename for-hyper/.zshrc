@@ -33,6 +33,7 @@ source /opt/homebrew/opt/spaceship/spaceship.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source /opt/homebrew/etc/profile.d/z.sh
 
 # custom aliases
 # for a full list of active aliases, run `alias`.
