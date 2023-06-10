@@ -29,6 +29,7 @@ source $(brew --prefix nvm)/nvm.sh
 eval "$(starship init zsh)"
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source /opt/homebrew/etc/profile.d/z.sh
 
 # custom aliases
 # for a full list of active aliases, run `alias`.
