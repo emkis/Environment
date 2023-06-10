@@ -91,11 +91,14 @@ echo 'installing fzf (to find files)'
 brew install fzf
 
 
+echo 'installing z (fast folder navigator)'
+brew install z
+
+
 echo 'changing dock configurations'
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
 killall Dock
 
 
-clear
 echo 'All setup, enjoy!'
