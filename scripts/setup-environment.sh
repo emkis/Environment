@@ -47,6 +47,10 @@ echo 'installing spotify'
 brew install --cask spotify
 
 
+echo 'installing arc'
+brew install --cask arc
+
+
 echo 'installing google chrome'
 brew install --cask google-chrome
 
