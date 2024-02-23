@@ -1,7 +1,6 @@
 <div align="center">
   <h1>Warp guide</h1>
-  <p>Below you can see a preview of how this setup looks like.</p>
-  
+  <p>Below you can see a preview of what this setup looks like.</p>
   <img src="./preview.gif" alt="">
   <br>
   <br>
@@ -9,7 +8,7 @@
 
 
 ## Terminal
-[Warp](https://www.warp.dev), is a blazingly fast, rust-based terminal.
+[Warp](https://www.warp.dev) is a blazingly fast rust-based terminal.
 
 > Using this terminal is a requirement for this guide, as Warp has a lot of features by default.
 
@@ -28,11 +27,11 @@ brew install --cask font-fira-code-nerd-font
 
 
 ## Installing Zsh
-If you are using the last version of MacOS, you already have Zsh installed by default. Run the command:
+If you are using the latest version of MacOS, you already have Zsh installed by default.
 ```bash
 # to check if you have it installed already
 zsh --version
-# if you don't, install it with
+# if you don't, run this:
 brew install zsh
 ```
 
@@ -68,28 +67,25 @@ Now open this file, copy the content of [this file](./starship.toml), paste it, 
 
 
 ## Configuring Warp
-As Warp doesn't have any configuration file, so we need to manually set some things.
+As Warp doesn't have a configuration file, so we need to manually set the configs.
 
-To enable our custom prompt:
+To enable a custom prompt:
 - Open Warp
 - Press `Command + p` then search for the option "Enable Honor User's Custom Prompt"
 - Press enter
-- Done ✅
 
-To set our custom theme:
+To set a custom theme:
 - Press `Command + p` then search for the option "Open Theme Picker"
 - Press enter
-- Set your theme, I'm using "Dracula"
-- Done ✅
+- Set your theme (I'm using "Dracula")
 
-Finally, to set our custom font:
+Finally, to set a custom font:
 - Press `Command + p` then search for the option "Open Settings"
 - Press enter
 - Go to the Appearance
 - Set the Terminal font to "FiraCode Nerd Font"
 - Set the font size to 17
 - Set the line height to 1.25
-- Done ✅
 
 ## Done
 After all these steps, everything should be ready and working as expected, enjoy ✨.
