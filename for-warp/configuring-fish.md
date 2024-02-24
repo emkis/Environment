@@ -7,6 +7,17 @@ I've been feeling the `zsh` shell a bit slow lately and it's bothering me, so I'
 brew install fish
 ```
 
+## Installing `fisher`
+This is a plugin manager for `fish`
+```sh
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+```
+
+## Installing plugins
+```sh
+fisher install jethrokuan/z
+```
+
 ## Starting `fish` and setting tool paths
 ```sh
 fish
