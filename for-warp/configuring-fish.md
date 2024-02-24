@@ -16,6 +16,7 @@ curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fi
 ## Installing plugins
 ```sh
 fisher install jethrokuan/z
+fisher install jorgebucaran/nvm.fish
 ```
 
 ## Starting `fish` and setting tool paths
