@@ -1,10 +1,6 @@
-# path to oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
-
-# defining custom config path for starship
 export STARSHIP_CONFIG="$HOME/starship.toml"
-
-# defining default text editor
+export PNPM_HOME="$HOME/Library/pnpm"
 export EDITOR=/usr/bin/nano
 
 # defining path for nvm
