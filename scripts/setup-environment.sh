@@ -87,11 +87,15 @@ echo 'installing shottr'
 brew install --cask shottr
 
 
+echo 'installing script kit'
+brew install --cask kit
+
+
 echo 'setting git configurations'
 npx https://gist.github.com/emkis/7dc79f36d2759437c9b6e8c3756e6124 -y
 
 
-echo 'installing fzf (to find files)'
+echo 'installing fzf'
 brew install fzf
 
 
