@@ -99,6 +99,10 @@ echo 'installing z (fast folder navigator)'
 brew install z
 
 
+echo 'installing karabiner-elements (keyboard manager)'
+brew install --cask karabiner-elements
+
+
 echo 'changing dock configurations'
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
