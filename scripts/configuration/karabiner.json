@@ -1,0 +1,34 @@
+{
+  "global": {
+    "show_in_menu_bar": false
+  },
+  "profiles": [
+    {
+      "devices": [
+        {
+          "identifiers": {
+            "is_keyboard": true,
+            "product_id": 45930,
+            "vendor_id": 1133
+          },
+          "simple_modifications": [
+            {
+              "from": { "key_code": "caps_lock" },
+              "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+            },
+            {
+              "from": { "key_code": "grave_accent_and_tilde" },
+              "to": [{ "key_code": "non_us_backslash" }]
+            },
+            {
+              "from": { "key_code": "non_us_backslash" },
+              "to": [{ "key_code": "grave_accent_and_tilde" }]
+            }
+          ]
+        }
+      ],
+      "name": "Emkis",
+      "selected": true
+    }
+  ]
+}
