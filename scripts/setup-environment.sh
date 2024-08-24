@@ -1,3 +1,6 @@
+# Current directory
+dirname=$(cd "$(dirname "${BASH_SOURCE}")"; pwd -P)
+
 echo 'installing homebrew' 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -101,6 +104,7 @@ brew install z
 
 echo 'installing karabiner-elements (keyboard manager)'
 brew install --cask karabiner-elements
+sh $dirname/setup-keyboard.sh
 
 
 echo 'changing dock configurations'
