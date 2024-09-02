@@ -2,6 +2,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export STARSHIP_CONFIG="$HOME/starship.toml"
 export PNPM_HOME="$HOME/Library/pnpm"
 export EDITOR=/usr/bin/nano
+export ANDROID_HOME=$HOME/Library/Android/sdk
 
 # defining path for nvm
 export NVM_DIR="$HOME/.nvm" 
