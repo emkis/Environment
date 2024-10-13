@@ -2,6 +2,224 @@
   "global": { "show_in_menu_bar": false },
   "profiles": [
     {
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "O-Launcher",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "name": "launcher_mode",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "from": {
+                  "key_code": "n",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "shell_command": "open -a 'Notion.app'" }],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  },
+                  "simultaneous": [{ "key_code": "o" }, { "key_code": "n" }],
+                  "simultaneous_options": {
+                    "key_down_order": "strict",
+                    "key_up_order": "strict_inverse",
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "launcher_mode",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 500
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "launcher_mode",
+                      "value": 1
+                    }
+                  },
+                  { "shell_command": "open -a 'Notion.app'" }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "launcher_mode",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "from": {
+                  "key_code": "a",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "shell_command": "open -a 'Arc.app'" }],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  },
+                  "simultaneous": [{ "key_code": "o" }, { "key_code": "a" }],
+                  "simultaneous_options": {
+                    "key_down_order": "strict",
+                    "key_up_order": "strict_inverse",
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "launcher_mode",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 500
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "launcher_mode",
+                      "value": 1
+                    }
+                  },
+                  { "shell_command": "open -a 'Arc.app'" }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "launcher_mode",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "from": {
+                  "key_code": "c",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "shell_command": "open -a 'Visual Studio Code.app'" }],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  },
+                  "simultaneous": [{ "key_code": "o" }, { "key_code": "c" }],
+                  "simultaneous_options": {
+                    "key_down_order": "strict",
+                    "key_up_order": "strict_inverse",
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "launcher_mode",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 500
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "launcher_mode",
+                      "value": 1
+                    }
+                  },
+                  { "shell_command": "open -a 'Visual Studio Code.app'" }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "launcher_mode",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "from": {
+                  "key_code": "w",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "shell_command": "open -a 'Warp.app'" }],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  },
+                  "simultaneous": [{ "key_code": "o" }, { "key_code": "w" }],
+                  "simultaneous_options": {
+                    "key_down_order": "strict",
+                    "key_up_order": "strict_inverse",
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "launcher_mode",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 500
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "launcher_mode",
+                      "value": 1
+                    }
+                  },
+                  { "shell_command": "open -a 'Warp.app'" }
+                ],
+                "type": "basic"
+              }
+            ]
+          }
+        ],
+        "title": "O-Launcher"
+      },
       "devices": [
         {
           "fn_function_keys": [
@@ -59,6 +277,7 @@
             "product_id": 45930,
             "vendor_id": 1133
           },
+          "manipulate_caps_lock_led": false,
           "simple_modifications": [
             {
               "from": { "key_code": "caps_lock" },
@@ -84,7 +303,8 @@
         }
       ],
       "name": "Emkis",
-      "selected": true
+      "selected": true,
+      "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
     }
   ]
 }
