@@ -17,5 +17,6 @@ As there are many things to setup, all things to setup are separated by a recipe
 1. Setting up [Core dependencies](./recipes/setting-up-core-dependencies/)
 2. Setting up [Bluetooth devices](./recipes/setting-up-bluethooth-devices/)
 3. Setting up [Window manager](./recipes/setting-up-window-manager/)
-4. Setting up [Dev environment](./recipes/setting-up-dev-env/)
-5. Coming...
+4. Setting up [User apps](./recipes/setting-up-user-apps/)
+5. Setting up [Dev environment](./recipes/setting-up-dev-env/)
+6. Coming...
