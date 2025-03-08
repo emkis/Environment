@@ -37,8 +37,11 @@
     "analogAdjacentResizing" : {
       "int" : 0
     },
+    "appLayoutsHideOtherApps" : {
+      "int" : 0
+    },
     "appSpecs" : {
-      "string" : "[{\"isGroup\":true,\"name\":\"Fullscreen (no monitor)\",\"loc\":0,\"id\":67,\"shortcut\":{\"keyCode\":18,\"modifierFlags\":786432},\"children\":[{\"display\":0,\"id\":149,\"w\":\"1\",\"h\":\"1\",\"loc\":0,\"bundleId\":\"~global\"}]},{\"isGroup\":true,\"shortcut\":{\"keyCode\":19,\"modifierFlags\":786432},\"id\":77,\"children\":[{\"h\":\"1\",\"display\":2,\"bundleId\":\"notion.id\",\"loc\":0,\"w\":\"0.65\",\"id\":75},{\"id\":76,\"display\":2,\"h\":\"1\",\"loc\":0,\"w\":\"1\",\"bundleId\":\"company.thebrowser.Browser\"},{\"id\":79,\"display\":2,\"bundleId\":\"~global\",\"h\":\"1\",\"w\":\"0.65\",\"loc\":0}],\"name\":\"Non-coding\",\"loc\":0},{\"name\":\"Coding (ultrawide)\",\"loc\":0,\"children\":[{\"display\":2,\"loc\":0,\"bundleId\":\"com.microsoft.VSCode\",\"h\":\"1.0\",\"w\":\"0.7\",\"id\":51},{\"w\":\".65\",\"display\":2,\"loc\":0,\"id\":52,\"bundleId\":\"dev.warp.Warp-Stable\",\"h\":\"0.85\"},{\"h\":\"1\",\"id\":118,\"display\":2,\"x\":\"2070\",\"w\":\"490\",\"bundleId\":\"com.apple.iphonesimulator\",\"y\":\"0\",\"loc\":9},{\"loc\":0,\"bundleId\":\"com.google.Chrome\",\"display\":2,\"w\":\"1\",\"h\":\"1\",\"id\":133}],\"id\":56,\"shortcut\":{\"keyCode\":20,\"modifierFlags\":786432},\"isGroup\":true},{\"shortcut\":{\"keyCode\":21,\"modifierFlags\":786432},\"loc\":0,\"id\":49,\"name\":\"Testing (ultrawide)\",\"isGroup\":true,\"children\":[{\"display\":1,\"id\":44,\"loc\":4,\"bundleId\":\"com.microsoft.VSCode\",\"w\":\"0.7\",\"h\":\"1\"},{\"loc\":3,\"bundleId\":\"dev.warp.Warp-Stable\",\"h\":\"1\",\"w\":\"0.3\",\"display\":1,\"id\":45}]},{\"name\":\"Screen Sharing\",\"shortcut\":{\"keyCode\":23,\"modifierFlags\":786432},\"id\":157,\"loc\":0,\"children\":[{\"w\":\"1\",\"h\":\"1\",\"id\":168,\"display\":1,\"bundleId\":\"dev.warp.Warp-Stable\",\"loc\":0},{\"id\":174,\"bundleId\":\"com.microsoft.VSCode\",\"display\":1,\"loc\":0,\"h\":\"1\",\"w\":\"1\"},{\"bundleId\":\"com.apple.iphonesimulator\",\"h\":\"1\",\"x\":\"1037\",\"w\":\"403\",\"y\":\"0\",\"title\":\"tfN+9tGV75ziUi1A23NegJBO\\\/4xh9WEuoJM7dTY8j7CcPtNi0+kR+L9iMuyKmvm6y7+qYk1oXjsNtQ==\",\"loc\":9,\"display\":1,\"id\":187},{\"loc\":0,\"bundleId\":\"com.google.Chrome\",\"id\":180,\"w\":\"1\",\"display\":1,\"h\":\"1\"},{\"display\":1,\"title\":\"tyAj7TrhTT6souoSlc7wiodqcnSKoi5Up6xTNXASHR6t9WIg\\\/on7oeY=\",\"h\":\"1\",\"w\":\"1\",\"id\":196,\"bundleId\":\"company.thebrowser.Browser\",\"loc\":0}],\"isGroup\":true}]"
+      "string" : "[{\"isGroup\":true,\"children\":[{\"id\":149,\"display\":0,\"w\":\"1\",\"loc\":0,\"h\":\"1\",\"bundleId\":\"~global\"}],\"loc\":0,\"id\":67,\"name\":\"Fullscreen (no monitor)\",\"shortcut\":{\"modifierFlags\":786432,\"keyCode\":18}},{\"name\":\"Non-coding\",\"children\":[{\"bundleId\":\"notion.id\",\"h\":\"1\",\"loc\":0,\"display\":2,\"id\":75,\"w\":\"0.65\"},{\"bundleId\":\"company.thebrowser.Browser\",\"loc\":0,\"h\":\"1\",\"display\":2,\"id\":76,\"w\":\"1\"},{\"loc\":0,\"id\":79,\"display\":2,\"bundleId\":\"~global\",\"w\":\"0.65\",\"h\":\"1\"}],\"id\":77,\"loc\":0,\"isGroup\":true,\"shortcut\":{\"modifierFlags\":786432,\"keyCode\":19}},{\"loc\":0,\"name\":\"Coding (ultrawide)\",\"isGroup\":true,\"shortcut\":{\"modifierFlags\":786432,\"keyCode\":20},\"id\":56,\"children\":[{\"display\":2,\"h\":\"1.0\",\"bundleId\":\"com.microsoft.VSCode\",\"loc\":0,\"w\":\"0.7\",\"id\":51},{\"h\":\"0.85\",\"id\":52,\"bundleId\":\"dev.warp.Warp-Stable\",\"w\":\".65\",\"display\":2,\"loc\":0},{\"display\":2,\"h\":\"1\",\"y\":\"0\",\"loc\":9,\"bundleId\":\"com.apple.iphonesimulator\",\"id\":118,\"x\":\"2070\",\"w\":\"490\"},{\"w\":\"1\",\"display\":2,\"h\":\"1\",\"loc\":0,\"bundleId\":\"com.google.Chrome\",\"id\":133}]},{\"isGroup\":true,\"shortcut\":{\"modifierFlags\":786432,\"keyCode\":21},\"name\":\"Testing (ultrawide)\",\"children\":[{\"display\":1,\"id\":44,\"bundleId\":\"com.microsoft.VSCode\",\"h\":\"1\",\"loc\":4,\"w\":\"0.7\"},{\"bundleId\":\"dev.warp.Warp-Stable\",\"display\":1,\"h\":\"1\",\"w\":\"0.3\",\"id\":45,\"loc\":3}],\"loc\":0,\"id\":49},{\"id\":157,\"shortcut\":{\"keyCode\":23,\"modifierFlags\":786432},\"name\":\"Screen Sharing\",\"isGroup\":true,\"loc\":0,\"children\":[{\"loc\":0,\"h\":\"1\",\"w\":\"1\",\"bundleId\":\"dev.warp.Warp-Stable\",\"id\":168,\"display\":1},{\"display\":1,\"loc\":0,\"bundleId\":\"com.microsoft.VSCode\",\"h\":\"1\",\"w\":\"1\",\"id\":174},{\"display\":1,\"id\":187,\"loc\":9,\"y\":\"0\",\"title\":\"kUw4LppADMx7ifmMYOpiZt8DFIZRY8mnmgCzWOIW+AiU+993WHehqW6pyL2ZbqPyXhYtL+iLf9SAbw==\",\"h\":\"1\",\"w\":\"403\",\"bundleId\":\"com.apple.iphonesimulator\",\"x\":\"1037\"},{\"loc\":0,\"bundleId\":\"com.google.Chrome\",\"w\":\"1\",\"h\":\"1\",\"display\":1,\"id\":180},{\"bundleId\":\"company.thebrowser.Browser\",\"loc\":0,\"title\":\"UfezQfvGmV4kjHZOaiRPonb3Yk56BDKuZLETpXT8YMkDHlab6PTCFDg=\",\"id\":196,\"h\":\"1\",\"display\":1,\"w\":\"1\"}]}]"
     },
     "applyGapToEdges" : {
       "int" : 0
@@ -94,6 +97,9 @@
     "disabledApps" : {
       "string" : "[]"
     },
+    "dockSizePollSeconds" : {
+      "double" : 0
+    },
     "doubleClickTitleBar" : {
       "int" : 0
     },
@@ -137,7 +143,7 @@
       "float" : 0
     },
     "gestures" : {
-      "string" : "[11,{\"trail\":1,\"flags\":0},19,{\"flags\":0,\"trail\":2},1,{\"trail\":4,\"flags\":0},2,{\"trail\":1,\"flags\":0},5,{\"trail\":4,\"flags\":0},10,{\"trail\":2,\"flags\":0},0,{\"trail\":3,\"flags\":0},4,{\"flags\":0,\"trail\":3},35,{\"trail\":0,\"flags\":0}]"
+      "string" : "[4,{\"trail\":3,\"flags\":0},35,{\"trail\":0,\"flags\":0},5,{\"trail\":4,\"flags\":0},10,{\"flags\":0,\"trail\":2},11,{\"trail\":1,\"flags\":0},19,{\"flags\":0,\"trail\":2},1,{\"flags\":0,\"trail\":4},0,{\"trail\":3,\"flags\":0},2,{\"flags\":0,\"trail\":1}]"
     },
     "hapticFeedbackOnSnap" : {
       "int" : 0
@@ -182,7 +188,7 @@
       "string" : "{\"id\":0}"
     },
     "manualSpecs" : {
-      "string" : "[{\"id\":112,\"w\":\"0.8\",\"loc\":0,\"name\":\"Centeralise\",\"h\":\"0.85\",\"shortcut\":{\"modifierFlags\":786432,\"keyCode\":44}},{\"w\":\"1\",\"display\":1,\"shortcut\":{\"modifierFlags\":786432,\"keyCode\":30},\"h\":\"1\",\"loc\":0,\"id\":86,\"name\":\"Move to Display\"},{\"id\":103,\"name\":\"Move to Monitor\",\"loc\":0,\"display\":2,\"h\":\"1\",\"shortcut\":{\"modifierFlags\":786432,\"keyCode\":42},\"w\":\"0.8\"}]"
+      "string" : "[{\"name\":\"Centeralise\",\"loc\":0,\"id\":112,\"h\":\"0.85\",\"shortcut\":{\"keyCode\":44,\"modifierFlags\":786432},\"w\":\"0.8\"},{\"shortcut\":{\"keyCode\":30,\"modifierFlags\":786432},\"id\":86,\"w\":\"1\",\"h\":\"1\",\"loc\":0,\"display\":1,\"name\":\"Move to Display\"},{\"w\":\"0.8\",\"id\":103,\"shortcut\":{\"modifierFlags\":786432,\"keyCode\":42},\"loc\":0,\"display\":2,\"name\":\"Move to Monitor\",\"h\":\"1\"}]"
     },
     "maximizeAcrossDisplays" : {
       "int" : 0
@@ -200,10 +206,10 @@
 
     },
     "minimumWindowHeight" : {
-      "float" : 0.25
+      "float" : 0.1
     },
     "minimumWindowWidth" : {
-      "float" : 0.25
+      "float" : 0.1
     },
     "missionControlDragging" : {
       "int" : 0
@@ -241,6 +247,9 @@
     "performRepeatOnThrow" : {
       "int" : 0
     },
+    "portraitLeftRightIsTopBottom" : {
+      "int" : 0
+    },
     "portraitSnapAreas" : {
 
     },
@@ -275,7 +284,7 @@
       "int" : 2
     },
     "reticleColor" : {
-      "string" : "{\"red\":0.8,\"green\":0.3,\"alpha\":0.5,\"blue\":0.2}"
+      "string" : "{\"blue\":0.2,\"green\":0.3,\"red\":0.8,\"alpha\":0.5}"
     },
     "reticleDisplayMinDist" : {
       "float" : 0
@@ -383,7 +392,7 @@
       "int" : 2
     },
     "stashHideCursorWindow" : {
-      "int" : 0
+      "int" : 1
     },
     "stashHideTime" : {
       "double" : 0.3
@@ -404,7 +413,7 @@
       "int" : 0
     },
     "stashTabs" : {
-      "int" : 0
+      "int" : 2
     },
     "stashVisibleWidth" : {
       "float" : 1
@@ -448,6 +457,9 @@
     "traverseSingleScreen" : {
       "int" : 0
     },
+    "unhideStashToOriginal" : {
+      "int" : 0
+    },
     "unhideStashedWhenFrontmost" : {
       "int" : 0
     },
@@ -466,11 +478,17 @@
     "winModFlags" : {
       "int" : 0
     },
+    "windowPollSeconds" : {
+      "double" : 0.5
+    },
     "windowSnapping" : {
       "int" : 2
     },
     "windowStopVelocity" : {
       "float" : 3
+    },
+    "windowThrowIgnoresWidgets" : {
+      "int" : 0
     },
     "windowToFront" : {
       "int" : 0
@@ -538,6 +556,6 @@
       "modifierFlags" : 786432
     }
   },
-  "timestamp" : 751638489.829446,
-  "version" : "177"
+  "timestamp" : 763138237.152898,
+  "version" : "183"
 }
