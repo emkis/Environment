@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/opt/homebrew/bin/bash
 
 # Current directory
 dirname=$(cd "$(dirname "${BASH_SOURCE}")"; pwd -P)
