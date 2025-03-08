@@ -1,6 +1,8 @@
 # Setting up Window Manager
 
-- Run `./run.sh` script.
+Recipe to install and hopefully configure the tool I use as a window manager for MacOS.
+
+- Run `bash ./run.sh` script.
 - After the script finishes running, Rectangle will be opened.
 - Copy activation key and activate Rectangle.
 
