@@ -19,4 +19,3 @@ As there are many things to setup, all things to setup are separated by a recipe
 3. Setting up [Window manager](./recipes/setting-up-window-manager/)
 4. Setting up [User apps](./recipes/setting-up-user-apps/)
 5. Setting up [Dev environment](./recipes/setting-up-dev-env/)
-6. Coming...
