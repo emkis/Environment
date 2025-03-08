@@ -36,3 +36,10 @@ Some apps are not available from homebrew, so we need to installed from the stor
   - Battery: Checked (10% battery)
   - Battery Prompt: Checked
   - Power Adapter: Un-checked
+
+### Extra MacOS settings
+
+- Go to `Keyboard > Text Input > Edit` add these layouts:
+  - Brazilian ABNT2
+  - British English
+- Go to `Accessibility > Pointer Control > Trackpad options > Dragging style` and select the **Three FingerDrag** option.
