@@ -53,7 +53,7 @@ brew install --cask font-fira-code-nerd-font
 echo '>> Installing GNU Privacy Guard'
 brew install gnupg
 
-echo "generating a ssh key"
+echo '>> Generating new SSH key'
 ssh-keygen -t rsa -b 4096 -C nicolasemkis@gmail.com
 ssh-add --apple-use-keychain ~/.ssh/id_rsa
 pbcopy < ~/.ssh/id_rsa.pub
