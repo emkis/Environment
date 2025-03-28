@@ -4,6 +4,10 @@ export PNPM_HOME="$HOME/Library/pnpm"
 export EDITOR=/usr/bin/nano
 export ANDROID_HOME=$HOME/Library/Android/sdk
 
+# defining path for global bins
+export GLOBAL_BINS="$HOME/bin"
+export PATH="$GLOBAL_BINS:$PATH"
+
 # defining path for nvm
 export NVM_DIR="$HOME/.nvm" 
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
