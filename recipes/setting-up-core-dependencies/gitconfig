@@ -16,6 +16,6 @@
 	alt-tab = !git checkout -
 	rebase-main = !git checkout main && git pull && git alt-tab && git rebase main
 	add-branch = !git checkout -b
-	push-remote = !git push origin -u
+	push-remote = !git push origin -u $(git branch --show-current)
 	delete-remote-tag = !git push --delete origin
 	delete-remote = !git push origin -d
