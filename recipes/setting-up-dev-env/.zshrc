@@ -38,4 +38,3 @@ source /opt/homebrew/etc/profile.d/z.sh
 # for a full list of active aliases, run `alias`.
 alias zshConfig="code ~/.zshrc"
 alias zshHistory="code ~/.zsh_history"
-alias find-file="fzf"
