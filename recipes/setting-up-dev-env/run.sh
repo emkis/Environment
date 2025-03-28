@@ -58,5 +58,9 @@ ssh-keygen -t rsa -b 4096 -C nicolasemkis@gmail.com
 ssh-add --apple-use-keychain ~/.ssh/id_rsa
 pbcopy < ~/.ssh/id_rsa.pub
 
+echo '>> Setting up my global bins'
+mkdir -p ~/bin
+cp -R $dirname/../../bin/* ~/bin
+
 
 echo "🔄 Window manager setup completed"
