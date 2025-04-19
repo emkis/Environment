@@ -3,7 +3,26 @@
   "profiles": [
     {
       "complex_modifications": {
-        "rules": []
+        "rules": [
+          {
+            "description": "Right Command Key → Hyper Key (⌃⌥⇧⌘)",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "right_command",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": ["left_command", "left_control", "left_option"]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          }
+        ]
       },
       "devices": [
         {
