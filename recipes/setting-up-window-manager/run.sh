@@ -2,6 +2,14 @@
 
 echo '🪟 Window manager setup started'
 
+echo '>> Installing SKHD'
+brew install koekeishiya/formulae/skhd
+skhd --start-service
+
+echo '>> Configuring SKHD'
+sh ./setup-skhd.sh
+skhd --reload
+
 echo '>> Installing rectangle'
 brew install --cask rectangle-pro
 
