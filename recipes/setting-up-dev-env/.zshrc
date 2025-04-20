@@ -43,3 +43,4 @@ source /opt/homebrew/etc/profile.d/z.sh
 alias zshConfig="code ~/.zshrc"
 alias zshHistory="code ~/.zsh_history"
 alias karaConfig="code ~/.config/karabiner/karabiner.json"
+alias skhdConfig="code ~/.skhdrc"
