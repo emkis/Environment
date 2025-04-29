@@ -1,5 +1,6 @@
 #!/opt/homebrew/bin/bash
 
+dirname=$(cd "$(dirname "${BASH_SOURCE}")"; pwd -P)
 echo '🪟 Window manager setup started'
 
 echo '>> Installing SKHD'
@@ -7,7 +8,7 @@ brew install koekeishiya/formulae/skhd
 skhd --start-service
 
 echo '>> Configuring SKHD'
-sh ./setup-skhd.sh
+sh $dirname/setup-skhd.sh
 skhd --reload
 
 echo '>> Installing rectangle'
