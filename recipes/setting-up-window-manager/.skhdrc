@@ -2,5 +2,9 @@
 hyper - q : open /Applications/Visual\ Studio\ Code.app
 hyper - w : open /Applications/Warp.app
 hyper - e : open /Applications/Notion.app
+
+# hyper - r : open /Applications/Slack.app (work only)
+
 hyper - a : open /Applications/Arc.app
-# hyper - s : open /Applications/Slack.app (work only)
+hyper - s : open /Applications/Spotify.app
+hyper - d : open /Applications/Google\ Chrome.app
