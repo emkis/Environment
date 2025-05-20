@@ -8,3 +8,6 @@ hyper - e : open /Applications/Notion.app
 hyper - a : open /Applications/Arc.app
 hyper - s : open /Applications/Spotify.app
 hyper - d : open /Applications/Google\ Chrome.app
+
+# Bluetooth controls
+hyper - b : toggle-bluetooth
