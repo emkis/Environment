@@ -6,6 +6,9 @@ echo '🎧 User apps setup started'
 echo '>> Installing Notion'
 brew install --cask notion
 
+echo '>> Installing TickTick'
+brew install --cask ticktick
+
 echo '>> Installing Surfshark'
 brew install --cask surfshark
 
