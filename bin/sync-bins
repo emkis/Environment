@@ -2,6 +2,6 @@
 
 dirname=$(cd "$(dirname "${BASH_SOURCE}")"; pwd -P)
 
-mkdir -p ~/bin
-cp -R $dirname/* ~/bin
+mkdir -p ~/bin # Creates a bin folder in home, when not there already
+cp -R $dirname/* ~/bin # Copies all files from this folder to this global bin folder
 echo 'Global bin files synced!'
