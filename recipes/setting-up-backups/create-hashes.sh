@@ -3,7 +3,7 @@
 echo '#️⃣  Finding files to hash'
 
 target_directory="$1" # Gets the target directory from the first argument
-files=$(find "$target_directory" -type f -not -name ".DS_Store") # Finds all files in the target directory recursively, excluding .DS_Store files
+files=$(find "$target_directory" -type f -not -name ".DS_Store" -not -path "*/.fseventsd/*") # Finds all files in the target directory recursively
 file_count=$(echo "$files" | wc -l) # Counts the number of matching files
 
 echo "#️⃣  Creating hashes for $file_count files"
