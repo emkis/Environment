@@ -1,12 +1,12 @@
 # Setting up backups
 
-Recipe to create and verify the file integrity checks for external drives I use for local backup.
+Recipe to create and verify the file integrity for external drives I use for local backup.
 
-Once the backup drive connected:
+Once the backup drive is connected:
 
 - Run `./run.sh` script with the root path of the external drive as argument.
 - In case no previous hashes exist, it will create them.
-- In case hashes already exist, it will verify them and compare them.
+- In case hashes already exist, it will verify them against the files.
 
 ## Manually triggering
 
