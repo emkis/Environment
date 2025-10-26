@@ -49,6 +49,7 @@ TRACKPAD_BLUETOOTH_ID=bc-d0-74-b7-a3-f7
 HEADPHONES_BLUETOOTH_ID=78-2b-64-cc-73-fa 
 KEYBOARD_BLUETOOTH_ID=d2-f3-6f-54-f6-6b
 MOUSE_BLUETOOTH_ID=f4-66-db-5d-ec-7f
+BOSE_SPEAKER_BLUETOOTH_ID=78-2b-64-f7-30-4d
 
 # Map of devices to pair
 declare -A DEVICES=(
@@ -56,6 +57,7 @@ declare -A DEVICES=(
     ["Headphones"]="$HEADPHONES_BLUETOOTH_ID"
     ["Keyboard"]="$KEYBOARD_BLUETOOTH_ID"
     ["Mouse"]="$MOUSE_BLUETOOTH_ID"
+    ["Bose-Speaker"]="$BOSE_SPEAKER_BLUETOOTH_ID"
   )
 
 # Pipe to fzf the keys of the DEVICES map
