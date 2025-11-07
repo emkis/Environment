@@ -5,7 +5,7 @@ hyper - e : open /Applications/Notion.app
 hyper - r : open /Applications/TickTick.app/
 
 hyper - a : open /Applications/Arc.app
-hyper - s : open /Applications/Spotify.app
+hyper - s : open -a "YouTube Music"
 hyper - d : open /Applications/Google\ Chrome.app
 
 # Bluetooth controls
