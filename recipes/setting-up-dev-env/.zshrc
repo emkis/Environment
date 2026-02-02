@@ -41,6 +41,6 @@ source /opt/homebrew/etc/profile.d/z.sh
 # custom aliases
 # for a full list of active aliases, run `alias`.
 alias zshConfig="code ~/.zshrc"
-alias zshHistory="code ~/.zsh_history"
+alias gitConfig="code ~/.gitconfig"
 alias karaConfig="code ~/.config/karabiner/karabiner.json"
 alias skhdConfig="code ~/.skhdrc"
