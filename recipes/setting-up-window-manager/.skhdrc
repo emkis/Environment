@@ -9,4 +9,4 @@ hyper - s : open -a "YouTube Music"
 hyper - d : open /Applications/Google\ Chrome.app
 
 # Bluetooth controls
-hyper - b : toggle-bluetooth
+hyper - b : ~/bin/toggle-bluetooth
