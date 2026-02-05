@@ -7,6 +7,7 @@ hyper - r : open /Applications/TickTick.app/
 hyper - a : open /Applications/Arc.app
 hyper - s : open -a "YouTube Music"
 hyper - d : open /Applications/Google\ Chrome.app
+hyper - f : open -a "Simulator"
 
 # Bluetooth controls
 hyper - b : ~/bin/toggle-bluetooth
