@@ -75,4 +75,4 @@ mkdir -p ~/bin
 cp -R $dirname/../../bin/* ~/bin
 
 
-echo "🔄 Window manager setup completed"
+echo "🔄 Dev environment setup completed"
