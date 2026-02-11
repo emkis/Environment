@@ -6,7 +6,7 @@ dirname=$(cd "$(dirname "${BASH_SOURCE}")"; pwd -P)
 echo '🔄 Dev environment setup started'
 
 
-echo '>> Installing zsh' 
+echo '>> Installing zsh'
 brew install zsh
 
 echo '>> Installing Oh My Zsh'
@@ -29,6 +29,9 @@ brew install nvm
 echo '>> Installing Node.js'
 nvm install --lts
 
+echo '>> Installing Bun'
+brew install bun
+
 echo '>> Installing pnpm'
 brew install pnpm
 
@@ -37,6 +40,15 @@ pnpm add -g git-recent
 
 echo '>> Installing z (fast folder navigator)'
 brew install z
+
+echo '>> Installing tree (Directory tree visualiser)'
+brew install tree
+
+echo '>> Installing fzf (Fuzzy finder)'
+brew install fzf
+
+echo '>> Installing tokei (Code statistics)'
+brew install tokei
 
 echo '>> Installing VSCode'
 brew install --cask visual-studio-code
