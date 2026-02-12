@@ -13,10 +13,10 @@
 	l = !git log --oneline
 	c = !git checkout
 	s = !git status --short
+	brb = !git add . && git commit -m "Be right back"
 	undo = !git reset --soft HEAD~1
 	alt-tab = !git checkout -
 	rebase-main = !git checkout main && git pull && git alt-tab && git rebase main
 	add-branch = !git checkout -b
 	push-remote = !git push origin -u $(git branch --show-current)
-	delete-remote-tag = !git push --delete origin
-	delete-remote = !git push origin -d
+	delete-remote = !git push origin --delete
