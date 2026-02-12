@@ -1,12 +1,12 @@
 # Fast application launcher
-hyper - q : open /Applications/Visual\ Studio\ Code.app
-hyper - w : open /Applications/Warp.app
-hyper - e : open /Applications/Notion.app
-hyper - r : open /Applications/TickTick.app/
+hyper - q : open -a "Zed"
+hyper - w : open -a "Warp"
+hyper - e : open -a "Notion"
+hyper - r : open -a "TickTick"
 
-hyper - a : open /Applications/Arc.app
+hyper - a : open -a "Arc"
 hyper - s : open -a "YouTube Music"
-hyper - d : open /Applications/Google\ Chrome.app
+hyper - d : open -a "Google Chrome"
 hyper - f : open -a "Simulator"
 
 # Bluetooth controls
