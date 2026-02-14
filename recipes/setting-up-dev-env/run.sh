@@ -59,6 +59,9 @@ brew install tokei
 echo '>> Installing VSCode'
 brew install --cask visual-studio-code
 
+echo '>> Installing Zed'
+brew install --cask zed
+
 echo '>> Installing Warp terminal'
 brew install --cask warp
 

@@ -33,6 +33,9 @@ brew install --cask iina
 echo '>> Installing Shottr'
 brew install --cask shottr
 
+echo '>> Installing Mos'
+brew install --cask mos
+
 echo '>> Installing Clipy'
 brew install --cask clipy
 
