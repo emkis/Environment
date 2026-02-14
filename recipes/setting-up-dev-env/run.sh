@@ -36,7 +36,13 @@ echo '>> Installing pnpm'
 brew install pnpm
 
 echo '>> Installing git-recent'
-pnpm add -g git-recent
+pnpm add --global git-recent
+
+echo '>> Installing EAS CLI'
+pnpm add --global eas-cli
+
+echo '>> Installing Android Studio'
+brew install --cask android-studio
 
 echo '>> Installing z (fast folder navigator)'
 brew install z
