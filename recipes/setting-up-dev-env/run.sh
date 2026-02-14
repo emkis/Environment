@@ -44,6 +44,12 @@ pnpm add --global eas-cli
 echo '>> Installing Android Studio'
 brew install --cask android-studio
 
+echo '>> Installing watchman'
+brew install watchman
+
+echo '>> Installing Java'
+brew install --cask zulu@17
+
 echo '>> Installing z (fast folder navigator)'
 brew install z
 
