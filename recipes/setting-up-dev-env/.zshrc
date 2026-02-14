@@ -1,5 +1,6 @@
-# default editor for git
+# default editors
 export EDITOR=/usr/bin/vim
+export IDE=$(which zed)
 
 # setup for shell and prompt
 export ZSH="$HOME/.oh-my-zsh"
@@ -46,7 +47,7 @@ source /opt/homebrew/etc/profile.d/z.sh
 
 # custom aliases
 # for a full list of active aliases, run `alias`.
-alias zshConfig="code ~/.zshrc"
-alias gitConfig="code ~/.gitconfig"
-alias karaConfig="code ~/.config/karabiner/karabiner.json"
-alias skhdConfig="code ~/.skhdrc"
+alias zshConfig="$IDE ~/.zshrc"
+alias gitConfig="$IDE ~/.gitconfig"
+alias karaConfig="$IDE ~/.config/karabiner/karabiner.json"
+alias skhdConfig="$IDE ~/.skhdrc"
