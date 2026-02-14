@@ -1,0 +1,174 @@
+#!/opt/homebrew/bin/bash
+
+set -euo pipefail
+
+ZSHRC_PATH="${HOME}/.zshrc"
+IDE_NAMES=(
+  "Visual Studio Code"
+  "Zed"
+)
+IDE_BINS=(
+  "code"
+  "zed"
+)
+
+err() {
+  printf '%s\n' "$@" >&2
+}
+
+# Print list of IDEs and mark which one appears to be current (based on $IDE in zshrc)
+print_ide_list() {
+  local current_cmd="$1"
+  local i
+
+  printf 'Available IDEs:\n'
+
+  for i in "${!IDE_NAMES[@]}"; do
+    local idx=$((i+1))
+    local name="${IDE_NAMES[i]}"
+    local bin="${IDE_BINS[i]}"
+    local marker=""
+
+    if [[ "$current_cmd" == "$bin" ]] || [[ "$current_cmd" == "$(command -v "$bin" 2>/dev/null)" ]]; then
+      marker="* current"
+    fi
+
+    printf '  %2d) %s (%s) %s\n' "$idx" "$name" "$bin" "$marker"
+  done
+}
+
+# Read the first export IDE=... line from zshrc (full line), or empty
+read_current_ide_line() {
+  if [[ -f "$ZSHRC_PATH" ]]; then
+    awk '/^[[:space:]]*export[[:space:]]+IDE=/{print; exit}' "$ZSHRC_PATH" || true
+  fi
+}
+
+# Extracts the binary name from the IDE export line.
+# Only supports the exact form: export IDE=$(which <binary>)
+extract_cmd_from_line() {
+  local line="$1"
+
+  if [[ "$line" =~ export[[:space:]]+IDE=\$\([[:space:]]*which[[:space:]]+([a-zA-Z0-9._-]+)[[:space:]]*\) ]]; then
+    printf '%s' "${BASH_REMATCH[1]}"
+    return 0
+  fi
+  return 1
+}
+
+# Replace first 'export IDE=...' occurrence in zshrc with provided new_line.
+# If none exists, append new_line to the file.
+write_new_ide_line() {
+  local new_line="$1"
+  if [[ ! -f "$ZSHRC_PATH" ]]; then
+    printf '%s\n' "$new_line" > "$ZSHRC_PATH"
+    printf 'Wrote new IDE export to %s (file created)\n' "$ZSHRC_PATH"
+    return 0
+  fi
+
+  local tmp
+  tmp="$(mktemp "${TMPDIR:-/tmp}/ide-manager.XXXXXX")"
+  awk -v newline="$new_line" '
+    BEGIN { replaced=0 }
+    /^[[:space:]]*export[[:space:]]+IDE=/ {
+      if (!replaced) { print newline; replaced=1; next }
+    }
+    { print }
+    END { if (!replaced) { print ""; print newline } }
+  ' "$ZSHRC_PATH" > "$tmp" && mv "$tmp" "$ZSHRC_PATH"
+  printf 'Updated IDE export in %s\n' "$ZSHRC_PATH"
+}
+
+# Interactive switch
+cmd_switch() {
+  local current_line="$(read_current_ide_line || true)"
+  local current_cmd="$(extract_cmd_from_line "$current_line" || true)"
+
+  print_ide_list "$current_cmd"
+  echo
+  printf 'Enter the number of the IDE to switch to (or q to cancel): '
+  read -r choice
+
+  if [[ -z "$choice" || "$choice" == "q" || "$choice" == "Q" ]]; then
+    echo "Cancelled"
+    return 0
+  fi
+
+  if ! [[ "$choice" =~ ^[0-9]+$ ]]; then
+    err "Invalid choice"
+    return 1
+  fi
+
+  local idx=$((choice-1))
+  if (( idx < 0 || idx >= ${#IDE_NAMES[@]} )); then
+    err "Invalid choice"
+    return 1
+  fi
+
+  local bin="${IDE_BINS[idx]}"
+  local newline="export IDE=\$(which ${bin})"
+  write_new_ide_line "$newline"
+  printf 'Switched IDE to: %s (%s)\n' "${IDE_NAMES[idx]}" "$bin"
+}
+
+# Open current IDE appplication
+cmd_open() {
+  local current_line="$(read_current_ide_line || true)"
+  local current_cmd="$(extract_cmd_from_line "$current_line" || true)"
+
+  # find matching index by bin name
+  local idx=-1
+  local i
+  for i in "${!IDE_BINS[@]}"; do
+    if [[ "${IDE_BINS[i]}" == "$current_cmd" ]]; then
+      idx=$i
+      break
+    fi
+  done
+
+  local app_name="${IDE_NAMES[idx]}"
+  printf 'Opening application: "%s"\n' "$app_name"
+  open -a "$app_name"
+}
+
+# CLI entry point
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [--switch | --open | --help]
+
+Commands:
+  --switch        Interactive menu to choose an IDE (no args).
+  --open          Open the current IDE application (reads ~/.zshrc).
+  --help          Show this help message.
+
+Notes:
+  - This script updates '${ZSHRC_PATH}' by replacing the first matching 'export IDE=...' line.
+    If no such line exists, it appends one to the end of the file.
+  - Changes are applied directly (no backups).
+EOF
+}
+
+if [[ "${#:-}" -eq 0 ]]; then
+  usage
+  exit 0
+fi
+
+case "${1:-}" in
+  --switch)
+    cmd_switch
+    exit $?
+    ;;
+  --open)
+    cmd_open
+    exit $?
+    ;;
+  --help)
+    usage
+    exit 0
+    ;;
+  *)
+    err "Unknown argument: $1"
+    usage
+    exit 2
+    ;;
+esac
