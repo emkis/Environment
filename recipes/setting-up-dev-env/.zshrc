@@ -8,6 +8,8 @@ export STARSHIP_CONFIG="$HOME/starship.toml"
 
 # setup for native development
 export ANDROID_HOME=$HOME/Library/Android/sdk
+export JAVA_HOME=$HOME/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+export PATH=$ANDROID_HOME/emulator:$PATH
 export PATH=$ANDROID_HOME/platform-tools/:$PATH
 
 # defining path for global bins
