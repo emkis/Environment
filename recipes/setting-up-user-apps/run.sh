@@ -12,9 +12,6 @@ brew install --cask ticktick
 echo '>> Installing Surfshark'
 brew install --cask surfshark
 
-echo '>> Installing Spotify'
-brew install --cask spotify
-
 echo '>> Installing Arc browser'
 brew install --cask arc
 
