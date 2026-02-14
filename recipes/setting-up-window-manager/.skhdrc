@@ -1,5 +1,5 @@
 # Fast application launcher
-hyper - q : open -a "Zed"
+hyper - q : ~/bin/ide-manager --open
 hyper - w : open -a "Warp"
 hyper - e : open -a "Notion"
 hyper - r : open -a "TickTick"
