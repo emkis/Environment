@@ -1,5 +1,5 @@
 # default editors
-export EDITOR=/usr/bin/vim
+export EDITOR=vim
 export IDE=$(which zed)
 
 # setup for shell and prompt
@@ -14,10 +14,10 @@ export PATH=$ANDROID_HOME/platform-tools/:$PATH
 export GLOBAL_BINS="$HOME/bin"
 export PATH="$GLOBAL_BINS:$PATH"
 
-# defining path for nvm
+# nvm
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "$(brew --prefix nvm)/nvm.sh" ] && source "$(brew --prefix nvm)/nvm.sh"
+[ -s "$(brew --prefix nvm)/etc/bash_completion.d/nvm" ] && source "$(brew --prefix nvm)/etc/bash_completion.d/nvm"
 
 # defining path for pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
@@ -39,11 +39,10 @@ ZSH_DISABLE_COMPFIX="true"
 plugins=()
 
 # initializing stuff
-source $(brew --prefix nvm)/nvm.sh
 eval "$(starship init zsh)"
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source /opt/homebrew/etc/profile.d/z.sh
+[ -f /opt/homebrew/etc/profile.d/z.sh ] && source /opt/homebrew/etc/profile.d/z.sh
 
 # custom aliases
 # for a full list of active aliases, run `alias`.
