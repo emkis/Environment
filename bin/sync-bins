@@ -5,13 +5,19 @@ repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 target_dir=$GLOBAL_BINS
 
 # Create the global bin directory, if it doesn't exist
-mkdir -p "$target_dir"
+mkdir -p $target_dir
+
+# Removes all stale files from the global bin directory
+rm $target_dir/* 2> /dev/null
 
 # Copy files from this directory to global bin directory
 cp -R $repo_root/bin/ $target_dir/
 
+# Remove this script from global bins, as it can't be ran from there
+rm $target_dir/sync-bins
+
 # Copy bluetooth-related scripts directly from recipes
-cp "$repo_root/recipes/setting-up-bluetooth-devices/setup-devices.sh" "$target_dir"/setup-devices
-cp "$repo_root/recipes/setting-up-bluetooth-devices/toggle-bluetooth.sh" "$target_dir"/toggle-bluetooth
+cp $repo_root/recipes/setting-up-bluetooth-devices/setup-devices.sh $target_dir/setup-devices
+cp $repo_root/recipes/setting-up-bluetooth-devices/toggle-bluetooth.sh $target_dir/toggle-bluetooth
 
 echo 'Global bin files synced!'
