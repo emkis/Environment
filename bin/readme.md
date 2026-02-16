@@ -1,14 +1,10 @@
 # Global bin files
 
-All files in this folder are just symlinks pointing to useful bins I want to have access globally for easy of use.
+All scripts within this directory will be available globally as commands, as they are being exposed into my `PATH` variable. This allows you to run any script from this directory as a command in your terminal.
 
-To create a new symlink, run the following command from the root of the repo:
+## Updating global bin files
+Whenever I make any changes to one of my scripts within this repository, I need to sync them again with my computer. For that we need to run this command:
 
-```bash
-ln -s $(realpath ./script-name.sh) ./bin/script-alias
-```
-
-To sync all local bin files with the global ones, run:
 ```bash
 sync-bins
 ```
