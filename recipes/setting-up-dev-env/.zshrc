@@ -7,9 +7,10 @@ export ZSH="$HOME/.oh-my-zsh"
 export STARSHIP_CONFIG="$HOME/starship.toml"
 
 # setup for native development
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$ANDROID_HOME/emulator:$PATH
-export PATH=$ANDROID_HOME/platform-tools/:$PATH
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$ANDROID_HOME/emulator:$PATH"
+export PATH="$ANDROID_HOME/platform-tools/:$PATH"
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 
 # defining path for global bins
 export GLOBAL_BINS="$HOME/bin"
