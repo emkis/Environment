@@ -3,7 +3,7 @@
 	email = nicolasemkis@gmail.com
 
 [core]
-	ignorecase = false
+	ignorecase = true
 
 [rerere]
 	enabled = true
