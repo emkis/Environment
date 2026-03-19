@@ -1,0 +1,227 @@
+#!/usr/bin/env bun
+
+import {
+  execSync,
+  spawnSync,
+  type ExecSyncOptionsWithBufferEncoding,
+} from "child_process";
+import { join } from "path";
+import {
+  existsSync,
+  mkdirSync,
+  writeFileSync,
+  readdirSync,
+  statSync,
+  readFileSync,
+} from "fs";
+
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+interface Metadata {
+  id: number;
+  title: string;
+  created_at: string;
+}
+
+interface Command {
+  run(args: string[]): void;
+}
+
+// ── Config ────────────────────────────────────────────────────────────────────
+
+const config = {
+  get promptsRepo(): string {
+    const dir = process.env.PROMPTS_REPOSITORY;
+    if (!dir) bail("PROMPTS_REPOSITORY is not set. Add it to your zsh config.");
+    return dir;
+  },
+  get ide(): string {
+    const ide = process.env.IDE;
+    if (!ide) bail("$IDE is not set.");
+    return ide;
+  },
+};
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function bail(message: string): never {
+  console.error(`Error: ${message}`);
+  process.exit(1);
+}
+
+function toKebabCase(input: string): string {
+  return input
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+// ── Tasks ─────────────────────────────────────────────────────────────────────
+
+const tasks = {
+  list(repoRoot: string): string[] {
+    return readdirSync(repoRoot)
+      .filter((entry) => {
+        const fullPath = join(repoRoot, entry);
+        return (
+          statSync(fullPath).isDirectory() &&
+          !entry.startsWith(".") &&
+          readdirSync(fullPath).some((f) => f.endsWith(".prompt.md"))
+        );
+      })
+      .sort();
+  },
+
+  nextPrefix(repoRoot: string): string {
+    let max = 0;
+    for (const dir of tasks.list(repoRoot)) {
+      const match = dir.match(/^(\d+)-/);
+      if (match) max = Math.max(max, parseInt(match[1], 10));
+    }
+    return String(max + 1).padStart(4, "0");
+  },
+
+  readMetadata(path: string): Metadata {
+    return JSON.parse(readFileSync(path, "utf8"));
+  },
+};
+
+// ── UI ────────────────────────────────────────────────────────────────────────
+
+const ui = {
+  pick(items: string[]): string {
+    const result = spawnSync("fzf", [], {
+      input: items.join("\n"),
+      encoding: "utf8",
+      stdio: ["pipe", "pipe", "inherit"],
+    });
+
+    if (result.status !== 0 || !result.stdout.trim()) bail("no task selected");
+    return result.stdout.trim();
+  },
+
+  openInIDE(path: string): void {
+    spawnSync(config.ide, [path], { stdio: "inherit" });
+  },
+};
+
+// ── Git ───────────────────────────────────────────────────────────────────────
+
+const git = {
+  run(command: string, cwd: string): void {
+    const opts: ExecSyncOptionsWithBufferEncoding = { cwd, stdio: "inherit" };
+    try {
+      execSync(command, opts);
+    } catch {
+      bail(`git command failed: ${command}`);
+    }
+  },
+
+  commitTask(repoRoot: string, taskName: string, title: string): void {
+    git.run(`git add ${taskName}/`, repoRoot);
+    git.run(`git commit -m "Add task: ${title}"`, repoRoot);
+    git.run("git push", repoRoot);
+  },
+};
+
+// ── Commands ──────────────────────────────────────────────────────────────────
+
+const commands = {
+  new: {
+    run([title]) {
+      if (!title) bail('Usage: llmt new "<title>"');
+
+      const repoRoot = config.promptsRepo;
+      const prefix = tasks.nextPrefix(repoRoot);
+      const dirName = `${prefix}-${toKebabCase(title)}`;
+      const taskDir = join(repoRoot, dirName);
+
+      if (existsSync(taskDir)) bail(`directory already exists: ${taskDir}`);
+
+      mkdirSync(taskDir);
+
+      const metadata: Metadata = {
+        id: parseInt(prefix, 10),
+        title,
+        created_at: new Date().toISOString(),
+      };
+
+      writeFileSync(
+        join(taskDir, "metadata.json"),
+        JSON.stringify(metadata, null, 2),
+      );
+      writeFileSync(
+        join(taskDir, "research.prompt.md"),
+        `# Research: ${title}\n\n`,
+      );
+      writeFileSync(join(taskDir, "plan.prompt.md"), `# Plan: ${title}\n\n`);
+
+      console.log(`Created: ${taskDir}`);
+      ui.openInIDE(taskDir);
+    },
+  },
+
+  list: {
+    run() {
+      const repoRoot = config.promptsRepo;
+      const dirs = tasks.list(repoRoot);
+      if (dirs.length === 0) bail("no task directories found");
+
+      ui.openInIDE(join(repoRoot, ui.pick(dirs)));
+    },
+  },
+
+  done: {
+    run() {
+      const repoRoot = config.promptsRepo;
+      const dirs = tasks.list(repoRoot);
+      if (dirs.length === 0) bail("no task directories found");
+
+      const taskName = ui.pick(dirs);
+      const metadata = tasks.readMetadata(
+        join(repoRoot, taskName, "metadata.json"),
+      );
+
+      git.commitTask(repoRoot, taskName, metadata.title);
+    },
+  },
+
+  help: {
+    run() {
+      console.log(`llmt - manage LLM prompt directories
+
+Usage:
+  llmt new "<title>"   Create a new task directory with prompt files
+  llmt list            Pick a task with fzf and open it
+  llmt done            Stage, commit, and push the selected task
+  llmt help            Show this help
+
+Environment variables (set in ~/.zshrc):
+  PROMPTS_REPOSITORY   Path to the repository of prompts
+  IDE                  IDE command for opening task directories
+`);
+    },
+  },
+} satisfies Record<string, Command>;
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+
+const [, , command, ...args] = process.argv;
+
+switch (command) {
+  case "new":
+    commands.new.run(args);
+    break;
+  case "list":
+    commands.list.run();
+    break;
+  case "done":
+    commands.done.run();
+    break;
+  case "help":
+    commands.help.run();
+    break;
+  default:
+    commands.help.run();
+    process.exit(1);
+}
