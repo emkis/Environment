@@ -30,7 +30,7 @@ echo '>> Installing Node.js'
 nvm install --lts
 
 echo '>> Installing Bun'
-brew install bun
+brew install oven-sh/bun/bun
 
 echo '>> Installing pnpm'
 brew install pnpm
