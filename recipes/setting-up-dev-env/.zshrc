@@ -2,6 +2,9 @@
 export EDITOR=vim
 export IDE=$(which zed)
 
+# common directories
+export PROMPTS_REPOSITORY="$HOME/code/Prompts"
+
 # setup for shell and prompt
 export ZSH="$HOME/.oh-my-zsh"
 export STARSHIP_CONFIG="$HOME/starship.toml"
