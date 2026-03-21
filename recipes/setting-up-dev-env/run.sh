@@ -71,6 +71,11 @@ brew install --cask visual-studio-code
 echo '>> Installing Zed'
 brew install --cask zed
 
+echo '>> Configuring Zed'
+mkdir -p ~/.config/zed
+cp $dirname/zed/settings.json ~/.config/zed/settings.json
+cp $dirname/zed/keymap.json ~/.config/zed/keymap.json
+
 echo '>> Installing Warp terminal'
 brew install --cask warp
 
