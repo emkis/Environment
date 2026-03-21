@@ -1,0 +1,222 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-;": [
+        "editor::ToggleComments",
+        {
+          "advance_downwards": false
+        }
+      ]
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-ç": null
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-r": "editor::Rename"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "f2": null
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-t": "editor::ToggleCase"
+    }
+  },
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {
+      "cmd-e": null
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-e": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "cmd-e": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-shift-e": null
+    }
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "cmd-shift-e": null
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-shift-b": null
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-b": null
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-b": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "(Workspace > Editor) || Workspace",
+    "bindings": {
+      "cmd-g": "git_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-g": null
+    }
+  },
+  {
+    "context": "ContextEditor > Editor",
+    "bindings": {
+      "cmd-g": null
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-shift-g": null
+    }
+  },
+  {
+    "context": "ContextEditor > Editor",
+    "bindings": {
+      "cmd-shift-g": null
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "n": "project_panel::NewFile"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "cmd-n": null
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "shift-n": "project_panel::NewDirectory"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "alt-cmd-n": null
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-l": null
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-l": "editor::SelectAllMatches"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-shift-s": null
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-shift-s": "workspace::SaveWithoutFormat"
+    }
+  },
+  {
+    "bindings": {
+      "cmd-shift-c": "editor::CopyRelativePath"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-j": "editor::GoToDefinition"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-j": null
+    }
+  },
+  {
+    "bindings": {
+      "cmd-shift-k": "agent::ToggleFocus"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-Ç": null
+    }
+  },
+  {
+    "context": "Never",
+    "bindings": {
+      "cmd-shift-k": "editor::DeleteLine"
+    }
+  },
+  {
+    "context": "!ContextEditor > (Editor && mode == full)",
+    "bindings": {
+      "cmd-k": "assistant::InlineAssist"
+    }
+  }
+]
