@@ -6,15 +6,12 @@ dirname=$(cd "$(dirname "${BASH_SOURCE}")"; pwd -P)
 echo '🔄 Dev environment setup started'
 
 
-echo '>> Installing zsh'
-brew install zsh
+echo '>> Installing fish'
+brew install fish
 
-echo '>> Installing Oh My Zsh'
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-echo '>> Configuring Oh My Zsh'
-touch ~/.zshrc
-echo "$(cat $dirname/.zshrc)" > ~/.zshrc
+echo '>> Configuring fish'
+mkdir -p ~/.config/fish
+cp $dirname/config.fish ~/.config/fish/config.fish
 
 echo '>> Installing Starship'
 brew install starship
@@ -23,11 +20,11 @@ echo '>> Configuring Starship'
 touch ~/starship.toml
 echo "$(cat $dirname/starship.toml)" > ~/starship.toml
 
-echo '>> Installing nvm'
-brew install nvm
+echo '>> Installing fnm (nvm for fish)'
+brew install fnm
 
 echo '>> Installing Node.js'
-nvm install --lts
+fnm install --lts
 
 echo '>> Installing Bun'
 brew install oven-sh/bun/bun
@@ -50,8 +47,14 @@ brew install watchman
 echo '>> Installing Java'
 brew install --cask zulu@17
 
-echo '>> Installing z (fast folder navigator)'
-brew install z
+echo '>> Installing bat (cat replacement)'
+brew install bat
+
+echo '>> Installing eza (ls replacement)'
+brew install eza
+
+echo '>> Installing zoxide (z for fish)'
+brew install zoxide
 
 echo '>> Installing tree (Directory tree visualiser)'
 brew install tree

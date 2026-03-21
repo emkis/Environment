@@ -12,8 +12,6 @@ add_newline = false
 # Symbols that appear before your command input
 # It's disabled because Warp puts the input in a separeted line
 [character]
-# success_symbol = '[👉](bold)'
-# error_symbol = '[🔥](bold)'
 disabled = true
 
 # Disabling package module
