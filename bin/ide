@@ -1,0 +1,161 @@
+#!/usr/bin/env bun
+
+import { $ } from "bun";
+
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+interface Ide {
+  name: string;
+  bin: string;
+}
+
+interface Command {
+  run(args: string[]): Promise<void> | void;
+}
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const ZSHRC_PATH = `${process.env.HOME}/.zshrc`;
+
+const IDES: Ide[] = [
+  { name: "Visual Studio Code", bin: "code" },
+  { name: "Zed", bin: "zed" },
+];
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function bail(message: string): never {
+  process.stderr.write(message + "\n");
+  process.exit(1);
+}
+
+// ── Zshrc ─────────────────────────────────────────────────────────────────────
+
+const zshrc = {
+  async read(): Promise<string> {
+    const file = Bun.file(ZSHRC_PATH);
+    return (await file.exists()) ? file.text() : "";
+  },
+
+  currentIdeLine(content: string): string {
+    return content.match(/^[ \t]*export[ \t]+IDE=.*/m)?.[0] ?? "";
+  },
+
+  extractBin(line: string): string {
+    return (
+      line.match(/export\s+IDE=\$\(\s*which\s+([a-zA-Z0-9._-]+)\s*\)/)?.[1] ?? ""
+    );
+  },
+
+  async currentBin(): Promise<string> {
+    const content = await zshrc.read();
+    return zshrc.extractBin(zshrc.currentIdeLine(content));
+  },
+
+  async writeIdeLine(newLine: string): Promise<void> {
+    const content = await zshrc.read();
+
+    if (!content) {
+      await Bun.write(ZSHRC_PATH, newLine + "\n");
+      console.log(`Wrote new IDE export to ${ZSHRC_PATH} (file created)`);
+      return;
+    }
+
+    const ideLineRegex = /^[ \t]*export[ \t]+IDE=.*/m;
+    if (ideLineRegex.test(content)) {
+      const newContent = content.replace(ideLineRegex, newLine);
+      await Bun.write(ZSHRC_PATH, newContent);
+    } else {
+      await Bun.write(ZSHRC_PATH, content + "\n" + newLine + "\n");
+    }
+
+    console.log(`Updated IDE export in ${ZSHRC_PATH}`);
+  },
+};
+
+// ── Commands ──────────────────────────────────────────────────────────────────
+
+const commands = {
+  switch: {
+    async run() {
+      const content = await zshrc.read();
+      const currentBin = zshrc.extractBin(zshrc.currentIdeLine(content));
+
+      const input = Buffer.from(IDES.map((ide) => `${ide.name} (${ide.bin})`).join("\n"));
+      const header = `Current: ${currentBin || "none"}`;
+
+      const selected = (
+        await $`fzf --prompt="Select IDE > " --header=${header} < ${input}`.nothrow().text()
+      ).trim();
+
+      if (!selected) {
+        console.log("Cancelled");
+        return;
+      }
+
+      const ide = IDES.find((ide) => `${ide.name} (${ide.bin})` === selected);
+      if (!ide) bail("Invalid selection");
+
+      await zshrc.writeIdeLine(`export IDE=$(which ${ide.bin})`);
+      console.log(`Switched IDE to: ${ide.name} (${ide.bin})`);
+    },
+  },
+
+  open: {
+    async run() {
+      const bin = await zshrc.currentBin();
+      const ide = IDES.find((i) => i.bin === bin);
+      if (!ide) bail(`No matching IDE found for command: ${bin}`);
+
+      console.log(`Opening application: "${ide.name}"`);
+      await $`open -a ${ide.name}`;
+    },
+  },
+
+  path: {
+    async run([path]: string[]) {
+      const bin = await zshrc.currentBin();
+      if (!bin) bail("No IDE configured. Run 'ide switch' to set one.");
+
+      await $`${bin} ${path}`;
+    },
+  },
+
+  help: {
+    run() {
+      const scriptName = import.meta.path.split("/").pop() ?? "ide";
+      console.log(`\
+Usage: ${scriptName} [<path> | open | switch | help]
+
+Commands:
+  <path>          Open the given path in the current IDE.
+  open            Open the current IDE application (reads ~/.zshrc).
+  switch          Interactive menu to choose an IDE.
+  help            Show this help message.
+
+Notes:
+  - This script updates '${ZSHRC_PATH}' by replacing the first matching 'export IDE=...' line.
+    If no such line exists, it appends one to the end of the file.
+  - Changes are applied directly (no backups).`);
+    },
+  },
+} satisfies Record<string, Command>;
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+
+const [, , command, ...args] = process.argv;
+
+switch (command) {
+  case undefined:
+  case "help":
+    commands.help.run([]);
+    break;
+  case "switch":
+    await commands.switch.run([]);
+    break;
+  case "open":
+    await commands.open.run([]);
+    break;
+  default:
+    await commands.path.run([command, ...args]);
+}
