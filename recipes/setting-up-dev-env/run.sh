@@ -71,6 +71,9 @@ brew install --cask zed
 echo '>> Installing Warp terminal'
 brew install --cask warp
 
+echo '>> Installing Claude code'
+curl -fsSL https://claude.ai/install.sh | bash
+
 echo '>> Installing font Fira Code'
 brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
