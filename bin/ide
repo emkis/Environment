@@ -15,7 +15,7 @@ interface Command {
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const ZSHRC_PATH = `${process.env.HOME}/.zshrc`;
+const FISH_CONFIG_PATH = `${process.env.HOME}/.config/fish/config.fish`;
 
 const IDES: Ide[] = [
   { name: "Visual Studio Code", bin: "code" },
@@ -29,47 +29,47 @@ function bail(message: string): never {
   process.exit(1);
 }
 
-// ── Zshrc ─────────────────────────────────────────────────────────────────────
+// ── Fish config ───────────────────────────────────────────────────────────────
 
-const zshrc = {
+const fishConfig = {
   async read(): Promise<string> {
-    const file = Bun.file(ZSHRC_PATH);
+    const file = Bun.file(FISH_CONFIG_PATH);
     return (await file.exists()) ? file.text() : "";
   },
 
   currentIdeLine(content: string): string {
-    return content.match(/^[ \t]*export[ \t]+IDE=.*/m)?.[0] ?? "";
+    return content.match(/^[ \t]*set -gx IDE .*/m)?.[0] ?? "";
   },
 
   extractBin(line: string): string {
     return (
-      line.match(/export\s+IDE=\$\(\s*which\s+([a-zA-Z0-9._-]+)\s*\)/)?.[1] ?? ""
+      line.match(/set -gx IDE \(which ([a-zA-Z0-9._-]+)\)/)?.[1] ?? ""
     );
   },
 
   async currentBin(): Promise<string> {
-    const content = await zshrc.read();
-    return zshrc.extractBin(zshrc.currentIdeLine(content));
+    const content = await fishConfig.read();
+    return fishConfig.extractBin(fishConfig.currentIdeLine(content));
   },
 
   async writeIdeLine(newLine: string): Promise<void> {
-    const content = await zshrc.read();
+    const content = await fishConfig.read();
 
     if (!content) {
-      await Bun.write(ZSHRC_PATH, newLine + "\n");
-      console.log(`Wrote new IDE export to ${ZSHRC_PATH} (file created)`);
+      await Bun.write(FISH_CONFIG_PATH, newLine + "\n");
+      console.log(`Wrote new IDE line to ${FISH_CONFIG_PATH} (file created)`);
       return;
     }
 
-    const ideLineRegex = /^[ \t]*export[ \t]+IDE=.*/m;
+    const ideLineRegex = /^[ \t]*set -gx IDE .*/m;
     if (ideLineRegex.test(content)) {
       const newContent = content.replace(ideLineRegex, newLine);
-      await Bun.write(ZSHRC_PATH, newContent);
+      await Bun.write(FISH_CONFIG_PATH, newContent);
     } else {
-      await Bun.write(ZSHRC_PATH, content + "\n" + newLine + "\n");
+      await Bun.write(FISH_CONFIG_PATH, content + "\n" + newLine + "\n");
     }
 
-    console.log(`Updated IDE export in ${ZSHRC_PATH}`);
+    console.log(`Updated IDE line in ${FISH_CONFIG_PATH}`);
   },
 };
 
@@ -78,8 +78,8 @@ const zshrc = {
 const commands = {
   switch: {
     async run() {
-      const content = await zshrc.read();
-      const currentBin = zshrc.extractBin(zshrc.currentIdeLine(content));
+      const content = await fishConfig.read();
+      const currentBin = fishConfig.extractBin(fishConfig.currentIdeLine(content));
 
       const input = Buffer.from(IDES.map((ide) => `${ide.name} (${ide.bin})`).join("\n"));
       const header = `Current: ${currentBin || "none"}`;
@@ -96,14 +96,14 @@ const commands = {
       const ide = IDES.find((ide) => `${ide.name} (${ide.bin})` === selected);
       if (!ide) bail("Invalid selection");
 
-      await zshrc.writeIdeLine(`export IDE=$(which ${ide.bin})`);
+      await fishConfig.writeIdeLine(`set -gx IDE (which ${ide.bin})`);
       console.log(`Switched IDE to: ${ide.name} (${ide.bin})`);
     },
   },
 
   open: {
     async run() {
-      const bin = await zshrc.currentBin();
+      const bin = await fishConfig.currentBin();
       const ide = IDES.find((i) => i.bin === bin);
       if (!ide) bail(`No matching IDE found for command: ${bin}`);
 
@@ -114,7 +114,7 @@ const commands = {
 
   path: {
     async run([path]: string[]) {
-      const bin = await zshrc.currentBin();
+      const bin = await fishConfig.currentBin();
       if (!bin) bail("No IDE configured. Run 'ide switch' to set one.");
 
       await $`${bin} ${path}`;
@@ -129,12 +129,12 @@ Usage: ${scriptName} [<path> | open | switch | help]
 
 Commands:
   <path>          Open the given path in the current IDE.
-  open            Open the current IDE application (reads ~/.zshrc).
+  open            Open the current IDE application (reads ~/.config/fish/config.fish).
   switch          Interactive menu to choose an IDE.
   help            Show this help message.
 
 Notes:
-  - This script updates '${ZSHRC_PATH}' by replacing the first matching 'export IDE=...' line.
+  - This script updates '${FISH_CONFIG_PATH}' by replacing the first matching 'set -gx IDE ...' line.
     If no such line exists, it appends one to the end of the file.
   - Changes are applied directly (no backups).`);
     },
