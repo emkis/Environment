@@ -23,6 +23,9 @@ fnm env --use-on-cd | source
 
 # Aliases
 # see all by running `alias`
+alias cat="bat"
+alias nvm="fnm"
+alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias fishConfig="ide ~/.config/fish/config.fish"
 alias gitConfig="ide ~/.gitconfig"
 alias karaConfig="ide ~/.config/karabiner/karabiner.json"
