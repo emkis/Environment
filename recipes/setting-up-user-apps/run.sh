@@ -39,6 +39,9 @@ brew install --cask mos
 echo '>> Installing Clipy'
 brew install --cask clipy
 
+echo '>> Installing Raycast'
+brew install --cask raycast
+
 echo '>> Changing dock configuration'
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
