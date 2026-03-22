@@ -82,6 +82,9 @@ brew install --cask warp
 echo '>> Installing Claude code'
 curl -fsSL https://claude.ai/install.sh | bash
 
+echo '>> Installing OrbStack'
+brew install orbstack
+
 echo '>> Installing font Fira Code'
 brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
