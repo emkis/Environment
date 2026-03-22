@@ -82,6 +82,9 @@ brew install --cask warp
 echo '>> Installing Claude code'
 curl -fsSL https://claude.ai/install.sh | bash
 
+echo '>> Installing Docker'
+brew install docker
+
 echo '>> Installing OrbStack'
 brew install orbstack
 
