@@ -9,6 +9,7 @@ import { join } from "path";
 import {
   existsSync,
   mkdirSync,
+  rmSync,
   writeFileSync,
   readdirSync,
   statSync,
@@ -84,6 +85,21 @@ const tasks = {
   readMetadata(path: string): Metadata {
     return JSON.parse(readFileSync(path, "utf8"));
   },
+
+  uncommitted(repoRoot: string): string[] {
+    const result = spawnSync(
+      "git",
+      ["ls-files", "--others", "--directory", "--exclude-standard"],
+      { cwd: repoRoot, encoding: "utf8" },
+    );
+    const untrackedDirs = new Set(
+      result.stdout
+        .split("\n")
+        .map((l) => l.replace(/\/$/, "").trim())
+        .filter(Boolean),
+    );
+    return tasks.list(repoRoot).filter((dir) => untrackedDirs.has(dir));
+  },
 };
 
 // ── UI ────────────────────────────────────────────────────────────────────────
@@ -98,6 +114,13 @@ const ui = {
 
     if (result.status !== 0 || !result.stdout.trim()) bail("no task selected");
     return result.stdout.trim();
+  },
+
+  confirm(message: string): boolean {
+    const result = spawnSync("bash", ["-c", `read -p "${message} [y/N] " r && [[ "$r" == "y" || "$r" == "Y" ]]`], {
+      stdio: "inherit",
+    });
+    return result.status === 0;
   },
 
   openInIDE(path: string): void {
@@ -186,6 +209,22 @@ const commands = {
     },
   },
 
+  delete: {
+    run() {
+      const repoRoot = config.promptsRepo;
+      const dirs = tasks.uncommitted(repoRoot);
+      if (dirs.length === 0) bail("no untracked task directories found");
+
+      const taskName = ui.pick(dirs);
+      const taskDir = join(repoRoot, taskName);
+
+      if (!ui.confirm(`Delete "${taskName}"?`)) bail("aborted");
+
+      rmSync(taskDir, { recursive: true, force: true });
+      console.log(`Deleted: ${taskDir}`);
+    },
+  },
+
   help: {
     run() {
       console.log(`llmt - manage LLM prompt directories
@@ -194,6 +233,7 @@ Usage:
   llmt new "<title>"   Create a new task directory with prompt files
   llmt list            Pick a task with fzf and open it
   llmt done            Stage, commit, and push the selected task
+  llmt delete          Delete an uncommitted task directory
   llmt help            Show this help
 
 Environment variables (set in ~/.zshrc):
@@ -217,6 +257,9 @@ switch (command) {
     break;
   case "done":
     commands.done.run();
+    break;
+  case "delete":
+    commands.delete.run();
     break;
   case "help":
     commands.help.run();
