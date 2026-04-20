@@ -147,6 +147,32 @@ const git = {
   },
 };
 
+// ── Templates ─────────────────────────────────────────────────────────────────
+
+const templates = {
+  researchPrompt(title: string, taskDir: string): string {
+    return `
+# Research: ${title}
+[Start here]
+
+Read and study everything described above in great depth. Don't skim — understand the intricacies, the edge cases, and how the pieces fit together.
+
+## Output
+When you're done, write a detailed research report at ${taskDir}/research.md
+`.trim();
+  },
+
+  planPrompt(title: string, taskDir: string): string {
+    return `
+# Plan: ${title}
+[Start here]
+
+## Output
+When you're done, write a detailed research report at ${taskDir}/plan.md
+`.trim();
+  },
+};
+
 // ── Commands ──────────────────────────────────────────────────────────────────
 
 const commands = {
@@ -175,9 +201,12 @@ const commands = {
       );
       writeFileSync(
         join(taskDir, "research.prompt.md"),
-        `# Research: ${title}\n\n`,
+        templates.researchPrompt(title, taskDir),
       );
-      writeFileSync(join(taskDir, "plan.prompt.md"), `# Plan: ${title}\n\n`);
+      writeFileSync(
+        join(taskDir, "plan.prompt.md"),
+        templates.planPrompt(title, taskDir),
+      );
 
       console.log(`Created: ${taskDir}`);
       ui.openInIDE(taskDir);
