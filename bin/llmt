@@ -159,7 +159,7 @@ Read and study everything described above in great depth. Don't skim — underst
 
 ## Output
 When you're done, write a detailed research report at ${taskDir}/research.md
-`.trim();
+`.trimStart();
   },
 
   planPrompt(title: string, taskDir: string): string {
@@ -167,9 +167,28 @@ When you're done, write a detailed research report at ${taskDir}/research.md
 # Plan: ${title}
 [Start here]
 
+Based on the research above, write a detailed plan that includes:
+- Code snippets showing the before and after for key changes
+- The list of files that will be modified
+- Trade-off considerations for any non-obvious decisions
+- A detailed todo list broken into phases and individual tasks
+
+Don't implement yet.
+
 ## Output
-When you're done, write a detailed research report at ${taskDir}/plan.md
-`.trim();
+When you're done, write the plan at ${taskDir}/plan.md
+`.trimStart();
+  },
+
+  executePrompt(taskDir: string): string {
+    return `
+Read the plan at ${taskDir}/plan.md and implement it all.
+When you're done with a task or phase, mark it as completed in the plan.
+Do not stop until all tasks and phases are completed.
+Do not add unnecessary comments or JSDoc.
+Do not use \`any\` or \`unknown\` types.
+Continuously run typecheck to make sure you're not introducing new issues.
+`.trimStart();
   },
 };
 
@@ -206,6 +225,10 @@ const commands = {
       writeFileSync(
         join(taskDir, "plan.prompt.md"),
         templates.planPrompt(title, taskDir),
+      );
+      writeFileSync(
+        join(taskDir, "execute.md"),
+        templates.executePrompt(taskDir),
       );
 
       console.log(`Created: ${taskDir}`);
