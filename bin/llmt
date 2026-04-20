@@ -63,12 +63,9 @@ const tasks = {
   list(repoRoot: string): string[] {
     return readdirSync(repoRoot)
       .filter((entry) => {
-        const fullPath = join(repoRoot, entry);
-        return (
-          statSync(fullPath).isDirectory() &&
-          !entry.startsWith(".") &&
-          readdirSync(fullPath).some((f) => f.endsWith(".prompt.md"))
-        );
+        const isDir = statSync(join(repoRoot, entry)).isDirectory();
+        const hidden = entry.startsWith(".");
+        return isDir && !hidden;
       })
       .sort();
   },
