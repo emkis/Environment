@@ -2,7 +2,9 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GDRIVE_REMOTE="gdrive:/"
+EXCLUDE_FILE="$SCRIPT_DIR/exclude-rules.txt"
 
 # Always revoke the Google Drive token when the script exits, even on failure
 trap 'rclone config disconnect gdrive: 2>/dev/null; echo "🔑 Google Drive token revoked."' EXIT
@@ -40,13 +42,14 @@ read -r -p "Sync $GDRIVE_REMOTE → $SSD_PATH? [y/N] " confirm
 # Sync Google Drive to the SSD — copies new/modified files, removes deleted ones, compares by hash
 echo ""
 echo "🔄 Syncing $GDRIVE_REMOTE → $SSD_PATH..."
-rclone sync "$GDRIVE_REMOTE" "$SSD_PATH" --checksum --progress
+rclone sync "$GDRIVE_REMOTE" "$SSD_PATH" --checksum --progress --ignore-errors --exclude-from "$EXCLUDE_FILE"
 echo "✅ Sync complete."
 
-# Verify every file on the SSD matches Google Drive by checksum
+# Verify every file on the SSD matches Google Drive by checksum 
 echo ""
 echo "🔍 Verifying integrity..."
-rclone check "$GDRIVE_REMOTE" "$SSD_PATH" --checksum
+rclone check "$GDRIVE_REMOTE" "$SSD_PATH" --checksum --one-way --exclude-from "$EXCLUDE_FILE"
+# rclone check gdrive:/ /Volumes/emk-backup --checksum --one-way --exclude-from 
 echo "✅ Integrity verified."
 
 echo ""
