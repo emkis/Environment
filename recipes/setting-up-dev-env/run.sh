@@ -79,6 +79,9 @@ cp $dirname/zed/keymap.json ~/.config/zed/keymap.json
 echo '>> Installing Warp terminal'
 brew install --cask warp
 
+echo '>> Installing Hex'
+brew install --cask kitlangton-hex
+
 echo '>> Installing Claude code'
 curl -fsSL https://claude.ai/install.sh | bash
 
