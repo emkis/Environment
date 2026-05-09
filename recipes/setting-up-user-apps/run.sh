@@ -12,8 +12,8 @@ brew install --cask ticktick
 echo '>> Installing Surfshark'
 brew install --cask surfshark
 
-echo '>> Installing Arc browser'
-brew install --cask arc
+echo '>> Installing Zen browser'
+brew install --cask zen
 
 echo '>> Installing Google Chrome'
 brew install --cask google-chrome
