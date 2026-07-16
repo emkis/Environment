@@ -9,6 +9,15 @@ echo '🔄 Dev environment setup started'
 echo '>> Installing fish'
 brew install fish
 
+echo '>> Adding fish to /etc/shells'
+FISH_PATH="$(which fish)"
+if ! grep -q "$FISH_PATH" /etc/shells; then
+  echo "$FISH_PATH" | sudo tee -a /etc/shells
+fi
+
+echo '>> Setting fish as default shell'
+chsh -s "$FISH_PATH"
+
 echo '>> Configuring fish'
 mkdir -p ~/.config/fish
 cp $dirname/config.fish ~/.config/fish/config.fish
@@ -24,6 +33,7 @@ echo '>> Installing fnm (nvm for fish)'
 brew install fnm
 
 echo '>> Installing Node.js'
+eval "$(fnm env)"
 fnm install --lts
 
 echo '>> Installing Bun'
@@ -79,14 +89,8 @@ cp $dirname/zed/keymap.json ~/.config/zed/keymap.json
 echo '>> Installing Warp terminal'
 brew install --cask warp
 
-echo '>> Installing Hex'
-brew install --cask kitlangton-hex
-
 echo '>> Installing Claude code'
 curl -fsSL https://claude.ai/install.sh | bash
-
-echo '>> Installing Docker'
-brew install docker
 
 echo '>> Installing OrbStack'
 brew install orbstack
