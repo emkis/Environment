@@ -15,7 +15,8 @@
 	brb = !git add . && git commit -m \"Be right back\" --no-verify
 	undo = !git reset --soft HEAD~1
 	alt-tab = !git checkout -
-	rebase-main = !git checkout main && git pull && git alt-tab && git rebase main
-	add-branch = !git checkout -b
+	sync = !git fetch origin main && git rebase origin/main
+	start = "!f() { git fetch origin main && git checkout -b \"$1\" origin/main; }; f"
 	push-remote = !git push origin -u $(git branch --show-current)
 	delete-remote = !git push origin --delete
+	ready = "!f() { old=\"$(git branch --show-current)\"; root=\"$(basename \"$(git rev-parse --show-toplevel)\")\"; root=\"${root%%:*}\"; new=\"ready-$root\"; git fetch origin main && git checkout -B \"$new\" origin/main && if [ -n \"$old\" ] && [ \"$old\" != \"$new\" ]; then git branch -d \"$old\"; fi; }; f"
