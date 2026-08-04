@@ -12,11 +12,40 @@
 	l = !git log --oneline
 	c = !git checkout
 	s = !git status --short
-	brb = !git add . && git commit -m \"Be right back\" --no-verify
+	swap = !git checkout -
 	undo = !git reset --soft HEAD~1
-	alt-tab = !git checkout -
-	sync = !git fetch origin main && git rebase origin/main
-	start = "!f() { git fetch origin main && git checkout -b \"$1\" origin/main; }; f"
-	push-remote = !git push origin -u $(git branch --show-current)
-	delete-remote = !git push origin --delete
-	ready = "!f() { old=\"$(git branch --show-current)\"; root=\"$(basename \"$(git rev-parse --show-toplevel)\")\"; root=\"${root%%:*}\"; new=\"ready-$root\"; git fetch origin main && git checkout -B \"$new\" origin/main && if [ -n \"$old\" ] && [ \"$old\" != \"$new\" ]; then git branch -d \"$old\"; fi; }; f"
+	rm = !git branch -D
+	rmr = !git push origin --delete
+
+	# Use case: Commits everything in progress, no checks.
+	#
+	# 1. Stages all changes
+	# 2. Commits with placeholder message, skipping hooks
+	brb = !git add . && git commit -m \"BE RIGHT BACK\" --no-verify
+
+	# Use case: Registers the local branch in the remote.
+	#
+	# 1. Pushes current branch to origin
+	# 2. Sets it as the tracking branch
+	psr = !git push origin -u $(git branch --show-current)
+
+	# Use case: Rebases current branch with the remote's default branch.
+	#
+	# 1. Fetches the remote's default branch
+	# 2. Rebases current branch on top of it
+	rbm = "!f() { default-branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD)); git fetch origin $default-branch && git rebase origin/$default-branch; }; f"
+
+	# Use case: Creates a new up-to-date branch.
+	#
+	# 1. Fetches the remote's default branch
+	# 2. Creates a new branch (updated against this above)
+	# 3. Switches to this new branch
+	new = "!f() { default-branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD)); git fetch origin $default-branch && git checkout -b \"$1\" origin/$default-branch; }; f"
+
+	# Use case: Resets a scratch branch to a fresh state for starting new work.
+	#
+	# 1. Fetches the remote's default branch
+	# 2. Creates/resets branch "ready-<repo-name>" to it
+	# 3. Switches to this branch
+	# 4. Deletes the old branch, if different
+	ready = "!f() { default-branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD)); old=\"$(git branch --show-current)\"; root=\"$(basename \"$(git rev-parse --show-toplevel)\")\"; root=\"${root%%:*}\"; new=\"ready-$root\"; git fetch origin $default-branch && git checkout -B \"$new\" origin/$default-branch && if [ -n \"$old\" ] && [ \"$old\" != \"$new\" ]; then git branch -d \"$old\"; fi; }; f"
