@@ -1,10 +1,27 @@
 #!/opt/homebrew/bin/bash
 
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+log_ok() {
+    printf "${GREEN}✔${NC} %s\n" "$1"
+}
+
+log_error() {
+    printf "${RED}✘${NC} %s\n" "$1"
+}
+
+log_progress() {
+    printf "${YELLOW}○${NC} %s\n" "$1"
+}
+
 pair_device_if_needed() {
     local DEVICE_ID="$1"
     local DEVICE_NAME="$2"
     local FORCE_UNPAIR=${3:-false} # default as false
-    local IS_PAIRED=false 
+    local IS_PAIRED=false
 
     # Check if device is already paired
     if blueutil --paired | grep -q "$DEVICE_ID"; then
@@ -13,36 +30,45 @@ pair_device_if_needed() {
 
     # Exiting when device is already paired
     if [ "$IS_PAIRED" = true ] && [ "$FORCE_UNPAIR" = false ]; then
-        printf ">> Device $DEVICE_NAME ($DEVICE_ID) is already paired \n\n"
+        log_ok "$DEVICE_NAME: already paired"
         return 0
     fi
 
     # When asked, we unpair the device before pairing it again
     if [ "$IS_PAIRED" = true ] && [ "$FORCE_UNPAIR" = true ]; then
-        echo ">> Device $DEVICE_NAME ($DEVICE_ID) is already paired. Unpairing..."
-        blueutil --unpair "$DEVICE_ID"
+        log_progress "$DEVICE_NAME: unpairing..."
+        blueutil --unpair "$DEVICE_ID" > /dev/null 2>&1
         # If unpairing command succeeds, we print a message and continue
         if [ $? -eq 0 ]; then
-            echo ">> Device $DEVICE_NAME ($DEVICE_ID) unpaired"
+            log_ok "$DEVICE_NAME: unpaired"
         # If unpairing command fails (exit not 0), exit with error as well
         else
-            printf ">> Failed to unpair device $DEVICE_NAME ($DEVICE_ID) \n\n"
+            log_error "$DEVICE_NAME: failed to unpair"
             return 1
         fi
     fi
 
-    echo ">> Turn on the $DEVICE_NAME and press any key to continue..."
+    log_progress "$DEVICE_NAME: turn on device and press any key to continue..."
     read -n 1 -s
 
-    echo ">> Device $DEVICE_NAME ($DEVICE_ID) is not paired. Attempting to pair..."
-    blueutil --pair "$DEVICE_ID"
+    local MAX_ATTEMPTS=2
+    local ATTEMPT=1
 
-    if [ $? -eq 0 ]; then
-        printf ">> Pairing request sent to $DEVICE_NAME ($DEVICE_ID) \n\n"
-    else
-        printf ">> Failed to pair with $DEVICE_NAME ($DEVICE_ID) \n\n"
-        return 1
-    fi
+    while [ "$ATTEMPT" -le "$MAX_ATTEMPTS" ]; do
+        log_progress "$DEVICE_NAME: pairing (try $ATTEMPT/$MAX_ATTEMPTS)..."
+        blueutil --pair "$DEVICE_ID" > /dev/null 2>&1
+
+        if [ $? -eq 0 ]; then
+            log_ok "$DEVICE_NAME: pairing request sent"
+            return 0
+        fi
+
+        log_error "$DEVICE_NAME: pair failed (try $ATTEMPT/$MAX_ATTEMPTS)"
+        ATTEMPT=$((ATTEMPT + 1))
+    done
+
+    log_error "$DEVICE_NAME: giving up after $MAX_ATTEMPTS attempts"
+    return 1
 }
 
 TRACKPAD_BLUETOOTH_ID=bc-d0-74-b7-a3-f7
@@ -82,4 +108,4 @@ for DEVICE_NAME in $SELECTED_DEVICES; do
     esac
 done
 
-echo ">> All done"
+log_ok "All done"
