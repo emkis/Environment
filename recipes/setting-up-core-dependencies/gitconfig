@@ -33,14 +33,14 @@
 	#
 	# 1. Fetches the remote's default branch
 	# 2. Rebases current branch on top of it
-	rbm = "!f() { default-branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD)); git fetch origin $default-branch && git rebase origin/$default-branch; }; f"
+	rbm = "!f() { default_branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD)); git fetch origin $default_branch && git rebase origin/$default_branch; }; f"
 
 	# Use case: Creates a new up-to-date branch.
 	#
 	# 1. Fetches the remote's default branch
 	# 2. Creates a new branch (updated against this above)
 	# 3. Switches to this new branch
-	new = "!f() { default-branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD)); git fetch origin $default-branch && git checkout -b \"$1\" origin/$default-branch; }; f"
+	new = "!f() { default_branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD)); git fetch origin $default_branch && git checkout -b \"$1\" origin/$default_branch; }; f"
 
 	# Use case: Resets a scratch branch to a fresh state for starting new work.
 	#
@@ -48,4 +48,4 @@
 	# 2. Creates/resets branch "ready-<repo-name>" to it
 	# 3. Switches to this branch
 	# 4. Deletes the old branch, if different
-	ready = "!f() { default-branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD)); old=\"$(git branch --show-current)\"; root=\"$(basename \"$(git rev-parse --show-toplevel)\")\"; root=\"${root%%:*}\"; new=\"ready-$root\"; git fetch origin $default-branch && git checkout -B \"$new\" origin/$default-branch && if [ -n \"$old\" ] && [ \"$old\" != \"$new\" ]; then git branch -d \"$old\"; fi; }; f"
+	ready = "!f() { default_branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD)); old=\"$(git branch --show-current)\"; root=\"$(basename \"$(git rev-parse --show-toplevel)\")\"; root=\"${root%%:*}\"; new=\"ready-$root\"; git fetch origin $default_branch && git checkout -B \"$new\" origin/$default_branch && if [ -n \"$old\" ] && [ \"$old\" != \"$new\" ]; then git branch -d \"$old\"; fi; }; f"
