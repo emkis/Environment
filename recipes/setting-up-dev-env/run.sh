@@ -75,6 +75,9 @@ brew install fzf
 echo '>> Installing tokei (Code statistics)'
 brew install tokei
 
+echo '>> Installing Tock'
+brew install tock
+
 echo '>> Installing VSCode'
 brew install --cask visual-studio-code
 
