@@ -43,6 +43,8 @@ the relevant ones as it goes.
 
 - `packages/chest` — the CLI: Engine, Manifest (one file per Category), and Config entries' sources.
 - `packages/{ide,llmt,vspeed}` — independent tools.
-- `bin/` — thin launcher shims, synced into `$GLOBAL_BINS` by the Bin scan.
+- `bin/` — commands synced into `$GLOBAL_BINS` by the Bin scan: thin launcher shims for the
+  packages above, plus standalone scripts (`setup-devices` for bluetooth pairing,
+  `toggle-bluetooth`).
 - `recipes/managing-backups` — the rclone backup job, run on its own.
 - `utilities/` — one-off utilities.

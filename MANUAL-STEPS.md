@@ -33,13 +33,6 @@ summary at the end of a Sweep.
 - Accept the Android SDK licenses when prompted.
 - Confirm the SDK path matches `ANDROID_HOME` (`~/Library/Android/sdk`, set in `config.fish`).
 
-## bluetooth-devices
-
-- Turn the device on and put it in pairing mode before selecting it in the picker.
-- The trackpad usually needs unpairing first if it was previously paired to another Mac.
-  Use the standalone `setup-devices` command for that — it picks devices with fzf, force-unpairs
-  the trackpad before re-pairing, and retries a failed pair.
-
 ## ssh-key
 
 - The public key is copied to the clipboard by the install step — paste it into GitHub

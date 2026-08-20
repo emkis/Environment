@@ -1,27 +1,5 @@
 import type { Entry } from "../engine/types.ts";
 
-interface BluetoothDevice {
-  name: string;
-  id: string;
-}
-
-const BLUETOOTH_DEVICES: BluetoothDevice[] = [
-  { name: "bluetooth-trackpad", id: "bc-d0-74-b7-a3-f7" },
-  { name: "bluetooth-headphones", id: "78-2b-64-cc-73-fa" },
-  { name: "bluetooth-keyboard", id: "d2-f3-6f-54-f6-6b" },
-  { name: "bluetooth-mouse", id: "f4-66-db-5d-ec-7f" },
-  { name: "bluetooth-bose-speaker", id: "78-2b-64-f7-30-4d" },
-];
-
-const bluetoothEntries: Entry[] = BLUETOOTH_DEVICES.map(({ name, id }) => ({
-  name,
-  category: "system",
-  check: `blueutil --paired | grep -qi ${id}`,
-  install: `blueutil --pair ${id}`,
-  requires: ["blueutil"],
-  manualStepsRef: "MANUAL-STEPS.md#bluetooth-devices",
-}));
-
 export const system: Entry[] = [
   {
     name: "dock-autohide",
@@ -46,5 +24,4 @@ export const system: Entry[] = [
     ],
     manualStepsRef: "MANUAL-STEPS.md#ssh-key",
   },
-  ...bluetoothEntries,
 ];
