@@ -36,8 +36,9 @@ summary at the end of a Sweep.
 ## bluetooth-devices
 
 - Turn the device on and put it in pairing mode before selecting it in the picker.
-- The trackpad usually needs unpairing first if it was previously paired to another Mac:
-  `blueutil --unpair <device-id>`, then run `chest` again.
+- The trackpad usually needs unpairing first if it was previously paired to another Mac.
+  Use the standalone `setup-devices` command for that — it picks devices with fzf, force-unpairs
+  the trackpad before re-pairing, and retries a failed pair.
 
 ## ssh-key
 
