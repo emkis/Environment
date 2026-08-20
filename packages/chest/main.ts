@@ -48,7 +48,6 @@ async function runSweep(): Promise<void> {
           break;
         case "installed":
           if (!event.outcome.ok) log.error(`${event.outcome.name}: ${event.outcome.reason}`);
-          if (event.outcome.skipped) log.warn(`${event.outcome.name}: ${event.outcome.reason}`);
           if (event.outcome.ok && !event.outcome.skipped && event.outcome.manualStepsRef) {
             log.warn(`${event.outcome.name} needs a manual step: ${event.outcome.manualStepsRef}`);
           }

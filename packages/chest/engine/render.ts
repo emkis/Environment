@@ -48,7 +48,7 @@ export function renderSummary(result: SweepResult): void {
   }
 
   for (const outcome of skipped) {
-    log.warn(`${outcome.name}: ${outcome.reason ?? "skipped"}`);
+    log.warn(`Skipped ${outcome.name}: ${outcome.reason ?? "not installed"}`);
   }
 
   for (const outcome of failed) {
