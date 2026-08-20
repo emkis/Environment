@@ -172,9 +172,9 @@ async function installOne(
     return { name, ok: false, reason: "unknown item" };
   }
 
-  deps.report?.({ type: "installing", name: state.name });
-
   if (state.kind === "bin") {
+    deps.report?.({ type: "installing", name: state.name });
+
     const commands = [
       `mkdir -p ${JSON.stringify(deps.binTargetDir)}`,
       `cp ${JSON.stringify(state.source)} ${JSON.stringify(state.target)}`,
@@ -188,6 +188,17 @@ async function installOne(
 
     return { name: state.name, ok: true };
   }
+
+  const { source, target } = state.entry;
+
+  if (state.status !== "satisfied" && source && target && deps.reviewDiff) {
+    const proceed = await deps.reviewDiff({ name: state.name, source, target });
+    if (!proceed) {
+      return { name: state.name, ok: true, skipped: true, reason: `left ${target} untouched` };
+    }
+  }
+
+  deps.report?.({ type: "installing", name: state.name });
 
   for (const step of stepsOf(state.entry.install)) {
     const { ok } = await deps.exec(step);
@@ -250,7 +261,7 @@ export async function sweep(manifest: Entry[], deps: SweepDeps): Promise<SweepRe
   const manualSteps = [
     ...new Set(
       outcomes
-        .filter((outcome) => outcome.ok)
+        .filter((outcome) => outcome.ok && !outcome.skipped)
         .map((outcome) => outcome.manualStepsRef)
         .filter((ref): ref is string => Boolean(ref)),
     ),

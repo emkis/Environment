@@ -39,11 +39,16 @@ export function renderStates(states: ItemState[]): void {
 }
 
 export function renderSummary(result: SweepResult): void {
-  const installed = result.outcomes.filter((outcome) => outcome.ok);
+  const installed = result.outcomes.filter((outcome) => outcome.ok && !outcome.skipped);
+  const skipped = result.outcomes.filter((outcome) => outcome.skipped);
   const failed = result.outcomes.filter((outcome) => !outcome.ok);
 
   if (installed.length > 0) {
     log.success(`Installed or resynced: ${installed.map((outcome) => outcome.name).join(", ")}`);
+  }
+
+  for (const outcome of skipped) {
+    log.warn(`${outcome.name}: ${outcome.reason ?? "skipped"}`);
   }
 
   for (const outcome of failed) {

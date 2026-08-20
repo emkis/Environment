@@ -9,6 +9,9 @@ export interface Entry {
   install: string | string[];
   requires?: string[];
   manualStepsRef?: string;
+  /** Absolute paths, set on Entries whose install overwrites a file on disk. Enables the diff review. */
+  source?: string;
+  target?: string;
 }
 
 export type ItemStatus = "satisfied" | "missing" | "drifted";
@@ -45,6 +48,7 @@ export interface PickerGroup {
 export interface InstallOutcome {
   name: string;
   ok: boolean;
+  skipped?: boolean;
   reason?: string;
   manualStepsRef?: string;
 }
@@ -61,9 +65,17 @@ export interface SweepDeps {
   diffFile: (src: string, dest: string) => Promise<boolean>;
   listDir: (path: string) => Promise<string[]>;
   prompt: (groups: PickerGroup[]) => Promise<string[]>;
+  /** Shows what an install would overwrite and returns whether to go ahead. Omitted: never asks. */
+  reviewDiff?: (review: DiffReview) => Promise<boolean>;
   binDir: string;
   binTargetDir: string;
   report?: (event: SweepEvent) => void;
+}
+
+export interface DiffReview {
+  name: string;
+  source: string;
+  target: string;
 }
 
 export type SweepEvent =
