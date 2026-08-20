@@ -7,6 +7,7 @@ set -gx STARSHIP_CONFIG "$HOME/starship.toml"
 set -gx ANDROID_HOME "$HOME/Library/Android/sdk"
 set -gx GLOBAL_BINS "$HOME/bin"
 set -gx PROMPTS_REPOSITORY "$HOME/code/Prompts"
+set -gx ENVIRONMENT_REPOSITORY "$HOME/code/Environment"
 
 # Paths
 fish_add_path "$ANDROID_HOME/emulator"

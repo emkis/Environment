@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Thin launcher shim: the real implementation lives in packages/ide/main.ts.
+# Thin launcher shim: the real implementation lives in packages/chest/main.ts.
 set -euo pipefail
 
 if [ -z "${ENVIRONMENT_REPOSITORY:-}" ]; then
@@ -7,4 +7,4 @@ if [ -z "${ENVIRONMENT_REPOSITORY:-}" ]; then
   exit 1
 fi
 
-exec bun "$ENVIRONMENT_REPOSITORY/packages/ide/main.ts" "$@"
+exec bun "$ENVIRONMENT_REPOSITORY/packages/chest/main.ts" "$@"

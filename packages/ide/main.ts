@@ -1,0 +1,161 @@
+#!/usr/bin/env bun
+
+import { $ } from "bun";
+
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+interface Ide {
+  name: string;
+  bin: string;
+}
+
+interface Command {
+  run(args: string[]): Promise<void> | void;
+}
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const FISH_CONFIG_PATH = `${process.env.HOME}/.config/fish/config.fish`;
+
+const IDES: Ide[] = [
+  { name: "Visual Studio Code", bin: "code" },
+  { name: "Zed", bin: "zed" },
+];
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function bail(message: string): never {
+  process.stderr.write(message + "\n");
+  process.exit(1);
+}
+
+// ── Fish config ───────────────────────────────────────────────────────────────
+
+const fishConfig = {
+  async read(): Promise<string> {
+    const file = Bun.file(FISH_CONFIG_PATH);
+    return (await file.exists()) ? file.text() : "";
+  },
+
+  currentIdeLine(content: string): string {
+    return content.match(/^[ \t]*set -gx IDE .*/m)?.[0] ?? "";
+  },
+
+  extractBin(line: string): string {
+    return (
+      line.match(/set -gx IDE \(which ([a-zA-Z0-9._-]+)\)/)?.[1] ?? ""
+    );
+  },
+
+  async currentBin(): Promise<string> {
+    const content = await fishConfig.read();
+    return fishConfig.extractBin(fishConfig.currentIdeLine(content));
+  },
+
+  async writeIdeLine(newLine: string): Promise<void> {
+    const content = await fishConfig.read();
+
+    if (!content) {
+      await Bun.write(FISH_CONFIG_PATH, newLine + "\n");
+      console.log(`Wrote new IDE line to ${FISH_CONFIG_PATH} (file created)`);
+      return;
+    }
+
+    const ideLineRegex = /^[ \t]*set -gx IDE .*/m;
+    if (ideLineRegex.test(content)) {
+      const newContent = content.replace(ideLineRegex, newLine);
+      await Bun.write(FISH_CONFIG_PATH, newContent);
+    } else {
+      await Bun.write(FISH_CONFIG_PATH, content + "\n" + newLine + "\n");
+    }
+
+    console.log(`Updated IDE line in ${FISH_CONFIG_PATH}`);
+  },
+};
+
+// ── Commands ──────────────────────────────────────────────────────────────────
+
+const commands = {
+  switch: {
+    async run() {
+      const content = await fishConfig.read();
+      const currentBin = fishConfig.extractBin(fishConfig.currentIdeLine(content));
+
+      const input = Buffer.from(IDES.map((ide) => `${ide.name} (${ide.bin})`).join("\n"));
+      const header = `Current: ${currentBin || "none"}`;
+
+      const selected = (
+        await $`fzf --prompt="Select IDE > " --header=${header} < ${input}`.nothrow().text()
+      ).trim();
+
+      if (!selected) {
+        console.log("Cancelled");
+        return;
+      }
+
+      const ide = IDES.find((ide) => `${ide.name} (${ide.bin})` === selected);
+      if (!ide) bail("Invalid selection");
+
+      await fishConfig.writeIdeLine(`set -gx IDE (which ${ide.bin})`);
+      console.log(`Switched IDE to: ${ide.name} (${ide.bin})`);
+    },
+  },
+
+  open: {
+    async run() {
+      const bin = await fishConfig.currentBin();
+      const ide = IDES.find((i) => i.bin === bin);
+      if (!ide) bail(`No matching IDE found for command: ${bin}`);
+
+      console.log(`Opening application: "${ide.name}"`);
+      await $`open -a ${ide.name}`;
+    },
+  },
+
+  path: {
+    async run([path]: string[]) {
+      const bin = await fishConfig.currentBin();
+      if (!bin) bail("No IDE configured. Run 'ide switch' to set one.");
+
+      await $`${bin} ${path}`;
+    },
+  },
+
+  help: {
+    run() {
+      const scriptName = import.meta.path.split("/").pop() ?? "ide";
+      console.log(`\
+Usage: ${scriptName} [<path> | open | switch | help]
+
+Commands:
+  <path>          Open the given path in the current IDE.
+  open            Open the current IDE application (reads ~/.config/fish/config.fish).
+  switch          Interactive menu to choose an IDE.
+  help            Show this help message.
+
+Notes:
+  - This script updates '${FISH_CONFIG_PATH}' by replacing the first matching 'set -gx IDE ...' line.
+    If no such line exists, it appends one to the end of the file.
+  - Changes are applied directly (no backups).`);
+    },
+  },
+} satisfies Record<string, Command>;
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+
+const [, , command, ...args] = process.argv;
+
+switch (command) {
+  case undefined:
+  case "help":
+    commands.help.run();
+    break;
+  case "switch":
+    await commands.switch.run();
+    break;
+  case "open":
+    await commands.open.run();
+    break;
+  default:
+    await commands.path.run([command, ...args]);
+}
