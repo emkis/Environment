@@ -42,6 +42,9 @@ brew install --cask clipy
 echo '>> Installing Raycast'
 brew install --cask raycast
 
+echo '>> Installing HEX'
+brew install --cask kitlangton-hex
+
 echo '>> Changing dock configuration'
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
