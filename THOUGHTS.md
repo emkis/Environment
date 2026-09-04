@@ -75,3 +75,7 @@ I wanted to have all of them connected so if anything failing in checking, it go
 I want to drop completely the zed configurations, I need to find out what is their recommended way to sync things between machines.
 
 The `ide switch` command changes my fish config, which causes the `chest` sync command to mark the fish config as out of sync, which makes sense. So I need to find another way to go around this, maybe I can have a local .config file that has my current ide instead, that file can be created if it doesn't exist automatically when I call `ide` or if is there, it will read it, but this file doesn't need to be synced.
+
+
+## 10. Dirs
+One thing I want `chest` to do as well is to create my `~/projects`
