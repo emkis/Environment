@@ -21,8 +21,6 @@ brew "git-recent"
 brew "fnm"
 brew "pnpm"
 brew "oven-sh/bun/bun"
-brew "eas-cli"
-brew "watchman"
 brew "gnupg"
 
 # Command line
@@ -40,15 +38,12 @@ brew "koekeishiya/formulae/skhd"
 cask "zed"
 cask "visual-studio-code"
 cask "warp"
-cask "android-studio"
-cask "zulu@17"
 cask "orbstack"
 cask "claude-code"
 
 # Browsers
 cask "zen"
 cask "google-chrome"
-cask "firefox"
 
 # Window, input, clipboard
 cask "karabiner-elements"
