@@ -35,12 +35,6 @@ can grant. Work through this after a fresh setup.
 - Disable iCloud sync in Rectangle Pro.
 - Import the custom configuration from `manual/RectangleProConfig.json`.
 
-## android-studio
-
-- Launch Android Studio once and complete the first-run wizard.
-- Accept the Android SDK licenses when prompted.
-- Confirm the SDK path matches `ANDROID_HOME` (`~/Library/Android/sdk`, set in `config.fish`).
-
 ## zed
 
 - Zed rewrites `~/.config/zed/settings.json` when you change a setting in its UI,
