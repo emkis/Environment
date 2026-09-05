@@ -1,10 +1,19 @@
+# Homebrew, before anything else. /opt/homebrew/bin is not in /etc/paths, so on
+# a fresh Apple Silicon machine nothing below this — brew, starship, zoxide,
+# fnm, zed, bat, eza — is on PATH until shellenv has run.
+for brew_path in /opt/homebrew/bin/brew /usr/local/bin/brew
+    if test -x $brew_path
+        $brew_path shellenv fish | source
+        break
+    end
+end
+
 # Editor and IDE
 set -gx EDITOR vim
-set -gx IDE (which zed)
+set -gx IDE (command -v zed)
 
 # Directories
 set -gx STARSHIP_CONFIG "$HOME/starship.toml"
-set -gx ANDROID_HOME "$HOME/Library/Android/sdk"
 set -gx PROJECTS "$HOME/projects"
 set -gx ENVIRONMENT_REPOSITORY "$PROJECTS/Environment"
 set -gx PROMPTS_REPOSITORY "$PROJECTS/Prompts"
@@ -13,15 +22,13 @@ set -gx PROMPTS_REPOSITORY "$PROJECTS/Prompts"
 # the checkout — nothing is copied or symlinked into place.
 set -gx GLOBAL_BINS "$ENVIRONMENT_REPOSITORY/bin"
 
-# Paths
-fish_add_path "$ANDROID_HOME/emulator"
-fish_add_path "$ANDROID_HOME/platform-tools"
-fish_add_path "$ANDROID_HOME/cmdline-tools/latest/bin"
-fish_add_path "$HOME/.local/bin"
-fish_add_path "$GLOBAL_BINS"
+# Paths. -g and not the default universal scope: a universal fish_user_paths is
+# written once into ~/.config/fish/fish_variables and then outlives this file,
+# so PATH would stop being something this repository fully describes.
+fish_add_path -g "$HOME/.local/bin"
+fish_add_path -g "$GLOBAL_BINS"
 
 # Initialise tools
-brew shellenv | source
 starship init fish | source
 zoxide init fish | source
 fnm env --use-on-cd | source

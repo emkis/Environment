@@ -11,8 +11,11 @@ warn() { printf '    \033[33m!\033[0m %s\n' "$1"; }
 
 log "macOS settings"
 
-# The Dock hides and shows with no delay and a faster animation.
-if [ "$(defaults read com.apple.dock autohide-delay 2>/dev/null)" != "0" ]; then
+# The Dock hides and shows with no delay and a faster animation. autohide
+# itself has to be written too — the two timing keys do nothing on their own.
+if [ "$(defaults read com.apple.dock autohide 2>/dev/null)" != "1" ] \
+  || [ "$(defaults read com.apple.dock autohide-delay 2>/dev/null)" != "0" ]; then
+  defaults write com.apple.dock autohide -bool true
   defaults write com.apple.dock autohide-delay -float 0
   defaults write com.apple.dock autohide-time-modifier -float 0.5
   killall Dock
@@ -41,9 +44,33 @@ log "Node"
 if command -v fnm >/dev/null 2>&1; then
   eval "$(fnm env)"
   fnm ls 2>/dev/null | grep -q lts-latest || fnm install --lts
+  # `fnm install` only creates the lts-latest alias. Without a `default` there
+  # is no node at all in a shell that has no .node-version to go on.
+  fnm alias lts-latest default >/dev/null 2>&1 || warn "could not set the default node version"
   ok "node lts"
 else
   warn "fnm is not installed — run setup.sh first"
+fi
+
+log "SSH config"
+
+# Without this, the passphrase is asked for again after every reboot — the
+# keychain holds it, but nothing tells ssh to look there. Appended, never
+# overwritten, so an existing config survives.
+if [ -f "$HOME/.ssh/config" ] && grep -q "UseKeychain" "$HOME/.ssh/config"; then
+  ok "$HOME/.ssh/config"
+else
+  mkdir -p "$HOME/.ssh"
+  chmod 700 "$HOME/.ssh"
+  cat >> "$HOME/.ssh/config" <<'EOF'
+
+Host *
+  UseKeychain yes
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519
+EOF
+  chmod 600 "$HOME/.ssh/config"
+  ok "created"
 fi
 
 log "SSH key"

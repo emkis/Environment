@@ -70,10 +70,14 @@ Long — the casks are large downloads. A package that fails doesn't stop the re
 Homebrew reports `N Brewfile dependencies failed to install` at the end and the
 script keeps going.
 
-### Step 6 — one prompt near the end
+### Step 6 — a few prompts near the end
 
-`ssh-keygen` asks for a passphrase for the new key. The public key is copied to
-your clipboard afterwards; paste it at
+`ssh-keygen` asks for a passphrase for the new key and then to confirm it, and
+`ssh-add` asks for the same passphrase once more to put the key in the keychain.
+After that the passphrase is not asked for again — `macos.sh` writes an
+`~/.ssh/config` that reads it back from there.
+
+The public key is copied to your clipboard afterwards; paste it at
 [github.com/settings/keys](https://github.com/settings/keys).
 
 ### Step 7 — open a new terminal

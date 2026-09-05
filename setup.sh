@@ -39,7 +39,17 @@ if xcode-select -p >/dev/null 2>&1; then
 else
   xcode-select --install >/dev/null 2>&1 || true
   warn "click Install in the macOS dialog, waiting..."
-  until xcode-select -p >/dev/null 2>&1; do sleep 5; done
+  # Give up eventually. A dismissed dialog would otherwise leave this polling
+  # forever with nothing on screen to say why.
+  waited=0
+  until xcode-select -p >/dev/null 2>&1; do
+    sleep 5
+    waited=$((waited + 5))
+    if [ "$waited" -ge 1800 ]; then
+      warn "still not installed after 30 minutes — run 'xcode-select --install', then re-run this script"
+      exit 1
+    fi
+  done
   ok "installed"
 fi
 
