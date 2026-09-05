@@ -1,3 +1,0 @@
-# Backup and utility scripts stay outside the Manifest system
-
-`recipes/managing-backups` (an interactive rclone Google Drive → SSD sync) and `utilities/` are explicitly out of scope for the Manifest/`chest` rewrite. They aren't "is this satisfied on this machine" questions — they're one-off jobs you run on demand, and the backup script already has its own idempotent, interactive design (device selection via fzf, confirm-before-sync, token revocation on exit). Forcing them into the check/install Entry shape would misrepresent what they are for no benefit; they remain standalone scripts, run directly.

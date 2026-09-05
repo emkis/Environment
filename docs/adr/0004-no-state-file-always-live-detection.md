@@ -1,3 +1,0 @@
-# No state file — Entry detection is always live
-
-The engine keeps no record of what it has previously installed; every `check` runs fresh against the actual machine on every Sweep. This is deliberate, not an oversight: the whole motivating problem is two machines drifting apart (a tool installed on one but not the other), which a cached state file would actively hide — the file would say "installed" while lying about whichever machine it wasn't written on. Live detection means there is nothing to go stale and nothing to resync between the tool's own memory and reality, at the cost of every Sweep re-running all checks (accepted, since checks are cheap — sub-second each, ~1-2s for the whole Manifest).

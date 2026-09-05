@@ -1,16 +1,32 @@
-We are working on a tool called `chest` which a tool the user will use for:
-1. Setting up a new machine from scratch, by installing apps, tools, etc.
-2. Comparing the current machine's configuration or app, tools against this repo's manifests so the user knows what's currently missing and can cherry-pick what to sync.
+This repository sets up and maintains a Mac. macOS only — never add branches for
+other platforms.
 
-Right now we are in the process of improving this tool, we are working on the `pchest` located at `chest/prototype/` which is a prototype of `chest` where the user is refining how the interactions with the tool will be like.
+It covers exactly two things:
 
-Once we reached a final state, we should use this prototype as a reference to build the final version of the tool. The user will prompt you to do that, when the time comes.
+1. **Setting up a new machine.** Download and run one script from a browser or
+   `curl`; it installs everything. `setup.sh`, driven by `Brewfile`.
+2. **Keeping dotfiles in sync day to day.** Files live in `home/` and are
+   symlinked into `$HOME`, so the repository is the only copy. `link.sh`.
+
+## Principles
+
+- Plain bash and Homebrew. No tool to maintain, no manifest engine, no state file.
+- No conditionals in the package list: if it's in the `Brewfile`, it gets installed.
+- Every script is safe to re-run — "new machine" and "catch up" are the same command.
+- Errors are Homebrew's to report. The scripts aim at the happy path and keep
+  going when one package fails.
+- Symlinks, never copies. A copy step is a chance to drift.
 
 ## Docs
-Decisions are being written at `docs/adr` for later reference.
+
+Decisions are written at `docs/adr` for later reference.
 
 ## Glossary
-You can find the shared glossary for this project at `CONTEXT.md` update as you go, once we define new names or terms for this project.
 
-## Instructions for @clack/prompts
-In case you need more info on how to use it, read https://bomb.sh/docs/clack/packages/prompts.md
+Shared vocabulary is in `CONTEXT.md`. Update it when a new term is settled on.
+
+## Testing
+
+Never run these scripts against this machine. They install software, change the
+login shell, and write macOS defaults. Test them in a VM, or in a sandbox with
+stubbed commands and a throwaway `$HOME`.

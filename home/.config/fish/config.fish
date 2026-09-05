@@ -5,9 +5,13 @@ set -gx IDE (which zed)
 # Directories
 set -gx STARSHIP_CONFIG "$HOME/starship.toml"
 set -gx ANDROID_HOME "$HOME/Library/Android/sdk"
-set -gx GLOBAL_BINS "$HOME/bin"
-set -gx PROMPTS_REPOSITORY "$HOME/code/Prompts"
-set -gx ENVIRONMENT_REPOSITORY "$HOME/code/Environment"
+set -gx PROJECTS "$HOME/projects"
+set -gx ENVIRONMENT_REPOSITORY "$PROJECTS/Environment"
+set -gx PROMPTS_REPOSITORY "$PROJECTS/Prompts"
+
+# The scripts in the repository's bin/ are the global commands, straight from
+# the checkout — nothing is copied or symlinked into place.
+set -gx GLOBAL_BINS "$ENVIRONMENT_REPOSITORY/bin"
 
 # Paths
 fish_add_path "$ANDROID_HOME/emulator"
@@ -31,3 +35,7 @@ alias fishConfig="ide ~/.config/fish/config.fish"
 alias gitConfig="ide ~/.gitconfig"
 alias karaConfig="ide ~/.config/karabiner/karabiner.json"
 alias skhdConfig="ide ~/.skhdrc"
+
+# Re-link after adding a dotfile, or after a pull that added one.
+alias envLink="$ENVIRONMENT_REPOSITORY/link.sh"
+alias envConfig="ide $ENVIRONMENT_REPOSITORY"
