@@ -4,17 +4,23 @@ Things the setup script can't do. Run `setup/macos.sh` first (see the readme), t
 
 ## Shell
 
+Use the full path, as Homebrew isn't on zsh's `PATH` (`which fish` would find nothing):
+
 ```bash
-echo "$(which fish)" | sudo tee -a /etc/shells
-chsh -s "$(which fish)"
+echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
+chsh -s /opt/homebrew/bin/fish
 ```
 
+Then **open a new terminal** before going on. It runs fish, whose config puts Homebrew and `~/bin` on the `PATH`; in zsh, `gh`, `fnm` and `skhd` aren't found.
+
 ## Dev
+
+Run these in fish (the new terminal from the step above).
 
 - GitHub: `gh auth login`, choose **HTTPS** and let it authenticate git, so pushing works with the HTTPS clone.
 - Node: `fnm install --lts`.
 - VSCode: sign in with GitHub and turn on Settings Sync.
-- skhd: `skhd --start-service`, then allow it in Accessibility.
+- skhd: `skhd --start-service`, then allow it in Accessibility. It must be started from fish: the service keeps the `PATH` of the shell it was started from, and Hyper+Q (`ide`, runs on bun) and Hyper+B (calls `blueutil`) need `/opt/homebrew/bin` in it. If they do nothing, run `skhd --uninstall-service && skhd --start-service` from fish.
 
 ## Warp
 

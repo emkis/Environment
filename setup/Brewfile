@@ -3,8 +3,9 @@
 # brew bundle check   --file=setup/Brewfile --verbose  list what's missing
 # brew bundle cleanup --file=setup/Brewfile            list what's installed but unlisted
 
-tap "koekeishiya/formulae"
-tap "oven-sh/bun"
+# Homebrew refuses to load formulae from non-official taps until they're trusted
+tap "asmvik/formulae", trusted: true
+tap "oven-sh/bun", trusted: true
 
 # Shell and prompt
 brew "bash"
@@ -34,7 +35,7 @@ brew "rclone"
 
 # macOS specific
 brew "blueutil"
-brew "koekeishiya/formulae/skhd"
+brew "asmvik/formulae/skhd"
 
 # Editors and terminals
 cask "zed"
