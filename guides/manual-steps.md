@@ -1,6 +1,6 @@
 # New machine: manual steps
 
-Things the setup script can't do. Run `setup/macos.sh` first (see the readme), then go through this list.
+Things the setup script can't do. Run `setup/macos.sh` first (see [new-mac-setup.md](new-mac-setup.md)), then go through this list.
 
 ## Shell
 
