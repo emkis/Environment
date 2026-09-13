@@ -1,1 +1,6 @@
+# macOS Finder metadata
 .DS_Store
+
+# Backups Karabiner-Elements writes on its own into its config directory,
+# which now lives in this repo (dotfiles/karabiner)
+dotfiles/karabiner/automatic_backups/

@@ -123,9 +123,8 @@ const commands = {
 
   help: {
     run() {
-      const scriptName = import.meta.path.split("/").pop() ?? "ide";
       console.log(`\
-Usage: ${scriptName} [<path> | open | switch | help]
+Usage: ide [<path> | open | switch | help]
 
 Commands:
   <path>          Open the given path in the current IDE.

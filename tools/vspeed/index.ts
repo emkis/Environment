@@ -11,9 +11,8 @@ function bail(message: string): never {
 }
 
 function usage(): string {
-  const scriptName = import.meta.path.split("/").pop() ?? "vspeed";
   return `\
-Usage: ${scriptName} <input> [speed]
+Usage: vspeed <input> [speed]
 
 Arguments:
   <input>   Path to the input video file.

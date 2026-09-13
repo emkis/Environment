@@ -1,0 +1,11 @@
+# Paths inside dotfiles/ that Stow must NOT link into $HOME.
+#
+# One Perl regex per line, matched against the path relative to dotfiles/
+# (a leading / anchors it to the root of dotfiles/)
+#
+# The real Karabiner config directory. $HOME reaches it through the
+# .config/karabiner symlink, so it must not also be linked as ~/karabiner.
+^/karabiner$
+
+# macOS Finder metadata
+\.DS_Store$

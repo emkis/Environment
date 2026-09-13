@@ -22,6 +22,7 @@ brew "gnupg"
 
 # Command line
 brew "gh"
+brew "stow"
 brew "bat"
 brew "eza"
 brew "tree"
