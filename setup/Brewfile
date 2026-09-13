@@ -1,4 +1,3 @@
-# From the repo root:
 # brew bundle install --file=setup/Brewfile            install what's missing
 # brew bundle check   --file=setup/Brewfile --verbose  list what's missing
 # brew bundle cleanup --file=setup/Brewfile            list what's installed but unlisted
