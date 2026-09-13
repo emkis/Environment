@@ -3,10 +3,10 @@
 On a fresh Apple Silicon Mac, open Terminal and run:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/emkis/Environment/v2/setup/macos.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/emkis/Environment/main/setup/macos.sh)"
 ```
 
-It installs Homebrew (with the Xcode Command Line Tools), clones this repo into `~/projects`, installs the `Brewfile`, runs `envsync` and sets up the Dock. It's safe to run again. Then follow [the manual steps](guides/manual-steps.md).
+It installs Homebrew (with the Xcode Command Line Tools), clones this repo into `~/projects`, installs `setup/Brewfile`, runs `envsync` and sets up the Dock. It's safe to run again. Then follow [the manual steps](guides/manual-steps.md).
 
 ## Dotfiles and tools
 

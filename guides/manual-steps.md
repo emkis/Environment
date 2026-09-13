@@ -1,10 +1,6 @@
 # New machine: manual steps
 
-Things the setup scripts can't do. Run the setup script first (Brewfile, dock, `~/projects`, clone, dotfiles and tools), then go through this list.
-
-## macOS
-
-- Install Xcode Command Line Tools when prompted: `xcode-select --install`.
+Things the setup script can't do. Run `setup/macos.sh` first (see the readme), then go through this list.
 
 ## Shell
 
@@ -15,13 +11,7 @@ chsh -s "$(which fish)"
 
 ## Dev
 
-- SSH key for GitHub:
-  ```bash
-  ssh-keygen -t ed25519 -C nicolasemkis@gmail.com
-  ssh-add --apple-use-keychain ~/.ssh/id_ed25519
-  pbcopy < ~/.ssh/id_ed25519.pub
-  ```
-  Add it at [github.com/settings/keys](https://github.com/settings/keys), then `gh auth login`.
+- GitHub: `gh auth login`, choose **HTTPS** and let it authenticate git, so pushing works with the HTTPS clone.
 - Node: `fnm install --lts`.
 - VSCode: sign in with GitHub and turn on Settings Sync.
 - skhd: `skhd --start-service`, then allow it in Accessibility.
