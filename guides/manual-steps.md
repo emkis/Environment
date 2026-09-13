@@ -40,9 +40,7 @@ No config file, so set by hand (`Cmd+P` opens the command palette):
 - Log in to: Bitwarden, Notion, TickTick, Surfshark, browsers, Raycast, Claude Code.
 - **Karabiner-Elements**: check the keyboard is listed and mappings work.
 - **Bluetooth devices**: run `setup-devices` to pair.
-- **Rectangle Pro**: open it twice (first run asks for permissions), paste the activation key.
-  - Personal machine: sign in to iCloud, enable iCloud sync, check the config was imported.
-  - Other machine: disable iCloud sync, import `recipes/setting-up-window-manager/RectangleProConfig.json`.
+- **Rectangle Pro**: open it twice (first run asks for permissions), paste the activation key, sign in to iCloud, enable iCloud sync and check the config was imported.
 - **Clipy**: Main > max history **100**; Shortcuts > main shortcut **Option+V**; add to Login Items.
 - **Amphetamine**: install the helper it asks for. Preferences > Session Defaults:
   - Default Duration: Indefinitely
