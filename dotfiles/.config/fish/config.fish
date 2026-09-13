@@ -1,3 +1,7 @@
+# Homebrew
+# Absolute path, as brew isn't on PATH yet on a fresh machine
+/opt/homebrew/bin/brew shellenv | source
+
 # Editor and IDE
 set -gx EDITOR vim
 set -gx IDE (which zed)
@@ -7,7 +11,6 @@ set -gx STARSHIP_CONFIG "$HOME/starship.toml"
 set -gx ANDROID_HOME "$HOME/Library/Android/sdk"
 set -gx GLOBAL_BINS "$HOME/bin"
 set -gx PROMPTS_REPOSITORY "$HOME/code/Prompts"
-set -gx ENVIRONMENT_REPOSITORY "$HOME/code/Environment"
 
 # Paths
 fish_add_path "$ANDROID_HOME/emulator"
@@ -17,7 +20,6 @@ fish_add_path "$HOME/.local/bin"
 fish_add_path "$GLOBAL_BINS"
 
 # Initialise tools
-brew shellenv | source
 starship init fish | source
 zoxide init fish | source
 fnm env --use-on-cd | source
