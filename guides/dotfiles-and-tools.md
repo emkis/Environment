@@ -90,7 +90,7 @@ The message looks like `cannot stow ... over existing target <file>`. A real fil
 To fix it, pull the real file into the repo and decide which version wins:
 
 ```bash
-cd ~/code/Environment   # the repo root
+cd ~/projects/Environment   # the repo root
 stow --target="$HOME" --no-folding --adopt -R dotfiles   # same as envsync, plus --adopt
 git diff                                                  # compare the machine's version with the repo's
 ```
@@ -111,7 +111,7 @@ Commit my own edits before running `--adopt`, so `git diff` only shows what the 
 The links point to where the repo is, so unlink first. That also removes `~/bin/envsync`, so run it by its path afterwards:
 
 ```bash
-cd ~/code/Environment
+cd ~/projects/Environment
 stow --target="$HOME" -D dotfiles   # remove all links
 # move the repo, then from its new location:
 ./tools/envsync/index.sh            # link again
