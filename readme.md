@@ -1,6 +1,6 @@
 # Environment
 
-How I set up my Macs and keep them in sync.
+How I set up my macs and keep them in sync.
 
 > Built for my own machines. Borrow any idea you like, but I wouldn't recommend running the scripts yourself.
 
