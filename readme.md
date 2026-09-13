@@ -1,15 +1,28 @@
 # Environment
 
-My macOS dotfiles and command-line tools, and some scripts that sets up a new Mac for me.
+How I set up my Macs and keep them in sync.
 
-> I built this to set up my own machines. Feel free to borrow anything, but I don't recommend running it on yours.
+> Built for my own machines, you can borrow any idea you like, but I wouldn't recommend running them yourself.
 
-## Dotfiles and tools
+## What's in here
 
-Configs in `dotfiles/` and commands in `tools/` live only in this repo. `envsync` symlinks them into my home folder (using [GNU Stow](https://www.gnu.org/software/stow/)), so editing `~/.gitconfig` edits `dotfiles/.gitconfig`.
+- **`dotfiles/`**: configs, laid out like my home directory.
+- **`tools/`**: CLIs and scripts I built to make my life easier.
+- **`setup/`**: scripts to sets up a new Mac.
+- **`guides/`**: everything I haven't (or can't) automated into a script yet.
 
-Run `envsync` after pulling, or after adding, removing or renaming a dotfile or tool. Edits to existing files need nothing, just commit them. It's safe to run any time and never overwrites a real file. More in [guides/dotfiles-and-tools.md](./guides/dotfiles-and-tools.md).
+## Dotfiles
 
+All my configuration files live in this repository, and I use [GNU Stow](https://www.gnu.org/software/stow/) to keep them synced with my home directory. I only ever edit them here, and the changes apply to my system automatically.
+
+## Tools
+
+- **`envsync`**: syncs my dotfiles with my home directory
+- **`ide`**: opens projects in whichever editor I'm using
+- **`llmt`**: organizes the prompts I write for LLMs
+- **`vspeed`**: speeds up a video
+- **`setup-devices`**: pairs my Bluetooth devices
+- **`toggle-bluetooth`**: turns Bluetooth on or off
 
 ## New Mac setup
 
@@ -19,4 +32,4 @@ On a fresh Apple Silicon Mac, open Terminal and run:
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/emkis/Environment/main/setup/macos.sh)"
 ```
 
-It installs Homebrew (with the Xcode Command Line Tools), clones this repo into `~/projects`, installs `setup/Brewfile`, runs `envsync` and sets up the Dock. It's safe to run again. Then follow [the manual steps](guides/manual-steps.md).
+It installs everything I use, clones this repo, links the dotfiles and sets up the Dock. It's safe to run again. Whatever it can't do is in `guides/`.
