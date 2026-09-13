@@ -34,7 +34,7 @@ interface Command {
 const config = {
   get promptsRepo(): string {
     const dir = process.env.PROMPTS_REPOSITORY;
-    if (!dir) bail("PROMPTS_REPOSITORY is not set. Add it to your zsh config.");
+    if (!dir) bail("PROMPTS_REPOSITORY is not set. Add it to your Fish config.");
     return dir;
   },
   get ide(): string {
@@ -350,7 +350,7 @@ Usage:
   llmt delete          Delete an uncommitted task directory
   llmt help            Show this help
 
-Environment variables (set in ~/.zshrc):
+Environment variables (set in your Fish config):
   PROMPTS_REPOSITORY   Path to the repository of prompts
   IDE                  IDE command for opening task directories
 `);
