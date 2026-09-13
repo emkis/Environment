@@ -7,7 +7,6 @@ set -gx EDITOR vim
 set -gx IDE (which zed)
 
 # Directories
-set -gx STARSHIP_CONFIG "$HOME/starship.toml"
 set -gx ANDROID_HOME "$HOME/Library/Android/sdk"
 set -gx GLOBAL_BINS "$HOME/bin"
 set -gx PROMPTS_REPOSITORY "$HOME/projects/Prompts"
