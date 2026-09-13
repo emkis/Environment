@@ -18,8 +18,7 @@ All my configuration files live in this repository, and I use [GNU Stow](https:/
 ## Tools
 
 - **`envsync`**: syncs my dotfiles with my home directory
+- **`blu`**: manages my Bluetooth devices
 - **`ide`**: opens projects in whichever editor I'm using
 - **`llmt`**: organizes the prompts I write for LLMs
 - **`vspeed`**: speeds up a video
-- **`setup-devices`**: pairs my Bluetooth devices
-- **`toggle-bluetooth`**: turns Bluetooth on or off

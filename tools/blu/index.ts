@@ -1,0 +1,270 @@
+#!/usr/bin/env bun
+
+import { $ } from "bun";
+import { once } from "node:events";
+
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+interface Device {
+  name: string;
+  address: string;
+  /** Unpair and pair again, even when it's already paired. */
+  repair?: boolean;
+}
+
+interface Command {
+  run(): Promise<void> | void;
+}
+
+type PairResult = "paired" | "already paired" | "failed";
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const DEVICES: Device[] = [
+  { name: "Trackpad", address: "bc-d0-74-b7-a3-f7", repair: true },
+  { name: "Keyboard", address: "d2-f3-6f-54-f6-6b" },
+  { name: "Mouse", address: "f4-66-db-5d-ec-7f" },
+  { name: "Headphones", address: "78-2b-64-cc-73-fa" },
+  { name: "Bose Speaker", address: "78-2b-64-f7-30-4d" },
+];
+
+const PAIR_ATTEMPTS = 2;
+
+const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
+
+// ── Terminal ──────────────────────────────────────────────────────────────────
+
+const isTTY = Boolean(process.stdout.isTTY);
+const useColor = isTTY && !process.env.NO_COLOR;
+
+const ansi = {
+  clearLine: "\r\x1b[2K",
+  hideCursor: "\x1b[?25l",
+  showCursor: "\x1b[?25h",
+};
+
+const paint = (code: string) => (text: string) =>
+  useColor ? `\x1b[${code}m${text}\x1b[0m` : text;
+
+const style = {
+  bold: paint("1"),
+  dim: paint("2"),
+  red: paint("31"),
+  green: paint("32"),
+  yellow: paint("33"),
+  cyan: paint("36"),
+};
+
+const log = {
+  ok: (message: string) => console.log(`  ${style.green("✔")} ${message}`),
+  error: (message: string) => console.log(`  ${style.red("✘")} ${message}`),
+};
+
+function bail(message: string): never {
+  process.stderr.write(`${style.red("✘")} ${message}\n`);
+  process.exit(1);
+}
+
+function requireBins(...bins: string[]): void {
+  for (const bin of bins) {
+    if (!Bun.which(bin)) bail(`${bin} is not installed. Run: brew install ${bin}`);
+  }
+}
+
+/** Shows a spinner next to the message while the task runs (TTY only). */
+async function withSpinner<T>(message: string, task: () => Promise<T>): Promise<T> {
+  if (!isTTY) return task();
+
+  const restoreCursor = () => process.stdout.write(ansi.clearLine + ansi.showCursor);
+  const onInterrupt = () => {
+    restoreCursor();
+    process.exit(130);
+  };
+
+  let frame = 0;
+  const draw = () => {
+    const spinner = style.cyan(SPINNER_FRAMES[frame++ % SPINNER_FRAMES.length]);
+    process.stdout.write(`${ansi.clearLine}  ${spinner} ${message}`);
+  };
+
+  process.stdout.write(ansi.hideCursor);
+  process.on("SIGINT", onInterrupt);
+  draw();
+  const timer = setInterval(draw, 80);
+
+  try {
+    return await task();
+  } finally {
+    clearInterval(timer);
+    process.off("SIGINT", onInterrupt);
+    restoreCursor();
+  }
+}
+
+/** Shows the message until any key is pressed. Ctrl+C exits. */
+async function waitForKey(message: string): Promise<void> {
+  const { stdin } = process;
+  const line = `  ${style.yellow("›")} ${message}`;
+
+  if (!stdin.isTTY) {
+    console.log(line);
+    return;
+  }
+
+  process.stdout.write(line);
+  stdin.setRawMode(true);
+  stdin.resume();
+  const [key] = (await once(stdin, "data")) as [Buffer];
+  stdin.setRawMode(false);
+  stdin.pause();
+  process.stdout.write(isTTY ? ansi.clearLine : "\n");
+
+  if (key[0] === 0x03) process.exit(130);
+}
+
+// ── Bluetooth ─────────────────────────────────────────────────────────────────
+
+const bluetooth = {
+  async isOn(): Promise<boolean> {
+    return (await $`blueutil --power`.text()).trim() === "1";
+  },
+
+  async setPower(on: boolean): Promise<void> {
+    await $`blueutil --power ${on ? "1" : "0"}`.quiet();
+  },
+
+  async pairedAddresses(): Promise<Set<string>> {
+    const devices: { address: string }[] = await $`blueutil --paired --format json`.json();
+    return new Set(devices.map((device) => device.address));
+  },
+
+  async pair(address: string): Promise<boolean> {
+    return (await $`blueutil --pair ${address}`.quiet().nothrow()).exitCode === 0;
+  },
+
+  async unpair(address: string): Promise<boolean> {
+    return (await $`blueutil --unpair ${address}`.quiet().nothrow()).exitCode === 0;
+  },
+};
+
+async function pairDevice(device: Device, pairedAddresses: Set<string>): Promise<PairResult> {
+  console.log(style.bold(device.name));
+
+  if (pairedAddresses.has(device.address)) {
+    if (!device.repair) {
+      log.ok(style.dim("Already paired"));
+      return "already paired";
+    }
+
+    if (!(await withSpinner("Unpairing…", () => bluetooth.unpair(device.address)))) {
+      log.error("Couldn't unpair");
+      return "failed";
+    }
+    log.ok("Unpaired");
+  }
+
+  await waitForKey(`Turn it on, then press any key ${style.dim("(Ctrl+C to quit)")}`);
+
+  for (let attempt = 1; attempt <= PAIR_ATTEMPTS; attempt++) {
+    const attemptLabel = attempt > 1 ? style.dim(` (attempt ${attempt}/${PAIR_ATTEMPTS})`) : "";
+
+    if (await withSpinner(`Pairing…${attemptLabel}`, () => bluetooth.pair(device.address))) {
+      log.ok("Paired");
+      return "paired";
+    }
+
+    log.error(attempt < PAIR_ATTEMPTS ? "Couldn't pair, trying again" : "Couldn't pair");
+  }
+
+  return "failed";
+}
+
+function summary(results: PairResult[]): string {
+  const count = (result: PairResult) => results.filter((r) => r === result).length;
+  const failed = count("failed");
+
+  const parts = (["paired", "already paired", "failed"] as const)
+    .filter((result) => count(result) > 0)
+    .map((result) => `${count(result)} ${result}`);
+
+  const icon = failed > 0 ? style.red("✘") : style.green("✔");
+  return `${icon} ${parts.join(style.dim(" · "))}`;
+}
+
+// ── Commands ──────────────────────────────────────────────────────────────────
+
+const commands = {
+  pair: {
+    async run() {
+      requireBins("blueutil", "fzf");
+
+      const input = Buffer.from(DEVICES.map((device) => device.name).join("\n"));
+      const selection = await $`fzf --multi --border --prompt="Pair › " --header="Tab to select, Enter to pair" < ${input}`
+        .nothrow()
+        .text();
+
+      const selected = DEVICES.filter((device) => selection.split("\n").includes(device.name));
+      if (selected.length === 0) {
+        console.log(style.dim("No devices selected"));
+        return;
+      }
+
+      if (!(await bluetooth.isOn())) {
+        await withSpinner("Turning Bluetooth on…", () => bluetooth.setPower(true));
+        console.log(`${style.green("✔")} Bluetooth turned on\n`);
+      }
+
+      const pairedAddresses = await bluetooth.pairedAddresses();
+      const results: PairResult[] = [];
+
+      for (const device of selected) {
+        if (results.length > 0) console.log();
+        results.push(await pairDevice(device, pairedAddresses));
+      }
+
+      console.log(`\n${summary(results)}`);
+      if (results.includes("failed")) process.exit(1);
+    },
+  },
+
+  toggle: {
+    async run() {
+      requireBins("blueutil");
+
+      const on = !(await bluetooth.isOn());
+      await bluetooth.setPower(on);
+      console.log(`${style.green("✔")} Bluetooth turned ${style.bold(on ? "on" : "off")}`);
+    },
+  },
+
+  help: {
+    run() {
+      console.log(`\
+${style.bold("Usage:")} blu <command>
+
+${style.bold("Commands:")}
+  pair      Pick Bluetooth devices in a menu and pair them.
+  toggle    Turn Bluetooth on or off.
+  help      Show this help message.`);
+    },
+  },
+} satisfies Record<string, Command>;
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+
+const [, , command] = process.argv;
+
+switch (command) {
+  case undefined:
+  case "help":
+    commands.help.run();
+    break;
+  case "pair":
+    await commands.pair.run();
+    break;
+  case "toggle":
+    await commands.toggle.run();
+    break;
+  default:
+    bail(`Unknown command: ${command}. Run 'blu help' to see the commands.`);
+}

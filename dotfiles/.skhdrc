@@ -10,4 +10,4 @@ hyper - d : open -a "Google Chrome"
 hyper - f : open -a "Simulator"
 
 # Bluetooth controls
-hyper - b : ~/bin/toggle-bluetooth
+hyper - b : ~/bin/blu toggle
