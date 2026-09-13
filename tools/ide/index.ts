@@ -15,12 +15,17 @@ interface Command {
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const FISH_CONFIG_PATH = `${process.env.HOME}/.config/fish/config.fish`;
+// Per-machine state, deliberately outside the dotfiles repo so switching
+// IDEs never shows up in git.
+const STATE_DIR = process.env.XDG_STATE_HOME ?? `${process.env.HOME}/.local/state`;
+const STATE_PATH = `${STATE_DIR}/ide/current`;
 
 const IDES: Ide[] = [
   { name: "Visual Studio Code", bin: "code" },
   { name: "Zed", bin: "zed" },
 ];
+
+const DEFAULT_IDE = IDES[0];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -29,47 +34,23 @@ function bail(message: string): never {
   process.exit(1);
 }
 
-// ── Fish config ───────────────────────────────────────────────────────────────
+// ── State ─────────────────────────────────────────────────────────────────────
 
-const fishConfig = {
-  async read(): Promise<string> {
-    const file = Bun.file(FISH_CONFIG_PATH);
-    return (await file.exists()) ? file.text() : "";
+const state = {
+  // Returns the chosen IDE. A missing or unrecognised state file is reset to
+  // the default, so the tool always has a usable IDE.
+  async current(): Promise<Ide> {
+    const file = Bun.file(STATE_PATH);
+    const bin = (await file.exists()) ? (await file.text()).trim() : "";
+    const ide = IDES.find((i) => i.bin === bin);
+    if (ide) return ide;
+
+    await state.save(DEFAULT_IDE);
+    return DEFAULT_IDE;
   },
 
-  currentIdeLine(content: string): string {
-    return content.match(/^[ \t]*set -gx IDE .*/m)?.[0] ?? "";
-  },
-
-  extractBin(line: string): string {
-    return (
-      line.match(/set -gx IDE \(which ([a-zA-Z0-9._-]+)\)/)?.[1] ?? ""
-    );
-  },
-
-  async currentBin(): Promise<string> {
-    const content = await fishConfig.read();
-    return fishConfig.extractBin(fishConfig.currentIdeLine(content));
-  },
-
-  async writeIdeLine(newLine: string): Promise<void> {
-    const content = await fishConfig.read();
-
-    if (!content) {
-      await Bun.write(FISH_CONFIG_PATH, newLine + "\n");
-      console.log(`Wrote new IDE line to ${FISH_CONFIG_PATH} (file created)`);
-      return;
-    }
-
-    const ideLineRegex = /^[ \t]*set -gx IDE .*/m;
-    if (ideLineRegex.test(content)) {
-      const newContent = content.replace(ideLineRegex, newLine);
-      await Bun.write(FISH_CONFIG_PATH, newContent);
-    } else {
-      await Bun.write(FISH_CONFIG_PATH, content + "\n" + newLine + "\n");
-    }
-
-    console.log(`Updated IDE line in ${FISH_CONFIG_PATH}`);
+  async save(ide: Ide): Promise<void> {
+    await Bun.write(STATE_PATH, ide.bin + "\n");
   },
 };
 
@@ -78,11 +59,10 @@ const fishConfig = {
 const commands = {
   switch: {
     async run() {
-      const content = await fishConfig.read();
-      const currentBin = fishConfig.extractBin(fishConfig.currentIdeLine(content));
+      const current = await state.current();
 
       const input = Buffer.from(IDES.map((ide) => `${ide.name} (${ide.bin})`).join("\n"));
-      const header = `Current: ${currentBin || "none"}`;
+      const header = `Current: ${current.name}`;
 
       const selected = (
         await $`fzf --prompt="Select IDE > " --header=${header} < ${input}`.nothrow().text()
@@ -96,16 +76,14 @@ const commands = {
       const ide = IDES.find((ide) => `${ide.name} (${ide.bin})` === selected);
       if (!ide) bail("Invalid selection");
 
-      await fishConfig.writeIdeLine(`set -gx IDE (which ${ide.bin})`);
+      await state.save(ide);
       console.log(`Switched IDE to: ${ide.name} (${ide.bin})`);
     },
   },
 
   open: {
     async run() {
-      const bin = await fishConfig.currentBin();
-      const ide = IDES.find((i) => i.bin === bin);
-      if (!ide) bail(`No matching IDE found for command: ${bin}`);
+      const ide = await state.current();
 
       console.log(`Opening application: "${ide.name}"`);
       await $`open -a ${ide.name}`;
@@ -114,10 +92,9 @@ const commands = {
 
   path: {
     async run([path]: string[]) {
-      const bin = await fishConfig.currentBin();
-      if (!bin) bail("No IDE configured. Run 'ide switch' to set one.");
+      const ide = await state.current();
 
-      await $`${bin} ${path}`;
+      await $`${ide.bin} ${path}`;
     },
   },
 
@@ -128,14 +105,13 @@ Usage: ide [<path> | open | switch | help]
 
 Commands:
   <path>          Open the given path in the current IDE.
-  open            Open the current IDE application (reads ~/.config/fish/config.fish).
+  open            Open the current IDE application.
   switch          Interactive menu to choose an IDE.
   help            Show this help message.
 
 Notes:
-  - This script updates '${FISH_CONFIG_PATH}' by replacing the first matching 'set -gx IDE ...' line.
-    If no such line exists, it appends one to the end of the file.
-  - Changes are applied directly (no backups).`);
+  - The chosen IDE is stored in '${STATE_PATH}', outside the dotfiles repo.
+  - If that file is missing or holds an unknown IDE, ${DEFAULT_IDE.name} is used and saved.`);
     },
   },
 } satisfies Record<string, Command>;

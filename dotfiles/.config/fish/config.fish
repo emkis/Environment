@@ -2,9 +2,8 @@
 # Absolute path, as brew isn't on PATH yet on a fresh machine
 /opt/homebrew/bin/brew shellenv | source
 
-# Editor and IDE
+# Editor (the IDE is picked per machine with `ide switch`)
 set -gx EDITOR vim
-set -gx IDE (which zed)
 
 # Directories
 set -gx ANDROID_HOME "$HOME/Library/Android/sdk"

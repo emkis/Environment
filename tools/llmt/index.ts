@@ -37,11 +37,6 @@ const config = {
     if (!dir) bail("PROMPTS_REPOSITORY is not set. Add it to your Fish config.");
     return dir;
   },
-  get ide(): string {
-    const ide = process.env.IDE;
-    if (!ide) bail("$IDE is not set.");
-    return ide;
-  },
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -113,7 +108,9 @@ const ui = {
   },
 
   openInIDE(path: string): void {
-    spawnSync(config.ide, [path], { stdio: "inherit" });
+    // `ide` owns which editor is in use on this machine
+    const result = spawnSync("ide", [path], { stdio: "inherit" });
+    if (result.error) bail("could not run 'ide'. Is ~/bin on your PATH?");
   },
 };
 
@@ -352,7 +349,8 @@ Usage:
 
 Environment variables (set in your Fish config):
   PROMPTS_REPOSITORY   Path to the repository of prompts
-  IDE                  IDE command for opening task directories
+
+Task directories open in the IDE chosen with 'ide switch'.
 `);
     },
   },
