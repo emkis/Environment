@@ -1,6 +1,7 @@
-# brew bundle install --file=Brewfile          install what's missing
-# brew bundle check   --file=Brewfile --verbose  list what's missing
-# brew bundle cleanup --file=Brewfile          list what's installed but unlisted
+# From the repo root:
+# brew bundle install --file=setup/Brewfile            install what's missing
+# brew bundle check   --file=setup/Brewfile --verbose  list what's missing
+# brew bundle cleanup --file=setup/Brewfile            list what's installed but unlisted
 
 tap "koekeishiya/formulae"
 tap "oven-sh/bun"
