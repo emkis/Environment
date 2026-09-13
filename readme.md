@@ -21,4 +21,5 @@ This repo holds the only copy of my configs. [GNU Stow](https://www.gnu.org/soft
 - **`blu`** manages my Bluetooth devices.
 - **`ide`** opens projects in whichever editor I'm using.
 - **`llmt`** organizes the prompts I write for LLMs.
+- **`shrink`** compresses the photos I copy from my camera.
 - **`vspeed`** speeds up a video.
