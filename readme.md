@@ -1,15 +1,24 @@
+## New machine
 
+On a fresh Apple Silicon Mac, open Terminal and run:
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/emkis/Environment/v2/setup/macos.sh)"
+```
+
+It installs Homebrew (with the Xcode Command Line Tools), clones this repo into `~/projects`, installs the `Brewfile`, runs `envsync` and sets up the Dock. It's safe to run again. Then follow [the manual steps](guides/manual-steps.md).
 
 ## Dotfiles and tools
 
-Configs live in `dotfiles/` (mirroring `$HOME`) and global commands in `tools/<name>/`. Both are symlinked onto the machine with [GNU Stow](https://www.gnu.org/software/stow/), so editing them from anywhere edits this repo.
+Configs in `dotfiles/` and commands in `tools/` live only in this repo. `envsync` symlinks them into my home folder (using [GNU Stow](https://www.gnu.org/software/stow/)), so editing `~/.gitconfig` edits `dotfiles/.gitconfig`.
 
-```bash
-# From the repo root: after cloning, or after pulling new dotfiles/tools
-stow -R dotfiles
-```
+| What happened | What to do |
+|---|---|
+| I edited a dotfile or a tool | Nothing, just commit it |
+| I pulled changes | `envsync` |
+| I added, removed or renamed a dotfile or tool | `envsync` |
+| `envsync` says a file is in the way | [Fix it like this](./guides/dotfiles-and-tools.md#envsync-says-a-file-is-in-the-way) |
 
-- **New dotfile**: place it in `dotfiles/` at the same path it has under `$HOME`, then run `stow -R dotfiles`.
-- **New tool**: create `tools/<name>/index.ts` (executable, with a shebang), link it with `ln -s ../../tools/<name>/index.ts dotfiles/bin/<name>`, then run `stow -R dotfiles`.
-- **Karabiner**: its config lives in `dotfiles/karabiner/`, and `~/.config/karabiner` is linked as a whole directory, because Karabiner doesn't reload a symlinked `karabiner.json`.
-- **Conflicts**: stow refuses to replace real files. `stow --adopt -R dotfiles` moves them into the repo instead; review `git diff` afterwards.
+`envsync` is safe to run any time, from any folder: it never overwrites a real file.
+
+Step by step for each situation: [guides/dotfiles-and-tools.md](./guides/dotfiles-and-tools.md).
