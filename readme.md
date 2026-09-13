@@ -2,23 +2,23 @@
 
 How I set up my Macs and keep them in sync.
 
-> Built for my own machines, you can borrow any idea you like, but I wouldn't recommend running them yourself.
+> Built for my own machines. Borrow any idea you like, but I wouldn't recommend running the scripts yourself.
 
 ## What's in here
 
-- **`dotfiles/`**: configs, laid out like my home directory.
-- **`tools/`**: CLIs and scripts I built to make my life easier.
-- **`setup/`**: scripts to sets up a new Mac.
-- **`guides/`**: everything I haven't (or can't) automated into a script yet.
+- **`dotfiles/`** configs, laid out like my home directory.
+- **`tools/`** CLIs and scripts I built to make my life easier.
+- **`setup/`** scripts to sets up a new Mac.
+- **`guides/`** everything I haven't (or can't) automated into a script yet.
 
 ## Dotfiles
 
-All my configuration files live in this repository, and I use [GNU Stow](https://www.gnu.org/software/stow/) to keep them synced with my home directory. I only ever edit them here, and the changes apply to my system automatically.
+This repo holds the only copy of my configs. [GNU Stow](https://www.gnu.org/software/stow/) links them into my home folder, so editing `~/.gitconfig` edits the file here too, and a `git pull` brings the change to my other machines.
 
 ## Tools
 
-- **`envsync`**: syncs my dotfiles with my home directory
-- **`blu`**: manages my Bluetooth devices
-- **`ide`**: opens projects in whichever editor I'm using
-- **`llmt`**: organizes the prompts I write for LLMs
-- **`vspeed`**: speeds up a video
+- **`envsync`** links my dotfiles and tools into my home folder.
+- **`blu`** manages my Bluetooth devices.
+- **`ide`** opens projects in whichever editor I'm using.
+- **`llmt`** organizes the prompts I write for LLMs.
+- **`vspeed`** speeds up a video.
