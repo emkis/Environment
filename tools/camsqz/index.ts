@@ -165,7 +165,7 @@ async function scan(dir: string): Promise<Scan> {
   return result;
 }
 
-/** Temp files being written right now, removed if shrink is interrupted. */
+/** Temp files being written right now, removed if camsqz is interrupted. */
 const partialFiles = new Set<string>();
 
 process.on("exit", () => {
@@ -279,7 +279,7 @@ function summary(results: Result[]): string {
 
 function help(): void {
   console.log(`\
-${style.bold("Usage:")} shrink [dir] [options]
+${style.bold("Usage:")} camsqz [dir] [options]
 
 Compresses the photos in a folder into ${style.bold("<name>_compressed.jpg")} files next to the
 originals. Reads JPG and RAW files (like Sony's .ARW). Only looks at the folder
@@ -314,7 +314,7 @@ function parseCli() {
       },
     });
   } catch (error) {
-    bail(`${(error as Error).message}\nRun 'shrink help' to see the options.`);
+    bail(`${(error as Error).message}\nRun 'camsqz help' to see the options.`);
   }
 }
 
@@ -322,7 +322,7 @@ async function main(): Promise<void> {
   const { values, positionals } = parseCli();
 
   if (values.help || positionals[0] === "help") return help();
-  if (positionals.length > 1) bail("Pass a single folder. Run 'shrink help' to see the options.");
+  if (positionals.length > 1) bail("Pass a single folder. Run 'camsqz help' to see the options.");
   if (!Bun.which("sips")) bail("sips is not available. It comes with macOS.");
 
   const quality = Number(values.quality ?? DEFAULT_QUALITY);
