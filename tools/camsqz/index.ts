@@ -313,6 +313,10 @@ function parseCli() {
 async function main(): Promise<void> {
   const { values, positionals } = parseCli();
 
+  if (process.argv.length <= 2) {
+    help();
+    process.exit(1);
+  }
   if (values.help || positionals[0] === "help") return help();
   if (positionals.length > 1) bail("Pass a single folder. Run 'camsqz help' to see the options.");
   if (!Bun.which("sips")) bail("sips is not available. It comes with macOS.");
