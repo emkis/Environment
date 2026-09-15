@@ -36,18 +36,10 @@ const SUFFIX = "_compressed";
 
 const DEFAULT_QUALITY = 80;
 
-/** Everything sips can read. The RAW formats go through macOS's own RAW support. */
+/** The photo formats the Sony ZV-E10 writes. sips reads ARW through macOS's own RAW support. */
 const KINDS: Record<string, Kind> = {
   ".jpg": "jpg",
-  ".jpeg": "jpg",
   ".arw": "raw",
-  ".cr2": "raw",
-  ".cr3": "raw",
-  ".dng": "raw",
-  ".nef": "raw",
-  ".orf": "raw",
-  ".raf": "raw",
-  ".rw2": "raw",
 };
 
 const CONCURRENCY = Math.max(1, Math.min(4, availableParallelism() - 1));
@@ -282,7 +274,7 @@ function help(): void {
 ${style.bold("Usage:")} camsqz [dir] [options]
 
 Compresses the photos in a folder into ${style.bold("<name>_compressed.jpg")} files next to the
-originals. Reads JPG and RAW files (like Sony's .ARW). Only looks at the folder
+originals. Reads JPG and ARW (Sony RAW) files. Only looks at the folder
 itself, not its subfolders, and never changes the originals.
 
 ${style.bold("Arguments:")}
