@@ -4,7 +4,7 @@ hyper - w : open -a "Warp"
 hyper - e : open -a "Notion"
 hyper - r : open -a "TickTick"
 
-hyper - a : open -a "Arc"
+hyper - a : open -a "Zen"
 hyper - s : open -a "YouTube Music"
 hyper - d : open -a "Google Chrome"
 hyper - f : open -a "Simulator"
