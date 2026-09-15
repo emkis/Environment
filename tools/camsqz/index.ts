@@ -116,7 +116,7 @@ const kindOf = (name: string): Kind | undefined => KINDS[extname(name).toLowerCa
 
 const stemOf = (name: string) => basename(name, extname(name));
 
-/** Finds the photos in the folder (not subfolders) that still need a compressed copy. */
+/** Finds the photos in the directory (not subdirectories) that still need a compressed copy. */
 async function scan(dir: string): Promise<Scan> {
   const entries = await readdir(dir, { withFileTypes: true });
   const names = entries
@@ -273,12 +273,12 @@ function help(): void {
   console.log(`\
 ${style.bold("Usage:")} camsqz [dir] [options]
 
-Compresses the photos in a folder into ${style.bold("<name>_compressed.jpg")} files next to the
-originals. Reads JPG and ARW (Sony RAW) files. Only looks at the folder
-itself, not its subfolders, and never changes the originals.
+Compresses the photos in a directory into ${style.bold("<name>_compressed.jpg")} files next to
+the originals. Reads JPG and ARW (Sony RAW) files. Only looks at the directory
+itself, not its subdirectories, and never changes the originals.
 
 ${style.bold("Arguments:")}
-  [dir]              Folder with the photos (default: the current folder).
+  [dir]              Directory with the photos (default: the current directory).
 
 ${style.bold("Options:")}
   -n, --dry-run      List the photos it would compress, then stop.
@@ -318,7 +318,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
   if (values.help || positionals[0] === "help") return help();
-  if (positionals.length > 1) bail("Pass a single folder. Run 'camsqz help' to see the options.");
+  if (positionals.length > 1) bail("Pass a single directory. Run 'camsqz help' to see the options.");
   if (!Bun.which("sips")) bail("sips is not available. It comes with macOS.");
 
   const quality = Number(values.quality ?? DEFAULT_QUALITY);
@@ -328,7 +328,7 @@ async function main(): Promise<void> {
 
   const dir = resolve(positionals[0] ?? ".");
   const dirStat = await stat(dir).catch(() => undefined);
-  if (!dirStat?.isDirectory()) bail(`Not a folder: ${dir}`);
+  if (!dirStat?.isDirectory()) bail(`Not a directory: ${dir}`);
 
   const found = await scan(dir);
   printScan(dir, quality, found);
