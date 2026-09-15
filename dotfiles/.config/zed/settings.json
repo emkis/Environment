@@ -115,7 +115,7 @@
   },
   "current_line_highlight": "gutter",
   "confirm_quit": true,
-  "buffer_font_family": "Fira Code",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
   "formatter": "language_server",
   "file_types": {
     "jsonc": [

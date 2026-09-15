@@ -65,6 +65,5 @@ cask "the-unarchiver"
 cask "iina"
 
 # Fonts
-cask "font-fira-code"
 cask "font-fira-code-nerd-font"
-cask "font-lora"
+cask "font-jetbrains-mono-nerd-font"
