@@ -95,6 +95,7 @@ Log in. Warp syncs its own settings, so they come back once logged in.
 
 ### Clipy
 
+- General > Clipboard History > Max clipboard history size: **100**.
 - Appearance > Status Bar icon style: **None**.
 - Turn off every default shortcut in Shortcuts > Menu, except Main.
 - Shortcuts > Menu > Main: `Option + V`
