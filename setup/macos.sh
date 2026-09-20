@@ -102,6 +102,17 @@ elif ! fnm install --lts; then
   warn "Node failed to install, run it again in fish: fnm install --lts"
 fi
 
+step "skhd"
+# Goes after envsync, which links ~/.skhdrc. The service keeps the PATH it was
+# started with, and the hotkeys' tools need Homebrew's (bun, blueutil) and ~/bin
+if ! command -v skhd >/dev/null; then
+  warn "skhd isn't installed, start it by hand: guides/manual-steps.md"
+elif launchctl print "gui/$(id -u)/com.koekeishiya.skhd" >/dev/null 2>&1; then
+  echo "Already started"
+elif ! PATH="$HOME/bin:$PATH" skhd --start-service; then
+  warn "skhd failed to start, do it by hand: guides/manual-steps.md"
+fi
+
 step "Dock"
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
