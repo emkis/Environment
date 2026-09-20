@@ -1,6 +1,6 @@
 # New Mac setup
 
-On a fresh Apple Silicon Mac, open Terminal and run:
+On a fresh Apple Silicon Mac, first go through the macOS settings in [manual-steps.md](manual-steps.md#macos-settings), as they need nothing from this repo. Then open Terminal and run:
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/emkis/Environment/main/setup/macos.sh)"
@@ -20,7 +20,7 @@ Run it as my user, not with `sudo`. It's safe to run again: finished steps are s
 
 ## After it finishes
 
-Open a new terminal, so it runs fish, then go through [manual-steps.md](manual-steps.md): the GitHub login and app settings the script can't do.
+Open a new terminal, so it runs fish, then go on with [manual-steps.md](manual-steps.md) from the Shell section: the app settings and GitHub login the script can't do.
 
 ## Keeping the Brewfile up to date
 
