@@ -63,6 +63,7 @@ cask "bitwarden"
 cask "surfshark"
 cask "the-unarchiver"
 cask "iina"
+cask "steam"
 
 # Fonts
 cask "font-fira-code-nerd-font"
