@@ -40,7 +40,7 @@ In System Settings, before running the setup script.
     - Keyboard > **Move focus to next window**
     - Keyboard > **Show contextual menu**
     - Accessibility > **Turn VoiceOver on or off**
-- **Trackpad**: tracking speed **TODO**.
+- **Trackpad > Point & Click**: tracking speed on the 6th notch of 10, just past the middle.
 
 ## Installation
 
