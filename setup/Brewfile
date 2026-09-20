@@ -50,7 +50,7 @@ cask "google-chrome"
 # Window, input, clipboard
 cask "karabiner-elements"
 cask "rectangle-pro"
-cask "raycast"
+cask "sol"
 cask "shottr"
 cask "mos"
 cask "clipy"

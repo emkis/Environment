@@ -32,7 +32,7 @@ No config file, so set by hand (`Cmd+P` opens the command palette):
 
 ## Apps
 
-- Log in to: Bitwarden, Notion, TickTick, Surfshark, browsers, Raycast, Claude Code.
+- Log in to: Bitwarden, Notion, TickTick, Surfshark, browsers, Claude Code.
 - **Karabiner-Elements**: check the keyboard is listed and mappings work.
 - **Bluetooth devices**: run `blu pair` to pair.
 - **Rectangle Pro**: open it twice (first run asks for permissions), paste the activation key, sign in to iCloud, enable iCloud sync and check the config was imported.
