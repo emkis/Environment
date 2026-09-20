@@ -4,14 +4,14 @@ Things the setup script can't do. Run `setup/macos.sh` first (see [new-mac-setup
 
 ## Shell
 
-Use the full path, as Homebrew isn't on zsh's `PATH` (`which fish` would find nothing):
+`setup/macos.sh` makes fish the default shell, so **open a new terminal** before going on. It runs fish, whose config puts Homebrew and `~/bin` on the `PATH`; in zsh, `gh`, `fnm` and `skhd` aren't found.
+
+If the script warned it couldn't do it, set it by hand. Use the full path, as Homebrew isn't on zsh's `PATH` (`which fish` would find nothing):
 
 ```bash
 echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
 chsh -s /opt/homebrew/bin/fish
 ```
-
-Then **open a new terminal** before going on. It runs fish, whose config puts Homebrew and `~/bin` on the `PATH`; in zsh, `gh`, `fnm` and `skhd` aren't found.
 
 ## Dev
 
