@@ -49,6 +49,16 @@ else
   echo "Already cloned"
 fi
 
+step "Rosetta"
+# Not on Homebrew: it's an Apple system component, so only softwareupdate
+# installs it. Goes before the Brewfile, as Intel-only casks need it.
+# oahd is its daemon, which only runs once it's installed
+if /usr/bin/pgrep -q oahd; then
+  echo "Already installed"
+elif ! sudo softwareupdate --install-rosetta --agree-to-license; then
+  warn "Rosetta failed to install, Intel-only apps won't run until it does"
+fi
+
 step "Installing Brewfile"
 # Keep going if some entries fail, they can be retried by running this again
 if ! brew bundle install --file="$REPOSITORY_DIR/setup/Brewfile"; then
