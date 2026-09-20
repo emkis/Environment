@@ -93,6 +93,15 @@ if ! "$REPOSITORY_DIR/tools/envsync/index.sh"; then
   warn "envsync failed, fix it and run it again: $REPOSITORY_DIR/tools/envsync/index.sh"
 fi
 
+step "Node LTS"
+# fnm doesn't need its shell env to install: fish's config loads that later.
+# The first version installed becomes the default. Already installed is a no-op
+if ! command -v fnm >/dev/null; then
+  warn "fnm isn't installed, install Node by hand: fnm install --lts"
+elif ! fnm install --lts; then
+  warn "Node failed to install, run it again in fish: fnm install --lts"
+fi
+
 step "Dock"
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5

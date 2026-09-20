@@ -18,7 +18,6 @@ chsh -s /opt/homebrew/bin/fish
 Run these in fish (the new terminal from the step above).
 
 - GitHub: `gh auth login`, choose **HTTPS** and let it authenticate git, so pushing works with the HTTPS clone.
-- Node: `fnm install --lts`.
 - VSCode: sign in with GitHub and turn on Settings Sync.
 - skhd: `skhd --start-service`, then allow it in Accessibility. It must be started from fish: the service keeps the `PATH` of the shell it was started from, and Hyper+Q (`ide`, runs on bun) and Hyper+B (calls `blueutil`) need `/opt/homebrew/bin` in it. If they do nothing, run `skhd --uninstall-service && skhd --start-service` from fish.
 
