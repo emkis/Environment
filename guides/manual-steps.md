@@ -63,7 +63,7 @@ For each app: open it and grant every permission it asks for, then set it up as 
 
 ### Karabiner-Elements
 
-Open it and grant its permissions. skhd depends on it, so do this first.
+It turns Right Command into the Hyper key (`Control + Option + Shift + Command`), which skhd's shortcuts use, so set it up before anything else.
 
 ### Bitwarden
 
@@ -90,19 +90,20 @@ Log in. Warp syncs its own settings, so they come back once logged in.
 
 - Turn on **Launch at startup**.
 - Screenshots folder: **Desktop**.
-- Instant Text/QR Recognition shortcut: **Shift+Cmd+3**.
+- Instant Text/QR Recognition shortcut: `Shift + Command + 3`
 - Activate it with the license key (in Bitwarden).
 
 ### Clipy
 
 - Appearance > Status Bar icon style: **None**.
-- Shortcuts > Menu > Main: **Option+V**, and turn off every other shortcut in Shortcuts > Menu.
+- Turn off every default shortcut in Shortcuts > Menu, except Main.
+- Shortcuts > Menu > Main: `Option + V`
 
 ### Hex
 
 - Download the **Parakeet TDT v2** transcription model.
 - Turn off **Show dock icon** and **Super fast mode**.
-- Shortcut: **Hyper+]**.
+- Shortcut: `Hyper + ]`
 - Maximum History Entries: **50**.
 
 ### Mos
@@ -116,7 +117,7 @@ Run these in fish (the new terminal from the Shell step).
 
 - GitHub: `gh auth login`, choose **HTTPS** and let it authenticate git, so pushing works with the HTTPS clone. It can be completed from another device.
 - VSCode: sign in with GitHub and turn on Settings Sync.
-- skhd: `setup/macos.sh` starts it, then allow it in Accessibility. If the script warned it couldn't start it, run `skhd --start-service` from fish: the service keeps the `PATH` of the shell it was started from, and Hyper+Q (`ide`, runs on bun) and Hyper+B (calls `blueutil`) need `/opt/homebrew/bin` in it. If they do nothing, run `skhd --uninstall-service && skhd --start-service` from fish.
+- skhd: `setup/macos.sh` starts it, then allow it in Accessibility. If the script warned it couldn't start it, run `skhd --start-service` from fish: the service keeps the `PATH` of the shell it was started from, and `Hyper + Q` (`ide`, runs on bun) and `Hyper + B` (calls `blueutil`) need `/opt/homebrew/bin` in it. If they do nothing, run `skhd --uninstall-service && skhd --start-service` from fish.
 
 ## Dock
 
