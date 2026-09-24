@@ -6,6 +6,24 @@ This repository was created to solve two things:
 - Setting up a brand new macOS machine.
 - Syncing files (e.g. dotfiles, tools) in this repo with the current machine.
 
+## Source of truth
+This repo is the user's system. Every machine is built from it. The current machine is just a copy, and copies drift.
+
+So when the user asks about "my system", check the repo first. It has the answer. Look at the machine only to spot drift, and say what you find. Something on the machine but not in the repo isn't needed, but ask before removing it.
+
+Change the repo, not just the machine. Otherwise the next machine won't get it.
+
+| Change | Goes in |
+|---|---|
+| Homebrew formula or cask | `setup/Brewfile` |
+| Config file in `$HOME` | `dotfiles/` |
+| PATH or environment variable | `dotfiles/.config/fish/config.fish` |
+| The user's own CLI | `tools/` |
+| Setup step for a new machine | `setup/macos.sh` |
+| Anything manual | `guides/` |
+
+Just trying something out? Ask before adding it to the repo.
+
 ## Preferences
 - We should only support macOS.
 - Use Homebrew as primary package manager for installing anything.
