@@ -24,7 +24,7 @@ This repository was created to solve two things:
 
 ## Common tasks
 ### Adding a dotfile
-Move the real file into `dotfiles/` at the same path it has in `$HOME`, then run `envsync` to link it back. See `guides/dotfiles-and-tools.md` for the full day-to-day workflow (removing/renaming dotfiles, resolving stow conflicts, etc).
+Move the real file into `dotfiles/` at the same path it has in `$HOME`, then run `envsync` to link it back. See `tools/envsync/README.md` for full documentation.
 
 ### Adding a tool
 Write `tools/<name>/index.(ts,sh)`, starting with a shebang, and make it executable. The tool's name should be the same as the link's name. It isn't done until it's linked:
