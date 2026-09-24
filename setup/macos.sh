@@ -102,6 +102,16 @@ elif ! fnm install --lts; then
   warn "Node failed to install, run it again in fish: fnm install --lts"
 fi
 
+step "Rust toolchain"
+# Homebrew's rustup is keg-only, so it's called by its path. The first
+# toolchain installed becomes the default. Already installed is a no-op
+RUSTUP="/opt/homebrew/opt/rustup/bin/rustup"
+if [[ ! -x "$RUSTUP" ]]; then
+  warn "rustup isn't installed, install Rust by hand: rustup default stable"
+elif ! "$RUSTUP" default stable; then
+  warn "Rust failed to install, run it again in fish: rustup default stable"
+fi
+
 step "skhd"
 # Goes after envsync, which links ~/.skhdrc. The service keeps the PATH it was
 # started with, and the hotkeys' tools need Homebrew's (bun, blueutil) and ~/bin

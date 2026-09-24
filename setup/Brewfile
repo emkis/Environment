@@ -20,6 +20,7 @@ brew "fnm"
 brew "pnpm"
 brew "oven-sh/bun/bun"
 brew "gnupg"
+brew "rustup"
 
 # Command line
 brew "gh"

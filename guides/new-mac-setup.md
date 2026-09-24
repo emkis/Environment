@@ -68,7 +68,8 @@ What it does:
 4. **Brewfile**: installs everything in `setup/Brewfile`.
 5. **Default shell**: makes fish the login shell. It asks for my password, and starts in the next terminal I open.
 6. **Dotfiles and tools**: links them into my home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
-7. **Dock**: no delay before it shows up, and a faster animation.
+7. **Rust**: installs the stable toolchain with `rustup`, so `cargo install` works.
+8. **Dock**: no delay before it shows up, and a faster animation.
 
 ## 3. Apps and logins
 

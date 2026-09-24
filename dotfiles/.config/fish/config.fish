@@ -15,6 +15,8 @@ fish_add_path "$ANDROID_HOME/emulator"
 fish_add_path "$ANDROID_HOME/platform-tools"
 fish_add_path "$ANDROID_HOME/cmdline-tools/latest/bin"
 fish_add_path "$HOME/.local/bin"
+fish_add_path "$(brew --prefix rustup)/bin"
+fish_add_path "$HOME/.cargo/bin"
 fish_add_path "$GLOBAL_BINS"
 
 # Initialise tools
