@@ -9,7 +9,7 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
 - **Storage**:
     - Turn on **Optimise Apple TV storage** and **Empty Bin automatically** (after 30 days).
     - Remove the GarageBand music and sound library.
-    - Delete the default apps I don't use: **iMovie**, **GarageBand**, **Keynote**, **Pages**, **Numbers**, **Freeform**.
+    - Delete these default apps: **iMovie**, **GarageBand**, **Keynote**, **Pages**, **Numbers**, **Freeform**.
 - **Battery**:
     - Charge limit **80%**.
 - **General**:
@@ -41,7 +41,7 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
 - **Keyboard**:
     - Turn off **Adjust keyboard brightness in low light**, and turn the keyboard brightness all the way down.
     - Input Sources: add **Brazilian – ABNT2** as the second input source.
-    - Text Replacements: `email` → my email address.
+    - Text Replacements: `email` → your email address.
 - **Keyboard > Keyboard Shortcuts**: turn off every default shortcut except:
     - Windows > General > **Minimise**
     - Keyboard > **Move focus to next window**
@@ -58,7 +58,7 @@ On a fresh Apple Silicon Mac, open Terminal and run:
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/emkis/Environment/main/setup/macos.sh)"
 ```
 
-Run it as my user, not with `sudo`. It asks for my password while installing Homebrew, and again while the Brewfile runs. It's safe to run again: finished steps are skipped, so if something fails, fix it and run the same command.
+Run it as your normal user, not with `sudo`. It asks for your password while installing Homebrew, and again while the Brewfile runs. It's safe to run again: finished steps are skipped, so if something fails, fix it and run the same command.
 
 What it does:
 
@@ -66,8 +66,8 @@ What it does:
 2. **Clones this repo** into `~/projects/Environment`, over HTTPS.
 3. **Rosetta**: installs it with `softwareupdate`, as it isn't on Homebrew. Intel-only apps need it.
 4. **Brewfile**: installs everything in `setup/Brewfile`.
-5. **Default shell**: makes fish the login shell. It asks for my password, and starts in the next terminal I open.
-6. **Dotfiles and tools**: links them into my home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
+5. **Default shell**: makes fish the login shell. It asks for your password, and takes effect in the next terminal you open.
+6. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
 7. **Node**: installs the latest LTS with `fnm`, which becomes the default.
 8. **Rust**: installs the stable toolchain with `rustup`, so `cargo install` works.
 9. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
