@@ -1,0 +1,22 @@
+[ui]
+primary = "anthropic"
+
+[tray]
+menu_bar_provider = "anthropic"
+refresh_minutes = 5
+menu_bar_style = "bars"
+menu_bar_show_all = false
+menu_bar_hide_value = false
+menu_bar_window = "auto"
+
+[anthropic]
+enabled = true
+
+[copilot]
+enabled = true
+
+[openai]
+enabled = false
+
+[commandcode]
+enabled = false

@@ -9,3 +9,8 @@
 
 # macOS Finder metadata
 \.DS_Store$
+
+# The real ai-usagebar config directory, linked as a folder like Karabiner:
+# the app saves by renaming a temp file over config.toml, which replaces a
+# file symlink with a plain file.
+^/ai-usagebar$

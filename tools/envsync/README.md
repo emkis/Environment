@@ -15,4 +15,5 @@ Rule of thumb: added, removed or renamed a file → run it. Only edited contents
 ## Gotchas
 
 - **Karabiner is special.** It only reloads config when its whole folder is a link, not just the file inside — `~/.config/karabiner` links to `dotfiles/karabiner/` as a folder. Its automatic backups are gitignored.
+- **ai-usagebar is linked as a folder too.** It saves `config.toml` by renaming a temp file over it, which replaces a file symlink with a plain file and cuts it off from the repo. `~/.config/ai-usagebar` links to `dotfiles/ai-usagebar/` instead, so the rename happens inside the repo.
 - **`dotfiles/.stow-local-ignore`** lists what must NOT be linked. Everything else under `dotfiles/` gets linked, so don't drop READMEs/notes in there.

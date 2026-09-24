@@ -4,3 +4,6 @@
 # Backups Karabiner-Elements writes on its own into its config directory,
 # which now lives in this repo (dotfiles/karabiner)
 dotfiles/karabiner/automatic_backups/
+
+# Temp files ai-usagebar writes before renaming them over its config
+dotfiles/ai-usagebar/.tmp.*
