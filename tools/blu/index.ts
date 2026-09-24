@@ -12,8 +12,10 @@ interface Device {
   name: string;
   /**
    * A fixed address, or a `Matcher` for devices that get a new address per host slot,
-   * like the MX Keys keyboard's Bluetooth channels — there's no fixed address to pair
-   * to directly, so it's found by scanning nearby discoverable devices instead.
+   * like the MX Keys keyboard's Bluetooth channels. blueutil can't pair these directly:
+   * its `--inquiry` only does classic BR/EDR scanning and can't see a BLE device
+   * advertising for pairing (https://github.com/toy/blueutil/issues/60), so these are
+   * paired through the Bluetooth settings pane instead and just confirmed afterwards.
    */
   address: string | Matcher;
   /** Unpair and pair again, even when it's already paired. */
@@ -43,7 +45,8 @@ const DEVICES: Device[] = [
 ];
 
 const PAIR_ATTEMPTS = 2;
-const INQUIRY_SECONDS = 8;
+const PAIRED_CHECK_ATTEMPTS = 5;
+const PAIRED_CHECK_INTERVAL_MS = 1000;
 const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
 // ── Terminal ──────────────────────────────────────────────────────────────────
@@ -86,6 +89,7 @@ function requireBins(...bins: string[]): void {
 }
 
 const BLUETOOTH_PRIVACY_PANE = "x-apple.systempreferences:com.apple.preference.security?Privacy_Bluetooth";
+const BLUETOOTH_SETTINGS_PANE = "x-apple.systempreferences:com.apple.BluetoothSettings";
 
 /**
  * blueutil aborts if the terminal app isn't allowed in System Settings, and macOS doesn't
@@ -177,10 +181,15 @@ const bluetooth = {
     return new Set(devices.map((device) => device.address));
   },
 
-  /** Scans nearby discoverable devices (i.e. in pairing mode) for one matching the device. */
-  async discover(device: Device): Promise<string | undefined> {
-    const found: { address: string }[] = await $`blueutil --inquiry ${INQUIRY_SECONDS} --format json`.json();
-    return found.find((candidate) => matches(candidate.address, device))?.address;
+  /** Polls the paired list for a device that just got paired through System Settings. */
+  async waitForPaired(device: Device): Promise<string | undefined> {
+    for (let attempt = 1; attempt <= PAIRED_CHECK_ATTEMPTS; attempt++) {
+      const paired = await bluetooth.pairedAddresses();
+      const address = [...paired].find((candidate) => matches(candidate, device));
+      if (address) return address;
+      if (attempt < PAIRED_CHECK_ATTEMPTS) await Bun.sleep(PAIRED_CHECK_INTERVAL_MS);
+    }
+    return undefined;
   },
 
   async pair(address: string): Promise<boolean> {
@@ -210,17 +219,10 @@ async function pairDevice(device: Device, pairedAddresses: Set<string>): Promise
     log.ok("Unpaired");
   }
 
-  await waitForKey(`Turn it on, then press any key ${style.dim("(Ctrl+C to quit)")}`);
+  if (typeof device.address === "function") return pairViaSettings(device);
+  const address = device.address;
 
-  let address = device.address;
-  if (typeof address === "function") {
-    const discovered = await withSpinner("Looking for it nearby…", () => bluetooth.discover(device));
-    if (!discovered) {
-      log.error("Couldn't find it nearby. Make sure it's in pairing mode.");
-      return "failed";
-    }
-    address = discovered;
-  }
+  await waitForKey(`Turn it on, then press any key ${style.dim("(Ctrl+C to quit)")}`);
 
   for (let attempt = 1; attempt <= PAIR_ATTEMPTS; attempt++) {
     const attemptLabel = attempt > 1 ? style.dim(` (attempt ${attempt}/${PAIR_ATTEMPTS})`) : "";
@@ -234,6 +236,25 @@ async function pairDevice(device: Device, pairedAddresses: Set<string>): Promise
   }
 
   return "failed";
+}
+
+/**
+ * blueutil can't discover or pair a device that's only found over BLE (see the note on
+ * `Device.address`), so this opens Bluetooth settings for the user to pair it there and
+ * just confirms it went through.
+ */
+async function pairViaSettings(device: Device): Promise<PairResult> {
+  await $`open ${BLUETOOTH_SETTINGS_PANE}`.quiet().nothrow();
+  await waitForKey(`Turn it on and click it under "Nearby Devices" in Settings, then press any key ${style.dim("(Ctrl+C to quit)")}`);
+
+  const address = await withSpinner("Checking…", () => bluetooth.waitForPaired(device));
+  if (!address) {
+    log.error("Not paired yet. Make sure you clicked it in Settings.");
+    return "failed";
+  }
+
+  log.ok("Paired");
+  return "paired";
 }
 
 function summary(results: PairResult[]): string {
