@@ -22,14 +22,12 @@ type PairResult = "paired" | "already paired" | "failed";
 
 const DEVICES: Device[] = [
   { name: "Trackpad", address: "bc-d0-74-b7-a3-f7", repair: true },
-  { name: "Keyboard", address: "d2-f3-6f-54-f6-6b" },
   { name: "Mouse", address: "f4-66-db-5d-ec-7f" },
   { name: "Headphones", address: "78-2b-64-cc-73-fa" },
   { name: "Bose Speaker", address: "78-2b-64-f7-30-4d" },
 ];
 
 const PAIR_ATTEMPTS = 2;
-
 const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
 // ── Terminal ──────────────────────────────────────────────────────────────────
@@ -71,7 +69,6 @@ function requireBins(...bins: string[]): void {
   }
 }
 
-const BLUETOOTH_PRIVACY_PANE = "x-apple.systempreferences:com.apple.preference.security?Privacy_Bluetooth";
 
 /**
  * blueutil aborts if the terminal app isn't allowed in System Settings, and macOS doesn't
@@ -79,6 +76,7 @@ const BLUETOOTH_PRIVACY_PANE = "x-apple.systempreferences:com.apple.preference.s
  * instead of leaving the user to find it (System Settings > Privacy & Security > Bluetooth).
  */
 async function ensureBluetoothAccess(): Promise<void> {
+  const BLUETOOTH_PRIVACY_PANE = "x-apple.systempreferences:com.apple.preference.security?Privacy_Bluetooth";
   const result = await $`blueutil --power`.quiet().nothrow();
   if (result.exitCode === 0) return;
 
