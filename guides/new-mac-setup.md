@@ -65,11 +65,11 @@ What it does:
 1. **Homebrew**: installs it, which also installs the Xcode Command Line Tools (and with them, git).
 2. **Clones this repo** into `~/projects/Environment`, over HTTPS.
 3. **Rosetta**: installs it with `softwareupdate`, as it isn't on Homebrew. Intel-only apps need it.
-4. **Brewfile**: installs everything in `setup/Brewfile`.
-5. **Default shell**: makes fish the login shell. It asks for your password, and takes effect in the next terminal you open.
-6. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
-7. **Node**: installs the latest LTS with `fnm`, which becomes the default.
-8. **Rust**: installs the stable toolchain with `rustup`, so `cargo install` works.
+4. **Rust**: installs `rustup` and the stable toolchain, so the Brewfile's `cargo` entries can install.
+5. **Brewfile**: installs everything in `setup/Brewfile`.
+6. **Default shell**: makes fish the login shell. It asks for your password, and takes effect in the next terminal you open.
+7. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
+8. **Node**: installs the latest LTS with `fnm`, which becomes the default.
 9. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
 10. **Dock**: no delay before it shows up, and a faster animation.
 

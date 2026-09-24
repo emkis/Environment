@@ -59,6 +59,16 @@ elif ! sudo softwareupdate --install-rosetta --agree-to-license; then
   warn "Rosetta failed to install, Intel-only apps won't run until it does"
 fi
 
+step "Rust toolchain"
+# Goes before the Brewfile, whose cargo entries need a toolchain.
+# rustup is keg-only, so its bin goes on PATH
+export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+if [[ ! -x /opt/homebrew/opt/rustup/bin/rustup ]] && ! brew install rustup; then
+  warn "rustup failed to install, the Brewfile will retry it"
+elif ! rustup default stable; then
+  warn "Rust failed to install, run it again in fish: rustup default stable"
+fi
+
 step "Installing Brewfile"
 # Keep going if some entries fail, they can be retried by running this again
 if ! brew bundle install --file="$REPOSITORY_DIR/setup/Brewfile"; then
@@ -100,16 +110,6 @@ if ! command -v fnm >/dev/null; then
   warn "fnm isn't installed, install Node by hand: fnm install --lts"
 elif ! fnm install --lts; then
   warn "Node failed to install, run it again in fish: fnm install --lts"
-fi
-
-step "Rust toolchain"
-# Homebrew's rustup is keg-only, so it's called by its path. The first
-# toolchain installed becomes the default. Already installed is a no-op
-RUSTUP="/opt/homebrew/opt/rustup/bin/rustup"
-if [[ ! -x "$RUSTUP" ]]; then
-  warn "rustup isn't installed, install Rust by hand: rustup default stable"
-elif ! "$RUSTUP" default stable; then
-  warn "Rust failed to install, run it again in fish: rustup default stable"
 fi
 
 step "skhd"

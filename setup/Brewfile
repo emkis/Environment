@@ -69,3 +69,6 @@ cask "steam"
 # Fonts
 cask "font-fira-code-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
+
+# Cargo crates
+cargo "ai-usagebar"

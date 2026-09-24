@@ -16,6 +16,7 @@ Change the repo, not just the machine. Otherwise the next machine won't get it.
 | Change | Goes in |
 |---|---|
 | Homebrew formula or cask | `setup/Brewfile` |
+| Cargo crate | `setup/Brewfile` (`cargo "<name>"`) |
 | Config file in `$HOME` | `dotfiles/` |
 | PATH or environment variable | `dotfiles/.config/fish/config.fish` |
 | The user's own CLI | `tools/` |
