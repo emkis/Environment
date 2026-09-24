@@ -71,6 +71,25 @@ function requireBins(...bins: string[]): void {
   }
 }
 
+const BLUETOOTH_PRIVACY_PANE = "x-apple.systempreferences:com.apple.preference.security?Privacy_Bluetooth";
+
+/**
+ * blueutil aborts if the terminal app isn't allowed in System Settings, and macOS doesn't
+ * prompt for it like it does for camera/mic. Detect that and jump straight to the pane
+ * instead of leaving the user to find it (System Settings > Privacy & Security > Bluetooth).
+ */
+async function ensureBluetoothAccess(): Promise<void> {
+  const result = await $`blueutil --power`.quiet().nothrow();
+  if (result.exitCode === 0) return;
+
+  if (result.stderr.toString().includes("Bluetooth API")) {
+    await $`open ${BLUETOOTH_PRIVACY_PANE}`.quiet().nothrow();
+    bail("This terminal app isn't allowed to use Bluetooth. Add it in the Settings pane just opened, then run this again.");
+  }
+
+  bail(result.stderr.toString().trim() || "blueutil failed");
+}
+
 /** Shows a spinner next to the message while the task runs (TTY only). */
 async function withSpinner<T>(message: string, task: () => Promise<T>): Promise<T> {
   if (!isTTY) return task();
@@ -197,6 +216,7 @@ const commands = {
   pair: {
     async run() {
       requireBins("blueutil", "fzf");
+      await ensureBluetoothAccess();
 
       const input = Buffer.from(DEVICES.map((device) => device.name).join("\n"));
       const selection = await $`fzf --multi --border --prompt="Pair › " --header="Tab to select, Enter to pair" < ${input}`
@@ -230,6 +250,7 @@ const commands = {
   toggle: {
     async run() {
       requireBins("blueutil");
+      await ensureBluetoothAccess();
 
       const on = !(await bluetooth.isOn());
       await bluetooth.setPower(on);
