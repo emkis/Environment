@@ -80,27 +80,24 @@ For a bash tool, use `index.sh` with `#!/opt/homebrew/bin/bash` as the first lin
 
 ## When something looks wrong
 
-### envsync says a file is in the way
+### envsync adopted a file
 
-The message looks like `cannot stow ... over existing target <file>`. A real file is sitting where a link should be, and `envsync` changed nothing. It usually happens when:
+If a real file sits where a link should be — I started tracking a dotfile on one machine and another machine already had its own copy, or an app saved its config by writing a new file, which replaced the link — `envsync` doesn't abort. It pulls the real file into the repo (replacing the repo's copy) and links it: the machine's version wins.
 
-- I started tracking a dotfile on one machine, and the other machine already had its own copy of that file.
-- An app saved its config by writing a new file, which replaced the link.
-
-To fix it, pull the real file into the repo and decide which version wins:
+After running `envsync`, check what got adopted:
 
 ```bash
 cd ~/projects/Environment   # the repo root
-stow --target="$HOME" --no-folding --adopt -R dotfiles   # same as envsync, plus --adopt
-git diff                                                  # compare the machine's version with the repo's
+git status
+git diff
 ```
 
-`--adopt` moves the real file into the repo (replacing the repo's copy) and links it. Then either:
+Then either:
 
 - **Keep the machine's version:** commit it.
-- **Keep the repo's version:** `git restore <file>`.
+- **Keep the repo's version instead:** `git restore <file>`.
 
-Commit my own edits before running `--adopt`, so `git diff` only shows what the machine had.
+Commit my own edits first, so `git diff` only shows what the machine had.
 
 ### Is a file linked?
 
