@@ -6,15 +6,10 @@
 set -gx EDITOR vim
 
 # Directories
-set -gx ANDROID_HOME "$HOME/Library/Android/sdk"
 set -gx GLOBAL_BINS "$HOME/bin"
 set -gx PROMPTS_REPOSITORY "$HOME/projects/Prompts"
 
 # Paths
-fish_add_path "$ANDROID_HOME/emulator"
-fish_add_path "$ANDROID_HOME/platform-tools"
-fish_add_path "$ANDROID_HOME/cmdline-tools/latest/bin"
-fish_add_path "$HOME/.local/bin"
 fish_add_path "$(brew --prefix rustup)/bin"
 fish_add_path "$HOME/.cargo/bin"
 fish_add_path "$GLOBAL_BINS"
