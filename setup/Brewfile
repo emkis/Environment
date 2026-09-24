@@ -41,7 +41,7 @@ cask "zed"
 cask "visual-studio-code"
 cask "warp"
 cask "orbstack"
-cask "claude-code"
+cask "claude-code@latest"
 
 # Browsers
 cask "zen"
