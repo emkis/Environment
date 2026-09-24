@@ -9,7 +9,7 @@ This repository was created to solve two things:
 ## Source of truth
 This repo is the user's system. Every machine is built from it. The current machine is just a copy, and copies drift.
 
-So when the user asks about "my system", check the repo first. It has the answer. Look at the machine only to spot drift, and say what you find. Something on the machine but not in the repo isn't needed, but ask before removing it.
+So when the user asks about "my system", check both before you answer. The repo says what should be there. The current machine shows what drifted. The repo wins, but always report the drift. Something on the machine but not in the repo isn't needed, but ask before removing it.
 
 Change the repo, not just the machine. Otherwise the next machine won't get it.
 
