@@ -5,17 +5,9 @@ import { once } from "node:events";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-/** Tests whether a candidate address (`xx-xx-xx-xx-xx-xx`) identifies a device. */
-type Matcher = (address: string) => boolean;
-
 interface Device {
   name: string;
-  /**
-   * A fixed address, or a `Matcher` for devices that get a new address per host slot,
-   * like the MX Keys keyboard's Bluetooth channels — there's no fixed address to pair
-   * to directly, so it's found by scanning nearby discoverable devices instead.
-   */
-  address: string | Matcher;
+  address: string;
   /** Unpair and pair again, even when it's already paired. */
   repair?: boolean;
 }
@@ -28,22 +20,16 @@ type PairResult = "paired" | "already paired" | "failed";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-/** Matches addresses starting with the given prefix, case-insensitively. */
-function prefix(value: string): Matcher {
-  const target = value.toLowerCase();
-  return (address) => address.toLowerCase().startsWith(target);
-}
-
 const DEVICES: Device[] = [
   { name: "Trackpad", address: "bc-d0-74-b7-a3-f7", repair: true },
-  { name: "Keyboard", address: prefix("d2-f3-6f-54-f6") },
+  { name: "Keyboard", address: "d2-f3-6f-54-f6-6b" },
   { name: "Mouse", address: "f4-66-db-5d-ec-7f" },
   { name: "Headphones", address: "78-2b-64-cc-73-fa" },
   { name: "Bose Speaker", address: "78-2b-64-f7-30-4d" },
 ];
 
 const PAIR_ATTEMPTS = 2;
-const INQUIRY_SECONDS = 8;
+
 const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
 // ── Terminal ──────────────────────────────────────────────────────────────────
@@ -157,12 +143,6 @@ async function waitForKey(message: string): Promise<void> {
 
 // ── Bluetooth ─────────────────────────────────────────────────────────────────
 
-function matches(candidateAddress: string, device: Device): boolean {
-  return typeof device.address === "function"
-    ? device.address(candidateAddress)
-    : candidateAddress.toLowerCase() === device.address.toLowerCase();
-}
-
 const bluetooth = {
   async isOn(): Promise<boolean> {
     return (await $`blueutil --power`.text()).trim() === "1";
@@ -177,12 +157,6 @@ const bluetooth = {
     return new Set(devices.map((device) => device.address));
   },
 
-  /** Scans nearby discoverable devices (i.e. in pairing mode) for one matching the device. */
-  async discover(device: Device): Promise<string | undefined> {
-    const found: { address: string }[] = await $`blueutil --inquiry ${INQUIRY_SECONDS} --format json`.json();
-    return found.find((candidate) => matches(candidate.address, device))?.address;
-  },
-
   async pair(address: string): Promise<boolean> {
     return (await $`blueutil --pair ${address}`.quiet().nothrow()).exitCode === 0;
   },
@@ -195,15 +169,13 @@ const bluetooth = {
 async function pairDevice(device: Device, pairedAddresses: Set<string>): Promise<PairResult> {
   console.log(style.bold(device.name));
 
-  const pairedAddress = [...pairedAddresses].find((address) => matches(address, device));
-
-  if (pairedAddress) {
+  if (pairedAddresses.has(device.address)) {
     if (!device.repair) {
       log.ok(style.dim("Already paired"));
       return "already paired";
     }
 
-    if (!(await withSpinner("Unpairing…", () => bluetooth.unpair(pairedAddress)))) {
+    if (!(await withSpinner("Unpairing…", () => bluetooth.unpair(device.address)))) {
       log.error("Couldn't unpair");
       return "failed";
     }
@@ -212,20 +184,10 @@ async function pairDevice(device: Device, pairedAddresses: Set<string>): Promise
 
   await waitForKey(`Turn it on, then press any key ${style.dim("(Ctrl+C to quit)")}`);
 
-  let address = device.address;
-  if (typeof address === "function") {
-    const discovered = await withSpinner("Looking for it nearby…", () => bluetooth.discover(device));
-    if (!discovered) {
-      log.error("Couldn't find it nearby. Make sure it's in pairing mode.");
-      return "failed";
-    }
-    address = discovered;
-  }
-
   for (let attempt = 1; attempt <= PAIR_ATTEMPTS; attempt++) {
     const attemptLabel = attempt > 1 ? style.dim(` (attempt ${attempt}/${PAIR_ATTEMPTS})`) : "";
 
-    if (await withSpinner(`Pairing…${attemptLabel}`, () => bluetooth.pair(address))) {
+    if (await withSpinner(`Pairing…${attemptLabel}`, () => bluetooth.pair(device.address))) {
       log.ok("Paired");
       return "paired";
     }
