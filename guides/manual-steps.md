@@ -44,7 +44,6 @@ Log in. Warp syncs its own settings, so they come back once logged in.
 
 ### Shottr
 
-- Turn on **Launch at startup**.
 - Screenshots folder: **Desktop**.
 - Instant Text/QR Recognition shortcut: `Shift + Command + 3`
 - Activate it with the license key (in Bitwarden).

@@ -123,6 +123,28 @@ elif ! PATH="$HOME/bin:$PATH" skhd --start-service; then
   warn "skhd failed to start, do it by hand: guides/manual-steps.md"
 fi
 
+step "Login items"
+# Goes after the Brewfile, which installs the apps. macOS asks once to let the
+# terminal control System Events, which manages the login items
+LOGIN_APPS=("Hex" "Clipy" "Sol" "Rectangle Pro" "Shottr")
+if ! LOGIN_ITEMS="$(osascript -e 'tell application "System Events" to get the name of every login item')"; then
+  warn "Couldn't read the login items, add them by hand in System Settings > General > Login Items"
+else
+  for app in "${LOGIN_APPS[@]}"; do
+    app_path="/Applications/$app.app"
+    # osascript prints the names comma separated: "Clipy, Sol, Rectangle Pro"
+    if [[ ", $LOGIN_ITEMS, " == *", $app, "* ]]; then
+      echo "$app: already added"
+    elif [[ ! -d "$app_path" ]]; then
+      warn "$app isn't installed, add it to the login items once it is"
+    elif osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"$app_path\", hidden:false}" >/dev/null; then
+      echo "$app: added"
+    else
+      warn "$app couldn't be added, add it by hand in System Settings > General > Login Items"
+    fi
+  done
+fi
+
 step "Dock"
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
