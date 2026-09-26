@@ -13,7 +13,7 @@ menu_bar_window = "auto"
 enabled = true
 
 [copilot]
-enabled = true
+enabled = false
 
 [openai]
 enabled = false
