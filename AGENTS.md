@@ -19,6 +19,7 @@ Change the repo, not just the machine. Otherwise the next machine won't get it.
 | Cargo crate | `setup/Brewfile` (`cargo "<name>"`) |
 | Config file in `$HOME` | `dotfiles/` |
 | PATH or environment variable | `dotfiles/.config/fish/config.fish` |
+| Global keyboard shortcut | `dotfiles/.skhdrc` (reload with `skhd --reload`) |
 | The user's own CLI | `tools/` |
 | Setup step for a new machine | `setup/macos.sh` |
 | Anything manual | `guides/` |
@@ -32,6 +33,7 @@ Just trying something out? Ask before adding it to the repo.
 ## Glossary
 - **Tool**: a CLI the user can run from anywhere. Its source lives in `tools/<name>/`, and `dotfiles/bin/<name>` symlinks to it. The name of that link is the command name.
 - **Guide**: one or more Markdown files in `guides/` the user follows by hand, for anything not automated by a script/tool.
+- **Hyper key**: Control + Option + Shift + Command as one key, used by skhd shortcuts.
 
 ## Dotfiles
 `dotfiles/` mirrors the user's home directory. The `envsync` tool (a GNU Stow wrapper) symlinks each file in it into `$HOME`, so `dotfiles/.gitconfig` is `~/.gitconfig`.
