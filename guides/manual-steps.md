@@ -62,6 +62,13 @@ Log in. Warp syncs its own settings, so they come back once logged in.
 - Shortcut: `Hyper + ]`
 - Maximum History Entries: **50**.
 
+### YouTube Music
+
+It has no app, so install it as a PWA:
+
+- Open [music.youtube.com](https://music.youtube.com) in Safari.
+- File > **Add to Dock…**, keeping the name **YouTube Music** so its keyboard shortcut works.
+
 ### Mos
 
 - Scrolling > Dash key: **Command**.
@@ -86,7 +93,8 @@ Keep these, in this order:
 5. Notion
 6. Warp
 7. VSCode
-8. Bitwarden
+8. YouTube Music
+9. Bitwarden
 
 ## Everything else
 
