@@ -55,7 +55,7 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
 On a fresh Apple Silicon Mac, open Terminal and run:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/emkis/Environment/main/setup/macos.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/emkis/Environment/main/setup/index.sh)"
 ```
 
 Run it as your normal user, not with `sudo`. It asks for your password while installing Homebrew, and again while the Brewfile runs. It's safe to run again: finished steps are skipped, so if something fails, fix it and run the same command.

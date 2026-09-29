@@ -21,7 +21,7 @@ Change the repo, not just the machine. Otherwise the next machine won't get it.
 | PATH or environment variable | `dotfiles/.config/fish/config.fish` |
 | Global keyboard shortcut | `dotfiles/.skhdrc` (reload with `skhd --reload`) |
 | The user's own CLI | `tools/` |
-| Setup step for a new machine | `setup/macos.sh` |
+| Setup step for a new machine | `setup/index.sh` |
 | Anything manual | `guides/` |
 
 Just trying something out? Ask before adding it to the repo.

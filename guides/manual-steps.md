@@ -1,10 +1,10 @@
 # New machine: manual steps
 
-The apps, settings and logins the setup script can't do. These need everything installed, so they come after `setup/macos.sh` has run, picking up where the new Mac setup guide leaves off.
+The apps, settings and logins the setup script can't do. These need everything installed, so they come after `setup/index.sh` has run, picking up where the new Mac setup guide leaves off.
 
 ## Shell
 
-`setup/macos.sh` makes fish the default shell, so **open a new terminal** before going on. It runs fish, whose config puts Homebrew and `~/bin` on the `PATH`; in zsh, `gh`, `fnm` and `skhd` aren't found.
+`setup/index.sh` makes fish the default shell, so **open a new terminal** before going on. It runs fish, whose config puts Homebrew and `~/bin` on the `PATH`; in zsh, `gh`, `fnm` and `skhd` aren't found.
 
 If the script warned it couldn't do it, set it by hand. Use the full path, as Homebrew isn't on zsh's `PATH` (`which fish` would find nothing):
 
@@ -68,7 +68,7 @@ It has no app, so install it as a PWA:
 
 - Open [music.youtube.com](https://music.youtube.com) in Safari.
 - File > **Add to Dock…**, keeping the name **YouTube Music** so its keyboard shortcut works.
-- It lands at the end of the Dock. Drag it before Bitwarden, where `setup/macos.sh` puts it.
+- It lands at the end of the Dock. Drag it before Bitwarden, where `setup/steps/desktop.sh` puts it.
 
 ### Mos
 
@@ -81,7 +81,7 @@ Run these in fish (the new terminal from the Shell step).
 
 - GitHub: `gh auth login`, choose **HTTPS** and let it authenticate git, so pushing works with the HTTPS clone. It can be completed from another device.
 - VSCode: sign in with GitHub and turn on Settings Sync.
-- skhd: `setup/macos.sh` starts it, then allow it in Accessibility. If the script warned it couldn't start it, run `skhd --start-service` from fish: the service keeps the `PATH` of the shell it was started from, and `Hyper + Q` (`ide`, runs on bun) and `Hyper + B` (calls `blueutil`) need `/opt/homebrew/bin` in it. If they do nothing, run `skhd --uninstall-service && skhd --start-service` from fish.
+- skhd: `setup/index.sh` starts it, then allow it in Accessibility. If the script warned it couldn't start it, run `skhd --start-service` from fish: the service keeps the `PATH` of the shell it was started from, and `Hyper + Q` (`ide`, runs on bun) and `Hyper + B` (calls `blueutil`) need `/opt/homebrew/bin` in it. If they do nothing, run `skhd --uninstall-service && skhd --start-service` from fish.
 
 ## Everything else
 

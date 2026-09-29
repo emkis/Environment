@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+# Sets up how macOS looks and behaves: login items and the Dock.
+# Needs setup/steps/packages.sh, which installs the apps.
+
+set -euo pipefail
+source "$(dirname "$0")/lib.sh"
+
+step "Login items"
+# macOS asks once to let the terminal control System Events, which manages
+# the login items
+LOGIN_APPS=("Hex" "Clipy" "Sol" "Rectangle Pro" "Shottr")
+if ! LOGIN_ITEMS="$(osascript -e 'tell application "System Events" to get the name of every login item')"; then
+  warn "Couldn't read the login items, add them by hand in System Settings > General > Login Items"
+else
+  for app in "${LOGIN_APPS[@]}"; do
+    app_path="/Applications/$app.app"
+    # osascript prints the names comma separated: "Clipy, Sol, Rectangle Pro"
+    if [[ ", $LOGIN_ITEMS, " == *", $app, "* ]]; then
+      echo "$app: already added"
+    elif [[ ! -d "$app_path" ]]; then
+      warn "$app isn't installed, add it to the login items once it is"
+    elif osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"$app_path\", hidden:false}" >/dev/null; then
+      echo "$app: added"
+    else
+      warn "$app couldn't be added, add it by hand in System Settings > General > Login Items"
+    fi
+  done
+fi
+
+step "Dock"
+# Replaces the whole list, so running it again restores this order. Finder is
+# always first, so it's not listed. YouTube Music is a Safari web app made in
+# the manual steps, so it's skipped until then
+DOCK_APPS=(
+  "/System/Applications/Apps.app"
+  "/Applications/TickTick.app"
+  "/Applications/Zen.app"
+  "/Applications/Notion.app"
+  "/Applications/Warp.app"
+  "/Applications/Visual Studio Code.app"
+  "$HOME/Applications/YouTube Music.app"
+  "/Applications/Bitwarden.app"
+  "/Applications/WhatsApp.app"
+)
+DOCK_ITEMS=()
+for app_path in "${DOCK_APPS[@]}"; do
+  if [[ -d "$app_path" ]]; then
+    DOCK_ITEMS+=("<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app_path</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>")
+  else
+    warn "$(basename "$app_path" .app) isn't installed, skipped it in the Dock"
+  fi
+done
+defaults write com.apple.dock persistent-apps -array "${DOCK_ITEMS[@]}"
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.5
+killall Dock || true
