@@ -20,10 +20,9 @@ elif [[ "$CURRENT_SHELL" == "$FISH_PATH" ]]; then
 else
   # Both need root: /etc/shells is only writable by it, and chsh on another
   # account skips the password prompt. It asks for the password once here
-  if ! grep -qxF "$FISH_PATH" /etc/shells; then
-    echo "$FISH_PATH" | sudo tee -a /etc/shells >/dev/null
-  fi
-  if sudo chsh -s "$FISH_PATH" "$USERNAME"; then
+  if ! grep -qxF "$FISH_PATH" /etc/shells && ! echo "$FISH_PATH" | sudo tee -a /etc/shells >/dev/null; then
+    warn "Couldn't add fish to /etc/shells, set the shell by hand: guides/manual-steps.md"
+  elif sudo chsh -s "$FISH_PATH" "$USERNAME"; then
     echo "Set to fish, it starts in the next terminal"
   else
     warn "Couldn't set fish as the shell, do it by hand: guides/manual-steps.md"

@@ -51,7 +51,12 @@ for app_path in "${DOCK_APPS[@]}"; do
     warn "$(basename "$app_path" .app) isn't installed, skipped it in the Dock"
   fi
 done
-defaults write com.apple.dock persistent-apps -array "${DOCK_ITEMS[@]}"
+# An empty list would clear the Dock, and bash 3.2 errors on an empty array
+if (( ${#DOCK_ITEMS[@]} )); then
+  defaults write com.apple.dock persistent-apps -array "${DOCK_ITEMS[@]}"
+else
+  warn "None of the Dock apps are installed, left the Dock as it is"
+fi
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
 killall Dock || true
