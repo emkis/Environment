@@ -71,7 +71,7 @@ What it does:
 7. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
 8. **Node**: installs the latest LTS with `fnm`, which becomes the default.
 9. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
-10. **Dock**: no delay before it shows up, and a faster animation.
+10. **Dock**: sets its apps and their order, no delay before it shows up, and a faster animation.
 
 ## 3. Apps and logins
 

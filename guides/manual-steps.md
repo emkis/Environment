@@ -68,6 +68,7 @@ It has no app, so install it as a PWA:
 
 - Open [music.youtube.com](https://music.youtube.com) in Safari.
 - File > **Add to Dock…**, keeping the name **YouTube Music** so its keyboard shortcut works.
+- It lands at the end of the Dock. Drag it before Bitwarden, where `setup/macos.sh` puts it.
 
 ### Mos
 
@@ -81,21 +82,6 @@ Run these in fish (the new terminal from the Shell step).
 - GitHub: `gh auth login`, choose **HTTPS** and let it authenticate git, so pushing works with the HTTPS clone. It can be completed from another device.
 - VSCode: sign in with GitHub and turn on Settings Sync.
 - skhd: `setup/macos.sh` starts it, then allow it in Accessibility. If the script warned it couldn't start it, run `skhd --start-service` from fish: the service keeps the `PATH` of the shell it was started from, and `Hyper + Q` (`ide`, runs on bun) and `Hyper + B` (calls `blueutil`) need `/opt/homebrew/bin` in it. If they do nothing, run `skhd --uninstall-service && skhd --start-service` from fish.
-
-## Dock
-
-Keep these, in this order:
-
-1. Finder
-2. Apps
-3. TickTick
-4. Zen
-5. Notion
-6. Warp
-7. VSCode
-8. YouTube Music
-9. Bitwarden
-10. WhatsApp
 
 ## Everything else
 

@@ -146,6 +146,29 @@ else
 fi
 
 step "Dock"
+# Goes after the Brewfile, which installs the apps. Replaces the whole list, so
+# running it again restores this order. Finder is always first, so it's not listed.
+# YouTube Music is a Safari web app made in the manual steps, so it's skipped until then
+DOCK_APPS=(
+  "/System/Applications/Apps.app"
+  "/Applications/TickTick.app"
+  "/Applications/Zen.app"
+  "/Applications/Notion.app"
+  "/Applications/Warp.app"
+  "/Applications/Visual Studio Code.app"
+  "$HOME/Applications/YouTube Music.app"
+  "/Applications/Bitwarden.app"
+  "/Applications/WhatsApp.app"
+)
+DOCK_ITEMS=()
+for app_path in "${DOCK_APPS[@]}"; do
+  if [[ -d "$app_path" ]]; then
+    DOCK_ITEMS+=("<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app_path</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>")
+  else
+    warn "$(basename "$app_path" .app) isn't installed, skipped it in the Dock"
+  fi
+done
+defaults write com.apple.dock persistent-apps -array "${DOCK_ITEMS[@]}"
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
 killall Dock || true
