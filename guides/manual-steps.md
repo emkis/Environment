@@ -95,6 +95,7 @@ Keep these, in this order:
 7. VSCode
 8. YouTube Music
 9. Bitwarden
+10. WhatsApp
 
 ## Everything else
 
