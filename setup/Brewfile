@@ -5,6 +5,7 @@
 # Homebrew refuses to load formulae from non-official taps until they're trusted
 tap "asmvik/formulae", trusted: true
 tap "oven-sh/bun", trusted: true
+tap "akitaonrails/tap", trusted: true
 
 # Shell and prompt
 brew "bash"
@@ -21,6 +22,7 @@ brew "pnpm"
 brew "oven-sh/bun/bun"
 brew "gnupg"
 brew "rustup"
+brew "akitaonrails/tap/ai-jail"
 
 # Command line
 brew "gh"
