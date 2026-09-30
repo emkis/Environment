@@ -7,22 +7,14 @@ Everything a new Mac needs, in order. Start here and go top to bottom: the last 
 In System Settings. Nothing here needs this repo, so it all works on a machine straight out of the box.
 
 - **Storage**:
-    - Turn on **Optimise Apple TV storage** and **Empty Bin automatically** (after 30 days).
-    - Remove the GarageBand music and sound library.
-    - Delete these default apps: **iMovie**, **GarageBand**, **Keynote**, **Pages**, **Numbers**, **Freeform**.
+    - Turn on **Optimise Apple TV storage**.
 - **Battery**:
     - Charge limit **80%**.
 - **General**:
     - Set the machine's name.
     - Autofill & Passwords: turn off autofill and password suggestions.
-    - Date & Time: turn off **24-hour time**.
-    - Language & Region: add **Português (Brasil)** as the second language, first day of the week **Monday**.
 - **Accessibility > Pointer Control**:
     - Turn on trackpad dragging, dragging style **Three-Finger Drag**.
-- **Desktop & Dock**:
-    - Turn on **Automatically hide and show the Dock**.
-    - Turn off **Show suggested and recent apps in Dock**.
-    - Hot Corners: set all four to **-** (none).
 - **Displays**:
     - Turn off **Automatically adjust brightness**.
     - Night Shift: schedule **Sunset to Sunrise**.
@@ -31,8 +23,6 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
 - **Spotlight**:
     - Turn off results from **Files** and from **iPhone Apps**.
 - **Lock Screen**:
-    - Turn display off on battery when inactive: **10 minutes**.
-    - Require password after screen saver begins or display is turned off: **Immediately**.
     - Set a lock screen message.
 - **Touch ID & Password**:
     - Turn off Touch ID for **Apple Pay** and for **purchases in iTunes Store, App Store and Apple Books**.
@@ -47,8 +37,6 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
     - Keyboard > **Move focus to next window**
     - Keyboard > **Show contextual menu**
     - Accessibility > **Turn VoiceOver on or off**
-- **Trackpad > Point & Click**:
-    - Tracking speed on the 6th notch of 10, just past the middle.
 
 ## 2. Run the setup script
 
@@ -64,14 +52,15 @@ What it does:
 
 1. **Homebrew**: installs it, which also installs the Xcode Command Line Tools (and with them, git).
 2. **Clones this repo** into `~/projects/Environment`, over HTTPS.
-3. **Rosetta**: installs it with `softwareupdate`, as it isn't on Homebrew. Intel-only apps need it.
-4. **Rust**: installs `rustup` and the stable toolchain, so the Brewfile's `cargo` entries can install.
-5. **Brewfile**: installs everything in `setup/Brewfile`.
-6. **Default shell**: makes fish the login shell. It asks for your password, and takes effect in the next terminal you open.
-7. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
-8. **Node**: installs the latest LTS with `fnm`, which becomes the default.
-9. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
-10. **Dock**: sets its apps and their order, no delay before it shows up, and a faster animation.
+3. **macOS settings**: the System Settings that have a command: the Dock, language and region, trackpad speed, the Bin, window tiling and the lock screen. It also deletes the default apps and GarageBand's sound library.
+4. **Rosetta**: installs it with `softwareupdate`, as it isn't on Homebrew. Intel-only apps need it.
+5. **Rust**: installs `rustup` and the stable toolchain, so the Brewfile's `cargo` entries can install.
+6. **Brewfile**: installs everything in `setup/Brewfile`.
+7. **Default shell**: makes fish the login shell. It asks for your password, and takes effect in the next terminal you open.
+8. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
+9. **Node**: installs the latest LTS with `fnm`, which becomes the default.
+10. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
+11. **Dock**: sets its apps and their order, no delay before it shows up, and a faster animation.
 
 ## 3. Apps and logins
 

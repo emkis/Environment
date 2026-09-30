@@ -39,7 +39,6 @@ Log in. Warp syncs its own settings, so they come back once logged in.
 
 ### Rectangle Pro
 
-- Turn off macOS's default window tiling.
 - Activate it with the license key (in Bitwarden).
 
 ### Shottr
