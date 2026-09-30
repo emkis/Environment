@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Sets up how macOS looks and behaves: login items, the Dock, language and
-# region, Finder and window tiling.
+# region, trackpad speed, Finder and window tiling.
 # Needs setup/steps/packages.sh, which installs the apps.
 
 set -euo pipefail
@@ -75,6 +75,10 @@ defaults write NSGlobalDomain AppleLanguages -array "en-AU" "pt-BR"
 defaults write NSGlobalDomain AppleFirstWeekday -dict gregorian 2
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool true
 defaults write NSGlobalDomain AppleICUForce24HourTime -bool false
+
+step "Trackpad"
+# 1 is the 6th notch of 10 in Trackpad > Point & Click > Tracking speed
+defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1
 
 step "Finder"
 # Empties the Bin of items older than 30 days

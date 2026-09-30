@@ -41,8 +41,6 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
     - Keyboard > **Move focus to next window**
     - Keyboard > **Show contextual menu**
     - Accessibility > **Turn VoiceOver on or off**
-- **Trackpad > Point & Click**:
-    - Tracking speed on the 6th notch of 10, just past the middle.
 
 ## 2. Run the setup script
 
@@ -65,7 +63,7 @@ What it does:
 7. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
 8. **Node**: installs the latest LTS with `fnm`, which becomes the default.
 9. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
-10. **Desktop**: sets the Dock's apps and their order, auto-hides it with no delay and a faster animation, hides recent apps and turns off the hot corners. Also sets the language and region, empties the Bin after 30 days and turns off window tiling.
+10. **Desktop**: sets the Dock's apps and their order, auto-hides it with no delay and a faster animation, hides recent apps and turns off the hot corners. Also sets the language and region, the trackpad speed, empties the Bin after 30 days and turns off window tiling.
 
 ## 3. Apps and logins
 
