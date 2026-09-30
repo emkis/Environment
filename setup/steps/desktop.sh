@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Sets up how macOS looks and behaves: login items and the Dock.
+# Sets up how macOS looks and behaves: login items, the Dock, language and
+# region, Finder and window tiling.
 # Needs setup/steps/packages.sh, which installs the apps.
 
 set -euo pipefail
@@ -57,6 +58,31 @@ if (( ${#DOCK_ITEMS[@]} )); then
 else
   warn "None of the Dock apps are installed, left the Dock as it is"
 fi
+defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
+defaults write com.apple.dock show-recents -bool false
+# 1 is "-", no action. macOS puts Quick Note in the bottom right by default
+for corner in tl tr bl br; do
+  defaults write com.apple.dock "wvous-$corner-corner" -int 1
+  defaults write com.apple.dock "wvous-$corner-modifier" -int 0
+done
 killall Dock || true
+
+step "Language and region"
+defaults write NSGlobalDomain AppleLanguages -array "en-AU" "pt-BR"
+# 2 is Monday
+defaults write NSGlobalDomain AppleFirstWeekday -dict gregorian 2
+defaults write NSGlobalDomain AppleICUForce12HourTime -bool true
+defaults write NSGlobalDomain AppleICUForce24HourTime -bool false
+
+step "Finder"
+# Empties the Bin of items older than 30 days
+defaults write com.apple.finder FXRemoveOldTrashItems -bool true
+killall Finder || true
+
+step "Window tiling"
+# Off, as Rectangle Pro does it
+defaults write com.apple.WindowManager EnableTilingByEdgeDrag -bool false
+defaults write com.apple.WindowManager EnableTopTilingByEdgeDrag -bool false
+defaults write com.apple.WindowManager EnableTilingOptionAccelerator -bool false

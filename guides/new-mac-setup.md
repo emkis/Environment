@@ -8,6 +8,8 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
 
 - **Storage**:
     - Turn on **Optimise Apple TV storage**.
+    - Remove the GarageBand music and sound library.
+    - Delete these default apps: **iMovie**, **GarageBand**, **Keynote**, **Pages**, **Numbers**, **Freeform**.
 - **Battery**:
     - Charge limit **80%**.
 - **General**:
@@ -23,6 +25,8 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
 - **Spotlight**:
     - Turn off results from **Files** and from **iPhone Apps**.
 - **Lock Screen**:
+    - Turn display off on battery when inactive: **10 minutes**.
+    - Require password after screen saver begins or display is turned off: **Immediately**.
     - Set a lock screen message.
 - **Touch ID & Password**:
     - Turn off Touch ID for **Apple Pay** and for **purchases in iTunes Store, App Store and Apple Books**.
@@ -37,6 +41,8 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
     - Keyboard > **Move focus to next window**
     - Keyboard > **Show contextual menu**
     - Accessibility > **Turn VoiceOver on or off**
+- **Trackpad > Point & Click**:
+    - Tracking speed on the 6th notch of 10, just past the middle.
 
 ## 2. Run the setup script
 
@@ -52,15 +58,14 @@ What it does:
 
 1. **Homebrew**: installs it, which also installs the Xcode Command Line Tools (and with them, git).
 2. **Clones this repo** into `~/projects/Environment`, over HTTPS.
-3. **macOS settings**: the System Settings that have a command: the Dock, language and region, trackpad speed, the Bin, window tiling and the lock screen. It also deletes the default apps and GarageBand's sound library.
-4. **Rosetta**: installs it with `softwareupdate`, as it isn't on Homebrew. Intel-only apps need it.
-5. **Rust**: installs `rustup` and the stable toolchain, so the Brewfile's `cargo` entries can install.
-6. **Brewfile**: installs everything in `setup/Brewfile`.
-7. **Default shell**: makes fish the login shell. It asks for your password, and takes effect in the next terminal you open.
-8. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
-9. **Node**: installs the latest LTS with `fnm`, which becomes the default.
-10. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
-11. **Dock**: sets its apps and their order, no delay before it shows up, and a faster animation.
+3. **Rosetta**: installs it with `softwareupdate`, as it isn't on Homebrew. Intel-only apps need it.
+4. **Rust**: installs `rustup` and the stable toolchain, so the Brewfile's `cargo` entries can install.
+5. **Brewfile**: installs everything in `setup/Brewfile`.
+6. **Default shell**: makes fish the login shell. It asks for your password, and takes effect in the next terminal you open.
+7. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
+8. **Node**: installs the latest LTS with `fnm`, which becomes the default.
+9. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
+10. **Desktop**: sets the Dock's apps and their order, auto-hides it with no delay and a faster animation, hides recent apps and turns off the hot corners. Also sets the language and region, empties the Bin after 30 days and turns off window tiling.
 
 ## 3. Apps and logins
 

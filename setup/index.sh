@@ -14,9 +14,8 @@ REPOSITORY_URL="https://github.com/emkis/Environment.git"
 PROJECTS_DIR="$HOME/projects"
 REPOSITORY_DIR="$PROJECTS_DIR/Environment"
 
-# In run order. macos needs nothing, config and desktop both need what
-# packages installs
-STEPS=(macos packages config desktop)
+# In run order. config and desktop both need what packages installs
+STEPS=(packages config desktop)
 
 step() { printf '\n\033[1;34m>> %s\033[0m\n' "$1"; }
 warn() { printf '\033[1;33m!! %s\033[0m\n' "$1"; }
