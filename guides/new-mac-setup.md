@@ -7,7 +7,7 @@ Everything a new Mac needs, in order. Start here and go top to bottom: the last 
 In System Settings. Nothing here needs this repo, so it all works on a machine straight out of the box.
 
 - **Storage**:
-    - Turn on **Optimise Apple TV storage** and **Empty Bin automatically** (after 30 days).
+    - Turn on **Optimise Apple TV storage**.
     - Remove the GarageBand music and sound library.
     - Delete these default apps: **iMovie**, **GarageBand**, **Keynote**, **Pages**, **Numbers**, **Freeform**.
 - **Battery**:
@@ -15,14 +15,8 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
 - **General**:
     - Set the machine's name.
     - Autofill & Passwords: turn off autofill and password suggestions.
-    - Date & Time: turn off **24-hour time**.
-    - Language & Region: add **Português (Brasil)** as the second language, first day of the week **Monday**.
 - **Accessibility > Pointer Control**:
     - Turn on trackpad dragging, dragging style **Three-Finger Drag**.
-- **Desktop & Dock**:
-    - Turn on **Automatically hide and show the Dock**.
-    - Turn off **Show suggested and recent apps in Dock**.
-    - Hot Corners: set all four to **-** (none).
 - **Displays**:
     - Turn off **Automatically adjust brightness**.
     - Night Shift: schedule **Sunset to Sunrise**.
@@ -47,8 +41,6 @@ In System Settings. Nothing here needs this repo, so it all works on a machine s
     - Keyboard > **Move focus to next window**
     - Keyboard > **Show contextual menu**
     - Accessibility > **Turn VoiceOver on or off**
-- **Trackpad > Point & Click**:
-    - Tracking speed on the 6th notch of 10, just past the middle.
 
 ## 2. Run the setup script
 
@@ -71,7 +63,7 @@ What it does:
 7. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
 8. **Node**: installs the latest LTS with `fnm`, which becomes the default.
 9. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
-10. **Dock**: sets its apps and their order, no delay before it shows up, and a faster animation.
+10. **Desktop**: sets the Dock's apps and their order, auto-hides it with no delay and a faster animation, hides recent apps and turns off the hot corners. Also sets the language and region, the trackpad speed, empties the Bin after 30 days and turns off window tiling.
 
 ## 3. Apps and logins
 
