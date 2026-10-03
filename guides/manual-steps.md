@@ -74,6 +74,13 @@ It has no app, so install it as a PWA:
 - Scrolling > Dash key: **Command**.
 - Scrolling > Block key: remove the shortcut.
 
+### Luminar Neo
+
+Its installer is private and only accessible through their [skylum.com](https://skylum.com/) website.
+
+- Log in with credentials (in Bitwarden).
+- Download the installer.
+
 ## Dev
 
 Run these in fish (the new terminal from the Shell step).
