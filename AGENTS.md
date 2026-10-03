@@ -22,7 +22,7 @@ Change the repo, not just the machine. Otherwise the next machine won't get it.
 | Global keyboard shortcut | `dotfiles/.skhdrc` (reload with `skhd --reload`) |
 | The user's own CLI | `tools/` |
 | Setup step for a new machine | `setup/index.sh` |
-| Anything manual | `guides/` |
+| Any manual step | `guides/`, often in `guides/manual-steps.md` |
 
 Just trying something out? Ask before adding it to the repo.
 
@@ -32,7 +32,7 @@ Just trying something out? Ask before adding it to the repo.
 
 ## Glossary
 - **Tool**: a CLI the user can run from anywhere. Its source lives in `tools/<name>/`, and `dotfiles/bin/<name>` symlinks to it. The name of that link is the command name.
-- **Guide**: one or more Markdown files in `guides/` the user follows by hand, for anything not automated by a script/tool.
+- **Guide**: one or more Markdown files in `guides/` the user follows by hand, for anything not automated by a script/tool. `guides/manual-steps.md` catalogs the manual steps for setting up a new machine (app logins, license keys, settings with no CLI) — check it before assuming a manual step is undocumented.
 - **Hyper key**: Control + Option + Shift + Command as one key, used by skhd shortcuts.
 
 ## Dotfiles
