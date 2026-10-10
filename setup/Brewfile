@@ -22,6 +22,7 @@ brew "pnpm"
 brew "oven-sh/bun/bun"
 brew "gnupg"
 brew "rustup"
+brew "cargo-cache"
 brew "akitaonrails/tap/ai-jail"
 
 # Command line
