@@ -22,4 +22,5 @@ This repo holds the only copy of my configs. [GNU Stow](https://www.gnu.org/soft
 - **`camsqz`** compresses the photos I copy from my camera.
 - **`ide`** opens projects in whichever editor I'm using.
 - **`llmt`** organizes the prompts I write for LLMs.
+- **`reclaim`** frees disk space by cleaning up cache.
 - **`vspeed`** speeds up a video.
