@@ -1,6 +1,9 @@
 # Homebrew
 # Absolute path, as brew isn't on PATH yet on a fresh machine
 /opt/homebrew/bin/brew shellenv | source
+# Every install, upgrade and reinstall ends by deleting all old versions and downloads
+set -gx HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS 0 # default 30
+set -gx HOMEBREW_CLEANUP_MAX_AGE_DAYS 0 # default 120
 
 # Editor (the IDE is picked per machine with `ide switch`)
 set -gx EDITOR vim
