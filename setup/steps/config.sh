@@ -14,18 +14,18 @@ FISH_PATH="/opt/homebrew/bin/fish"
 # Can't fail the script: an unreadable record just means the step runs again
 CURRENT_SHELL="$(dscl . -read "/Users/$USERNAME" UserShell 2>/dev/null | awk '{print $2}' || true)"
 if [[ ! -x "$FISH_PATH" ]]; then
-  warn "fish isn't installed, set the shell by hand: guides/setup/2-after-setup.md"
+  warn "fish isn't installed, run the setup again once the Brewfile installs it"
 elif [[ "$CURRENT_SHELL" == "$FISH_PATH" ]]; then
   echo "Already fish"
 else
   # Both need root: /etc/shells is only writable by it, and chsh on another
   # account skips the password prompt. It asks for the password once here
   if ! grep -qxF "$FISH_PATH" /etc/shells && ! echo "$FISH_PATH" | sudo tee -a /etc/shells >/dev/null; then
-    warn "Couldn't add fish to /etc/shells, set the shell by hand: guides/setup/2-after-setup.md"
+    warn "Couldn't add fish to /etc/shells, run: echo $FISH_PATH | sudo tee -a /etc/shells && chsh -s $FISH_PATH"
   elif sudo chsh -s "$FISH_PATH" "$USERNAME"; then
     echo "Set to fish, it starts in the next terminal"
   else
-    warn "Couldn't set fish as the shell, do it by hand: guides/setup/2-after-setup.md"
+    warn "Couldn't set fish as the shell, run: chsh -s $FISH_PATH"
   fi
 fi
 

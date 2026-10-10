@@ -2,17 +2,6 @@
 
 The apps, settings and logins the setup script can't do. These need everything installed, so they come after `setup/index.sh` has run, picking up where [1-setup-new-mac.md](1-setup-new-mac.md) leaves off.
 
-## Shell
-
-`setup/index.sh` makes fish the default shell, so **open a new terminal** before going on. It runs fish, whose config puts Homebrew and `~/bin` on the `PATH`; in zsh, `gh`, `fnm` and `skhd` aren't found.
-
-If the script warned it couldn't do it, set it by hand. Use the full path, as Homebrew isn't on zsh's `PATH` (`which fish` would find nothing):
-
-```bash
-echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
-chsh -s /opt/homebrew/bin/fish
-```
-
 ## Apps
 
 For each app: open it and grant every permission it asks for, then set it up as below.
@@ -83,7 +72,7 @@ Its installer is private and only accessible through their [skylum.com](https://
 
 ## Dev
 
-Run these in fish (the new terminal from the Shell step).
+Run these in fish, in a new terminal opened after the setup script.
 
 - GitHub: `gh auth login`, choose **HTTPS** and let it authenticate git, so pushing works with the HTTPS clone. It can be completed from another device.
 - VSCode: sign in with GitHub and turn on Settings Sync.
