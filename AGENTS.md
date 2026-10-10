@@ -1,63 +1,56 @@
 # Environment
-The repository where the user keeps their dotfiles, guides, tools, scripts and apps. It keeps multiple machines in sync as the user's needs change.
-
-## Problem space
-This repository solves three problems:
-- Setting up a brand new macOS machine.
+The repository where the user keeps their dotfiles, guides, tools and setup scripts for macOS. It solves three problems:
+- Setting up a brand new machine.
 - Syncing files (e.g. dotfiles, tools) in this repo with the current machine.
 - Keeping each machine in shape over time (e.g. `reclaim` freeing disk space).
 
 ## Source of truth
 This repo is the user's system. Every machine is built from it. The current machine is just a copy, and copies drift.
 
-So when the user asks about "my system", check both before you answer. The repo says what should be there. The current machine shows what drifted. The repo wins, but always report the drift. Something on the machine but not in the repo isn't needed, but ask before removing it.
+When the user asks about "my system", check both the repo and the machine. The repo wins, but always report the drift. Ask before removing something that's on the machine but not in the repo.
 
 Change the repo, not just the machine. Otherwise the next machine won't get it.
 
 | Change | Goes in |
 |---|---|
-| Homebrew formula, cask or tap | `setup/Brewfile` |
+| Homebrew formula, cask or tap (always the first choice) | `setup/Brewfile` |
 | Cargo crate | `setup/Brewfile` (`cargo "<name>"`) |
-| Anything installed outside Homebrew (Rosetta, Rust toolchain, Node) | `setup/steps/packages.sh` |
+| Anything Homebrew can't install (Rosetta, Rust toolchain, Node) | `setup/steps/packages.sh` |
 | Config file in `$HOME` | `dotfiles/` |
 | PATH or environment variable | `dotfiles/.config/fish/config.fish` |
 | Global keyboard shortcut | `dotfiles/.skhdrc` |
-| Key remapping (e.g. the Hyper key) | `dotfiles/karabiner/` |
-| The user's own CLI | `tools/`, linked from `dotfiles/bin/` |
+| Key remapping (e.g. the Hyper key: Control + Option + Shift + Command) | `dotfiles/karabiner/` |
+| The user's own CLIs | `tools/`, linked from `dotfiles/bin/` |
 | Default shell, linking the dotfiles, background services (e.g. skhd) | `setup/steps/config.sh` |
 | System setting with a CLI (`defaults`), login items, the Dock | `setup/steps/desktop.sh` |
 | Something no step covers | a new `setup/steps/<name>.sh`, added to `STEPS` in `setup/index.sh` |
-| System setting with no CLI, before the repo is cloned | `guides/new-mac-setup.md` |
-| App login, license key, permission, setting with no CLI | `guides/manual-steps.md` |
+| Anything done by hand (app login, license key, permission, setting with no CLI) | `guides/` |
 
 Just trying something out? Ask before adding it to the repo.
-
-## Preferences
-- We should only support macOS.
-- Use Homebrew as primary package manager for installing anything.
-
-## Glossary
-- **Tool**: a CLI the user can run from anywhere. Its source lives in `tools/<name>/`, and `dotfiles/bin/<name>` symlinks to it. The name of that link is the command name.
-- **Guide**: one or more Markdown files in `guides/` the user follows by hand, for anything not automated by a script/tool. `guides/manual-steps.md` catalogs the manual steps for setting up a new machine (app logins, license keys, settings with no CLI). Check it before assuming a manual step is undocumented.
-- **Setup**: the script that builds any machine, new or not, from this repo. It's made of **steps**, one script each in `setup/steps/`.
-- **Hyper key**: Control + Option + Shift + Command as one key, used by skhd shortcuts.
 
 ## Dotfiles
 `dotfiles/` mirrors the user's home directory. The `envsync` tool (a GNU Stow wrapper) symlinks each file in it into `$HOME`, so `dotfiles/.gitconfig` is `~/.gitconfig`.
 
-- Editing a file in `dotfiles/` affects the current machine right away.
-- This includes tools, since `dotfiles/bin/` links into `tools/`.
+- Editing a file in `dotfiles/` affects the current machine right away, tools included.
 - A file that is added, removed or renamed only reaches the machine after `envsync` runs.
-- Everything in `dotfiles/` gets linked except what `dotfiles/.stow-local-ignore` lists.
+- Everything gets linked except what `dotfiles/.stow-local-ignore` lists.
+
+To add one, move the real file into `dotfiles/` at the same path it has in `$HOME`, then run `envsync`. See `tools/envsync/README.md`.
+
+## Tools
+A tool is a CLI the user can run from anywhere, as `dotfiles/bin/` becomes `~/bin`, which is on the `PATH`.
+
+Write `tools/<name>/index.(ts,sh)`, starting with a shebang, and make it executable. It isn't done until it's linked, as the link's name is the command:
+
+```sh
+ln -s ../../tools/<name>/index.<ext> dotfiles/bin/<name>
+```
+
+## Guides
+`guides/` holds Markdown instructions for things done by hand on a machine, because they can't be automated or haven't been yet. Once something can be automated, it moves out of the guide and into a step or tool.
 
 ## Setup
-`setup/index.sh` runs on a new machine, and again on any machine later to bring it back in line with the repo. Both must work, so running it again only changes what drifted. On a re-run it:
-
-- Skips every finished step.
-- Upgrades outdated Homebrew packages (`brew bundle`).
-- Re-links the dotfiles with `envsync`.
-- Reapplies the settings in `desktop.sh`, restarting the Dock and Finder.
-- Clears caches with `reclaim`.
+`setup/index.sh` builds any machine from this repo, running the steps in `setup/steps/`. It runs on a new machine, and again later to bring a machine back in line. Both must work, so running it again only changes what drifted.
 
 ### Writing a step
 Every action in a step must be safe to run on a machine that already has it. Do it one of two ways:
@@ -71,16 +64,5 @@ Also:
 - Written for the macOS system bash (3.2), as Homebrew's isn't installed yet: no associative arrays, and an empty array errors under `set -u`.
 - Use `step` and `warn` from `setup/steps/lib.sh`, and `$REPOSITORY_DIR` for paths in the repo, as `~/bin` may not be linked yet.
 
-## Common tasks
-### Adding a dotfile
-Move the real file into `dotfiles/` at the same path it has in `$HOME`, then run `envsync` to link it back. See `tools/envsync/README.md` for full documentation.
-
-### Adding a tool
-Write `tools/<name>/index.(ts,sh)`, starting with a shebang, and make it executable. The tool's name should be the same as the link's name. It isn't done until it's linked:
-
-```sh
-ln -s ../../tools/<name>/index.<ext> dotfiles/bin/<name>
-```
-
-### Testing a setup change
+### Testing a step
 Run the step you changed on this machine, twice: `bash setup/steps/<name>.sh`. The second run should only print `Already <...>` and change nothing. It can upgrade Homebrew packages and ask for a password, so ask first.
