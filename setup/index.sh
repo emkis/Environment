@@ -62,4 +62,4 @@ for name in "${STEPS[@]}"; do
 done
 
 step "Done"
-echo "Open a new terminal, so it runs fish, then continue with the manual steps: $REPOSITORY_DIR/guides/manual-steps.md"
+echo "Open a new terminal, so it runs fish, then continue with the after setup guide: $REPOSITORY_DIR/guides/setup/2-after-setup.md"

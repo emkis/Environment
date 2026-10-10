@@ -1,6 +1,6 @@
 # New Mac setup
 
-Everything a new Mac needs, in order. Start here and go top to bottom: the last step hands over to [manual-steps.md](manual-steps.md), which covers what can only be done once the script has run.
+Everything a new Mac needs, in order. Start here and go top to bottom: the last step hands over to [2-after-setup.md](2-after-setup.md), which covers what can only be done once the script has run.
 
 ## 1. macOS settings
 
@@ -60,7 +60,7 @@ What it does:
 4. **Rust**: installs `rustup` and the stable toolchain, so the Brewfile's `cargo` entries can install.
 5. **Brewfile**: installs everything in `setup/Brewfile`.
 6. **Default shell**: makes fish the login shell. It asks for your password, and takes effect in the next terminal you open.
-7. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
+7. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../../tools/envsync/README.md).
 8. **Node**: installs the latest LTS with `fnm`, which becomes the default.
 9. **Disk space**: runs `reclaim`, clearing the Homebrew and Cargo caches the installs left behind.
 10. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
@@ -68,14 +68,4 @@ What it does:
 
 ## 3. Apps and logins
 
-Open a new terminal, so it runs fish, then carry on with [manual-steps.md](manual-steps.md): the app settings and logins the script can't do.
-
-## Keeping the Brewfile up to date
-
-From the repo root:
-
-```bash
-brew bundle install --file=setup/Brewfile            # install what's missing
-brew bundle check   --file=setup/Brewfile --verbose  # list what's missing
-brew bundle cleanup --file=setup/Brewfile            # list what's installed but unlisted
-```
+Open a new terminal, so it runs fish, then carry on with [2-after-setup.md](2-after-setup.md): the app settings and logins the script can't do.

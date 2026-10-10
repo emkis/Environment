@@ -3,7 +3,7 @@
 Local copy of Google Drive on an encrypted external SSD, a few times per year.
 
 1. Connect and unlock the SSD.
-2. Run `guides/managing-backups/run.sh`, pick the SSD from the list and confirm.
+2. Run `guides/backups/run.sh`, pick the SSD from the list and confirm.
 3. Authorise read-only access to Google Drive in the browser tab that opens.
 
 Everything goes into a `Google Drive` folder on the SSD; nothing else on it is touched. Exclusions live in `exclude-rules.txt` next to the script.

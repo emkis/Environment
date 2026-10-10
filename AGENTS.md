@@ -59,7 +59,7 @@ Every action in a step must be safe to run on a machine that already has it. Do 
 - **Converge**: a write whose result is the same however often it runs, like `defaults write` or replacing a whole list. Never append (`>>`, `tee -a`) without a check.
 
 Also:
-- A failure warns and keeps going: `warn` with what to do by hand, usually pointing to `guides/manual-steps.md`. Don't let `set -e` end the step.
+- A failure warns and keeps going: `warn` with what to do by hand, usually pointing to `guides/setup/2-after-setup.md`. Don't let `set -e` end the step.
 - Each step is its own script that can run alone. Its header says what it does and which steps it needs. `STEPS` in `setup/index.sh` sets the order.
 - Written for the macOS system bash (3.2), as Homebrew's isn't installed yet: no associative arrays, and an empty array errors under `set -u`.
 - Use `step` and `warn` from `setup/steps/lib.sh`, and `$REPOSITORY_DIR` for paths in the repo, as `~/bin` may not be linked yet.

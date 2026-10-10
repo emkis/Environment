@@ -1,6 +1,6 @@
-# New machine: manual steps
+# After setup
 
-The apps, settings and logins the setup script can't do. These need everything installed, so they come after `setup/index.sh` has run, picking up where the new Mac setup guide leaves off.
+The apps, settings and logins the setup script can't do. These need everything installed, so they come after `setup/index.sh` has run, picking up where [1-setup-new-mac.md](1-setup-new-mac.md) leaves off.
 
 ## Shell
 

@@ -32,7 +32,7 @@ fi
 step "Dock"
 # Replaces the whole list, so running it again restores this order. Finder is
 # always first, so it's not listed. YouTube Music is a Safari web app made in
-# the manual steps, so it's skipped until then
+# guides/setup/2-after-setup.md, so it's skipped until then
 DOCK_APPS=(
   "/System/Applications/Apps.app"
   "/Applications/TickTick.app"
