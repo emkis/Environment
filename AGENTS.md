@@ -2,9 +2,10 @@
 A repository where the user centralises all its dotfiles, guides, tools, scripts and apps. It helps keeping multiple machines in sync as the user's need evolves/changes.
 
 ## Problem space
-This repository was created to solve two things:
+This repository was created to solve these things:
 - Setting up a brand new macOS machine.
 - Syncing files (e.g. dotfiles, tools) in this repo with the current machine.
+- Keeping each machine in shape over time (e.g. `reclaim` freeing disk space).
 
 ## Source of truth
 This repo is the user's system. Every machine is built from it. The current machine is just a copy, and copies drift.
