@@ -62,8 +62,9 @@ What it does:
 6. **Default shell**: makes fish the login shell. It asks for your password, and takes effect in the next terminal you open.
 7. **Dotfiles and tools**: links them into your home folder with `envsync`. See [envsync's README](../tools/envsync/README.md).
 8. **Node**: installs the latest LTS with `fnm`, which becomes the default.
-9. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
-10. **Desktop**: sets the Dock's apps and their order, auto-hides it with no delay and a faster animation, hides recent apps and turns off the hot corners. Also sets the language and region, the trackpad speed, empties the Bin after 30 days and turns off window tiling.
+9. **Disk space**: runs `reclaim`, clearing the Homebrew and Cargo caches the installs left behind.
+10. **skhd**: starts its service, so the hotkeys work once it's allowed in Accessibility.
+11. **Desktop**: sets the Dock's apps and their order, auto-hides it with no delay and a faster animation, hides recent apps and turns off the hot corners. Also sets the language and region, the trackpad speed, empties the Bin after 30 days and turns off window tiling.
 
 ## 3. Apps and logins
 

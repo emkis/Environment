@@ -41,3 +41,12 @@ if ! command -v fnm >/dev/null; then
 elif ! fnm install --lts; then
   warn "Node failed to install, run it again in fish: fnm install --lts"
 fi
+
+step "Reclaiming disk space"
+# Last, to clear the downloads and caches the installs above left behind.
+# Run from the repo, as ~/bin isn't linked until the config step
+if ! command -v bun >/dev/null; then
+  warn "bun isn't installed, run it later in fish: reclaim"
+elif ! "$REPOSITORY_DIR/tools/reclaim/index.ts"; then
+  warn "Some caches failed to clear, run it again in fish: reclaim"
+fi
