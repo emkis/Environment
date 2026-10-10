@@ -20,3 +20,6 @@ enabled = false
 
 [commandcode]
 enabled = false
+
+[notifications]
+threshold = 80
