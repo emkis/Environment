@@ -8,20 +8,18 @@ import { once } from "node:events";
 interface Device {
   name: string;
   address: string;
-  /** Unpair and pair again, even when it's already paired. */
-  repair?: boolean;
 }
 
 interface Command {
   run(): Promise<void> | void;
 }
 
-type PairResult = "paired" | "already paired" | "failed";
+type PairResult = "paired" | "failed";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const DEVICES: Device[] = [
-  { name: "Trackpad", address: "bc-d0-74-b7-a3-f7", repair: true },
+  { name: "Trackpad", address: "bc-d0-74-b7-a3-f7" },
   { name: "Mouse", address: "f4-66-db-5d-ec-7f" },
   { name: "Headphones", address: "78-2b-64-cc-73-fa" },
   { name: "Bose Speaker", address: "78-2b-64-f7-30-4d" },
@@ -164,15 +162,11 @@ const bluetooth = {
   },
 };
 
+/** An already paired device is unpaired first, so macOS recognizes it again from scratch. */
 async function pairDevice(device: Device, pairedAddresses: Set<string>): Promise<PairResult> {
   console.log(style.bold(device.name));
 
   if (pairedAddresses.has(device.address)) {
-    if (!device.repair) {
-      log.ok(style.dim("Already paired"));
-      return "already paired";
-    }
-
     if (!(await withSpinner("Unpairing…", () => bluetooth.unpair(device.address)))) {
       log.error("Couldn't unpair");
       return "failed";
@@ -200,7 +194,7 @@ function summary(results: PairResult[]): string {
   const count = (result: PairResult) => results.filter((r) => r === result).length;
   const failed = count("failed");
 
-  const parts = (["paired", "already paired", "failed"] as const)
+  const parts = (["paired", "failed"] as const)
     .filter((result) => count(result) > 0)
     .map((result) => `${count(result)} ${result}`);
 
