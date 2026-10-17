@@ -9,6 +9,9 @@ menu_bar_show_all = false
 menu_bar_hide_value = false
 menu_bar_window = "auto"
 
+[notifications]
+threshold = 80
+
 [anthropic]
 enabled = true
 
@@ -21,5 +24,8 @@ enabled = false
 [commandcode]
 enabled = false
 
-[notifications]
-threshold = 80
+[zai]
+enabled = false
+
+[openrouter]
+enabled = false
