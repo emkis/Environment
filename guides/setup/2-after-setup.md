@@ -70,6 +70,11 @@ Its installer is private and only accessible through their [skylum.com](https://
 - Log in with credentials (in Bitwarden).
 - Download the installer.
 
+### Surfshark
+
+- Log in.
+- Settings > App settings: turn off **Launch app on startup**. When it opens at login it asks for the password to reinstall its helper every time.
+
 ## Dev
 
 Run these in fish, in a new terminal opened after the setup script.
