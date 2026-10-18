@@ -6,6 +6,7 @@
 tap "asmvik/formulae", trusted: true
 tap "oven-sh/bun", trusted: true
 tap "akitaonrails/tap", trusted: true
+tap "anomalyco/tap", trusted: true
 
 # Shell and prompt
 brew "bash"
@@ -58,7 +59,7 @@ cask "sol"
 cask "shottr"
 cask "mos"
 cask "clipy"
-cask "kitlangton-hex"
+cask "anomalyco/tap/hex"
 
 # Applications
 cask "notion"
