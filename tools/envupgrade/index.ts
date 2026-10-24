@@ -2,7 +2,8 @@
 
 // Upgrades everything on this machine, in one place: Homebrew, Rust, every
 // installed cargo crate and the default Node. The default versions always move
-// to the latest, older ones stay installed for projects that need them (fnm).
+// to the latest. Upgrading Node also removes the previous version (fnm), so only
+// one stays installed. A project that needs another one installs it itself.
 //
 // Each upgrade's own output is hidden, as it's noisy. It's only shown when the
 // upgrade fails. A failure doesn't stop the others.
@@ -72,7 +73,9 @@ const upgrades: Upgrade[] = [
       await $`fnm install --lts`.quiet();
       // fnm only makes the first installed version the default, so set it every time
       await $`fnm default lts-latest`.quiet();
-      return versionChange(before, await defaultNode());
+      const after = await defaultNode();
+      if (before !== after) await $`fnm uninstall ${before}`.quiet();
+      return versionChange(before, after);
     },
   },
 ];
