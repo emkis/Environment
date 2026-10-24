@@ -46,6 +46,10 @@ Write `tools/<name>/index.(ts,sh)`, starting with a shebang, and make it executa
 ln -s ../../tools/<name>/index.<ext> dotfiles/bin/<name>
 ```
 
+It also isn't done until the docs are updated:
+- Add the tool to the tools list in the root `README.md`, in the same style as the others.
+- Check whether anything in this file needs to change (e.g. the examples in the intro). Only edit it if something is stale or missing.
+
 ## Guides
 `guides/` holds Markdown instructions for things done by hand on a machine, because they can't be automated or haven't been yet. Once something can be automated, it moves out of the guide and into a step or tool.
 
