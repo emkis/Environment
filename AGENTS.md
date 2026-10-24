@@ -2,7 +2,7 @@
 The repository where the user keeps their dotfiles, guides, tools and setup scripts for macOS. It solves three problems:
 - Setting up a brand new machine.
 - Syncing files (e.g. dotfiles, tools) in this repo with the current machine.
-- Keeping each machine in shape over time (e.g. `reclaim` freeing disk space).
+- Keeping each machine in shape over time (e.g. `reclaim` freeing disk space, `envupgrade` upgrading everything).
 
 ## Source of truth
 This repo is the user's system. Every machine is built from it. The current machine is just a copy, and copies drift.

@@ -18,6 +18,7 @@ This repo holds the only copy of my configs. [GNU Stow](https://www.gnu.org/soft
 ## Tools
 
 - **`envsync`** links my dotfiles and tools into my home folder.
+- **`envupgrade`** upgrades everything in my machine.
 - **`blu`** manages my Bluetooth devices.
 - **`camsqz`** compresses the photos I copy from my camera.
 - **`ide`** opens projects in whichever editor I'm using.
