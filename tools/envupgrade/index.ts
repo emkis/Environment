@@ -5,12 +5,12 @@
 // to the latest. Upgrading Node also removes the previous version (fnm), so only
 // one stays installed. A project that needs another one installs it itself.
 //
-// Each upgrade's own output is hidden, as it's noisy. It's only shown when the
-// upgrade fails. A failure doesn't stop the others.
+// Each upgrade's own output is shown as it runs, so a slow one (like compiling a
+// crate) never looks stuck. A failure doesn't stop the others.
 //
-// The exception is an interactive upgrade (Homebrew): casks can ask for a
-// password or a confirmation, and I want to see what is being asked and why. It
-// gets the terminal, lists what is outdated first, and shows its output as it runs.
+// Homebrew also gets the terminal: casks can ask for a password or a
+// confirmation, and I want to see what is being asked and why. It lists what is
+// outdated first.
 
 import { $ } from "bun";
 import { homedir } from "node:os";
@@ -19,8 +19,6 @@ import { homedir } from "node:os";
 
 interface Upgrade {
   name: string;
-  /** Talks to the terminal as it runs, so its output is shown instead of hidden. */
-  interactive?: boolean;
   /** Upgrades and returns a note on what changed, or undefined if nothing did. Throws on failure. */
   run(): Promise<string | undefined>;
 }
@@ -33,12 +31,14 @@ process.env.PATH = `/opt/homebrew/opt/rustup/bin:${homedir()}/.cargo/bin:${proce
 const upgrades: Upgrade[] = [
   {
     name: "Homebrew",
-    interactive: true,
     async run() {
       const outdated = lines(await $`brew outdated --verbose`.text());
-      if (outdated.length === 0) return undefined;
+      if (outdated.length === 0) {
+        console.log("Nothing is outdated.");
+        return undefined;
+      }
 
-      console.log(`${style.bold(style.cyan("Homebrew"))}\n\n${style.bold("Outdated:")}\n${outdated.map((line) => `  ${line}`).join("\n")}\n`);
+      console.log(`${style.bold("Outdated:")}\n${outdated.map((line) => `  ${line}`).join("\n")}\n`);
       const { exited } = Bun.spawn(["brew", "upgrade"], { stdio: ["inherit", "inherit", "inherit"] });
       if ((await exited) !== 0) throw new Error("brew upgrade failed");
       return `${outdated.length} ${outdated.length === 1 ? "package" : "packages"}`;
@@ -48,7 +48,7 @@ const upgrades: Upgrade[] = [
     name: "Rust",
     async run() {
       const before = await $`rustc --version`.text();
-      await $`rustup update stable`.quiet();
+      await $`rustup update stable`;
       return versionChange(before, await $`rustc --version`.text());
     },
   },
@@ -59,7 +59,7 @@ const upgrades: Upgrade[] = [
       const upgraded: string[] = [];
       for (const crate of before.keys()) {
         // Upgrades a crate that's outdated, and skips one that's current
-        await $`cargo install --locked ${crate}`.quiet();
+        await $`cargo install --locked ${crate}`;
         const change = versionChange(before.get(crate), (await installedCrates()).get(crate));
         if (change) upgraded.push(`${crate} ${change}`);
       }
@@ -70,11 +70,11 @@ const upgrades: Upgrade[] = [
     name: "Node",
     async run() {
       const before = await defaultNode();
-      await $`fnm install --lts`.quiet();
+      await $`fnm install --lts`;
       // fnm only makes the first installed version the default, so set it every time
-      await $`fnm default lts-latest`.quiet();
+      await $`fnm default lts-latest`;
       const after = await defaultNode();
-      if (before !== after) await $`fnm uninstall ${before}`.quiet();
+      if (before !== after) await $`fnm uninstall ${before}`;
       return versionChange(before, after);
     },
   },
@@ -89,22 +89,30 @@ const style = { bold: paint(1), dim: paint(2), red: paint(31), green: paint(32),
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 
-console.log(style.bold(style.cyan("Upgrading")) + "\n");
+// A rule across the terminal, with the step's name in it, so each section stands out
+const rule = (name: string) => {
+  const width = Math.min(process.stdout.columns || 80, 80);
+  return `${style.bold(style.cyan(`── ${name}`))} ${style.dim("─".repeat(Math.max(width - name.length - 4, 3)))}`;
+};
 
+// What each step ended in, listed at the end as its own output has scrolled by
+const results: string[] = [];
 let failed = false;
-for (const { name, run, interactive } of upgrades) {
+for (const { name, run } of upgrades) {
+  console.log(`${rule(name)}\n`);
   try {
     const note = await run();
-    console.log(note
+    results.push(note
       ? `${style.green("✓")} Upgraded ${style.bold(name)} ${style.dim(`(${note})`)}`
       : `${style.green("✓")} ${style.bold(name)} ${style.dim("(already up to date)")}`);
   } catch (error) {
     failed = true;
-    console.error(`${style.red("✗")} Failed to upgrade ${style.bold(name)}`);
-    // An interactive upgrade has already shown its output
-    if (!interactive) console.error(describeFailure(error));
+    results.push(`${style.red("✗")} Failed to upgrade ${style.bold(name)} ${style.dim(`(${describeFailure(error)})`)}`);
   }
+  console.log();
 }
+
+console.log(`${rule("Summary")}\n\n${results.join("\n")}`);
 
 process.exit(failed ? 1 : 0);
 
@@ -131,8 +139,8 @@ async function defaultNode(): Promise<string> {
   return (await $`fnm exec --using=default node --version`.text()).trim();
 }
 
-// The output of a failed command, which Bun hides unless it's read
+// The output of a failed command has already been shown, so only say how it ended
 function describeFailure(error: unknown): string {
-  if (error instanceof $.ShellError) return `${error.stdout}${error.stderr}`.trim();
+  if (error instanceof $.ShellError) return `exit code ${error.exitCode}`;
   return error instanceof Error ? error.message : String(error);
 }
