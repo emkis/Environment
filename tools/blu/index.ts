@@ -20,7 +20,6 @@ type PairResult = "paired" | "failed";
 
 const DEVICES: Device[] = [
   { name: "Trackpad", address: "bc-d0-74-b7-a3-f7" },
-  { name: "Mouse", address: "f4-66-db-5d-ec-7f" },
   { name: "Headphones", address: "78-2b-64-cc-73-fa" },
   { name: "Bose Speaker", address: "78-2b-64-f7-30-4d" },
 ];
