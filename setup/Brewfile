@@ -7,6 +7,7 @@ tap "asmvik/formulae", trusted: true
 tap "oven-sh/bun", trusted: true
 tap "akitaonrails/tap", trusted: true
 tap "anomalyco/tap", trusted: true
+tap "vedatkilic/tap", trusted: true
 
 # Shell and prompt
 brew "bash"
@@ -70,6 +71,7 @@ cask "the-unarchiver"
 cask "iina"
 cask "steam"
 cask "whatsapp"
+cask "vedatkilic/tap/budsy"
 
 # Fonts
 cask "font-fira-code-nerd-font"
